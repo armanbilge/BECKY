@@ -1,0 +1,185 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/5266/trunk/src/dr/xml
+END
+Reportable.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/1504/trunk/src/dr/xml/Reportable.java
+END
+XMLSyntaxRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2201/trunk/src/dr/xml/XMLSyntaxRule.java
+END
+XMLModelCombiner.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/1814/trunk/src/dr/xml/XMLModelCombiner.java
+END
+XORRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/2201/trunk/src/dr/xml/XORRule.java
+END
+PropertyParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/1541/trunk/src/dr/xml/PropertyParser.java
+END
+ObjectNotFoundException.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/18/trunk/src/dr/xml/ObjectNotFoundException.java
+END
+ContentRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/2201/trunk/src/dr/xml/ContentRule.java
+END
+AttributesParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/7/trunk/src/dr/xml/AttributesParser.java
+END
+XMLObjectParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2484/trunk/src/dr/xml/XMLObjectParser.java
+END
+OrRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2201/trunk/src/dr/xml/OrRule.java
+END
+XMLParseException.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/18/trunk/src/dr/xml/XMLParseException.java
+END
+Report.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/2205/trunk/src/dr/xml/Report.java
+END
+Spawnable.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/1863/trunk/src/dr/xml/Spawnable.java
+END
+XMLParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/5266/trunk/src/dr/xml/XMLParser.java
+END
+AttributeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/2227/trunk/src/dr/xml/AttributeParser.java
+END
+XMLModelIdentifiable.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/1814/trunk/src/dr/xml/XMLModelIdentifiable.java
+END
+XMLModelFile.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/2195/trunk/src/dr/xml/XMLModelFile.java
+END
+ElementRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/3095/trunk/src/dr/xml/ElementRule.java
+END
+StringAttributeRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1848/trunk/src/dr/xml/StringAttributeRule.java
+END
+ObjectStore.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/1823/trunk/src/dr/xml/ObjectStore.java
+END
+XMLObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/4448/trunk/src/dr/xml/XMLObject.java
+END
+XHTMLReport.java
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/7/trunk/src/dr/xml/XHTMLReport.java
+END
+AbstractXMLObjectParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4780/trunk/src/dr/xml/AbstractXMLObjectParser.java
+END
+XMLDocumentationHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4721/trunk/src/dr/xml/XMLDocumentationHandler.java
+END
+AndRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/4116/trunk/src/dr/xml/AndRule.java
+END
+WikiDocumentationHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2713/trunk/src/dr/xml/WikiDocumentationHandler.java
+END
+AttributeRule.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/4448/trunk/src/dr/xml/AttributeRule.java
+END
+ClassComparator.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/348/trunk/src/dr/xml/ClassComparator.java
+END
+UserInput.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/7/trunk/src/dr/xml/UserInput.java
+END
+Reference.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/1794/trunk/src/dr/xml/Reference.java
+END

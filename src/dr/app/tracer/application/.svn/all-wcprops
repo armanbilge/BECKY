@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/5727/trunk/src/dr/app/tracer/application
+END
+InstantiableTracerApp.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/5228/trunk/src/dr/app/tracer/application/InstantiableTracerApp.java
+END
+AnalysisMenuFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/5459/trunk/src/dr/app/tracer/application/AnalysisMenuFactory.java
+END
+TracerApp.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/5727/trunk/src/dr/app/tracer/application/TracerApp.java
+END
+TracerDefaultFileMenuFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/3497/trunk/src/dr/app/tracer/application/TracerDefaultFileMenuFactory.java
+END
+TracerMenuBarFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3497/trunk/src/dr/app/tracer/application/TracerMenuBarFactory.java
+END
+TracerFileMenuHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/533/trunk/src/dr/app/tracer/application/TracerFileMenuHandler.java
+END
+GeneralPreferencesSection.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/3497/trunk/src/dr/app/tracer/application/GeneralPreferencesSection.java
+END
+AnalysisMenuHandler.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/4261/trunk/src/dr/app/tracer/application/AnalysisMenuHandler.java
+END
+TracerFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/5460/trunk/src/dr/app/tracer/application/TracerFrame.java
+END
+TracerMacFileMenuFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/3497/trunk/src/dr/app/tracer/application/TracerMacFileMenuFactory.java
+END

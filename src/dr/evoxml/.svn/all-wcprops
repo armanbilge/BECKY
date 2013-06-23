@@ -1,0 +1,233 @@
+K 25
+svn:wc:ra_dav:version-url
+V 38
+/svn/!svn/ver/5642/trunk/src/dr/evoxml
+END
+LinkedGroupParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/3596/trunk/src/dr/evoxml/LinkedGroupParser.java
+END
+AttributePatternsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/3474/trunk/src/dr/evoxml/AttributePatternsParser.java
+END
+BifractionalDiffusionModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/3314/trunk/src/dr/evoxml/BifractionalDiffusionModelParser.java
+END
+KStateDataTypeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2519/trunk/src/dr/evoxml/KStateDataTypeParser.java
+END
+UPGMATreeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/3583/trunk/src/dr/evoxml/UPGMATreeParser.java
+END
+TaxonParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/5356/trunk/src/dr/evoxml/TaxonParser.java
+END
+TaxaParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/1687/trunk/src/dr/evoxml/TaxaParser.java
+END
+RandomTaxaSampleParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2924/trunk/src/dr/evoxml/RandomTaxaSampleParser.java
+END
+LinkageConstraintsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/3596/trunk/src/dr/evoxml/LinkageConstraintsParser.java
+END
+PatternSubSetParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/1676/trunk/src/dr/evoxml/PatternSubSetParser.java
+END
+LocationParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/1539/trunk/src/dr/evoxml/LocationParser.java
+END
+PolarCoordinatesParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2697/trunk/src/dr/evoxml/PolarCoordinatesParser.java
+END
+SequenceParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/7/trunk/src/dr/evoxml/SequenceParser.java
+END
+PearsonCorrelationParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/4987/trunk/src/dr/evoxml/PearsonCorrelationParser.java
+END
+SimpleTreeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2936/trunk/src/dr/evoxml/SimpleTreeParser.java
+END
+NeighborJoiningParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/7/trunk/src/dr/evoxml/NeighborJoiningParser.java
+END
+MetagenomeDataParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/3596/trunk/src/dr/evoxml/MetagenomeDataParser.java
+END
+MicrosatellitePatternParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2272/trunk/src/dr/evoxml/MicrosatellitePatternParser.java
+END
+MicrosatelliteSimulatorParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2335/trunk/src/dr/evoxml/MicrosatelliteSimulatorParser.java
+END
+RandomSubsetTaxaParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/3324/trunk/src/dr/evoxml/RandomSubsetTaxaParser.java
+END
+SitePatternsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4889/trunk/src/dr/evoxml/SitePatternsParser.java
+END
+AscertainedSitePatternsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/3194/trunk/src/dr/evoxml/AscertainedSitePatternsParser.java
+END
+MsatPatternStatisticParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3353/trunk/src/dr/evoxml/MsatPatternStatisticParser.java
+END
+LineageCountThroughTimeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2519/trunk/src/dr/evoxml/LineageCountThroughTimeParser.java
+END
+SimpleNodeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1718/trunk/src/dr/evoxml/SimpleNodeParser.java
+END
+HiddenNucleotideParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/491/trunk/src/dr/evoxml/HiddenNucleotideParser.java
+END
+MutationDeathTypeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/3005/trunk/src/dr/evoxml/MutationDeathTypeParser.java
+END
+GeneralDataTypeParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/1539/trunk/src/dr/evoxml/GeneralDataTypeParser.java
+END
+ConstantPatternsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/3786/trunk/src/dr/evoxml/ConstantPatternsParser.java
+END
+MultiLociDistanceParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2342/trunk/src/dr/evoxml/MultiLociDistanceParser.java
+END
+DateParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/5642/trunk/src/dr/evoxml/DateParser.java
+END
+AlignmentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/3477/trunk/src/dr/evoxml/AlignmentParser.java
+END
+DistanceMatrixParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2029/trunk/src/dr/evoxml/DistanceMatrixParser.java
+END
+HypermutantAlignmentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3131/trunk/src/dr/evoxml/HypermutantAlignmentParser.java
+END
+ConvertAlignmentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2936/trunk/src/dr/evoxml/ConvertAlignmentParser.java
+END
+NewickParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/5073/trunk/src/dr/evoxml/NewickParser.java
+END
+MicrosatelliteParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4492/trunk/src/dr/evoxml/MicrosatelliteParser.java
+END
+MergePatternsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/3786/trunk/src/dr/evoxml/MergePatternsParser.java
+END

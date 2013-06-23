@@ -1,0 +1,89 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/3806/trunk/src/dr/evomodel/sitemodel
+END
+DiscretizedLociRates.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/3353/trunk/src/dr/evomodel/sitemodel/DiscretizedLociRates.java
+END
+ScoreMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1923/trunk/src/dr/evomodel/sitemodel/ScoreMatrix.java
+END
+CategorySampleModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/7/trunk/src/dr/evomodel/sitemodel/CategorySampleModel.java
+END
+SampleStateModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2934/trunk/src/dr/evomodel/sitemodel/SampleStateModel.java
+END
+CategorySiteModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2934/trunk/src/dr/evomodel/sitemodel/CategorySiteModel.java
+END
+SampleStateAndCategoryModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2934/trunk/src/dr/evomodel/sitemodel/SampleStateAndCategoryModel.java
+END
+SiteModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2205/trunk/src/dr/evomodel/sitemodel/SiteModel.java
+END
+CategoryParameterStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/989/trunk/src/dr/evomodel/sitemodel/CategoryParameterStatistic.java
+END
+PairDistance.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/364/trunk/src/dr/evomodel/sitemodel/PairDistance.java
+END
+GammaSiteBMA.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/3806/trunk/src/dr/evomodel/sitemodel/GammaSiteBMA.java
+END
+GammaSiteModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2934/trunk/src/dr/evomodel/sitemodel/GammaSiteModel.java
+END
+SampleQuantileLociRates.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/3353/trunk/src/dr/evomodel/sitemodel/SampleQuantileLociRates.java
+END
+AlignmentScore.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/364/trunk/src/dr/evomodel/sitemodel/AlignmentScore.java
+END
+DirichletSiteModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2460/trunk/src/dr/evomodel/sitemodel/DirichletSiteModel.java
+END

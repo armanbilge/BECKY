@@ -1,0 +1,335 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/5570/trunk/src/dr/evomodel/substmodel
+END
+AbstractNucleotideModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2195/trunk/src/dr/evomodel/substmodel/AbstractNucleotideModel.java
+END
+JTT.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4423/trunk/src/dr/evomodel/substmodel/JTT.java
+END
+MicrosatelliteModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5433/trunk/src/dr/evomodel/substmodel/MicrosatelliteModel.java
+END
+LG.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/5569/trunk/src/dr/evomodel/substmodel/LG.java
+END
+EmpiricalRateMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/4423/trunk/src/dr/evomodel/substmodel/EmpiricalRateMatrix.java
+END
+BinaryCovarionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2935/trunk/src/dr/evomodel/substmodel/BinaryCovarionModel.java
+END
+PCACodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3777/trunk/src/dr/evomodel/substmodel/PCACodonModel.java
+END
+AminoAcidModelType.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5570/trunk/src/dr/evomodel/substmodel/AminoAcidModelType.java
+END
+NucModelType.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2144/trunk/src/dr/evomodel/substmodel/NucModelType.java
+END
+NewMicrosatelliteModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/3572/trunk/src/dr/evomodel/substmodel/NewMicrosatelliteModel.java
+END
+TwoPhaseModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3911/trunk/src/dr/evomodel/substmodel/TwoPhaseModel.java
+END
+Dayhoff.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4423/trunk/src/dr/evomodel/substmodel/Dayhoff.java
+END
+AbstractSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2927/trunk/src/dr/evomodel/substmodel/AbstractSubstitutionModel.java
+END
+SVSComplexSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4481/trunk/src/dr/evomodel/substmodel/SVSComplexSubstitutionModel.java
+END
+CovarionFrequencyModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1873/trunk/src/dr/evomodel/substmodel/CovarionFrequencyModel.java
+END
+OnePhaseModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3230/trunk/src/dr/evomodel/substmodel/OnePhaseModel.java
+END
+MsatBMA.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/3911/trunk/src/dr/evomodel/substmodel/MsatBMA.java
+END
+ComplexSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/5107/trunk/src/dr/evomodel/substmodel/ComplexSubstitutionModel.java
+END
+FLU.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4423/trunk/src/dr/evomodel/substmodel/FLU.java
+END
+SVSGeneralSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/5107/trunk/src/dr/evomodel/substmodel/SVSGeneralSubstitutionModel.java
+END
+MutationDeathModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3012/trunk/src/dr/evomodel/substmodel/MutationDeathModel.java
+END
+PositiveDefiniteSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/4481/trunk/src/dr/evomodel/substmodel/PositiveDefiniteSubstitutionModel.java
+END
+EmpiricalCodonRateMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/3777/trunk/src/dr/evomodel/substmodel/EmpiricalCodonRateMatrix.java
+END
+HKY.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2208/trunk/src/dr/evomodel/substmodel/HKY.java
+END
+GeneralSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2935/trunk/src/dr/evomodel/substmodel/GeneralSubstitutionModel.java
+END
+MultivariateOUModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5107/trunk/src/dr/evomodel/substmodel/MultivariateOUModel.java
+END
+CovarionHKY.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2935/trunk/src/dr/evomodel/substmodel/CovarionHKY.java
+END
+GTR.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/2935/trunk/src/dr/evomodel/substmodel/GTR.java
+END
+GLMSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/2936/trunk/src/dr/evomodel/substmodel/GLMSubstitutionModel.java
+END
+CovarionGTR.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2935/trunk/src/dr/evomodel/substmodel/CovarionGTR.java
+END
+YangCodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2935/trunk/src/dr/evomodel/substmodel/YangCodonModel.java
+END
+PCARateMatrixMammalia.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/3777/trunk/src/dr/evomodel/substmodel/PCARateMatrixMammalia.java
+END
+PseudoCodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1873/trunk/src/dr/evomodel/substmodel/PseudoCodonModel.java
+END
+NtdBMA.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/3806/trunk/src/dr/evomodel/substmodel/NtdBMA.java
+END
+AbstractCodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1318/trunk/src/dr/evomodel/substmodel/AbstractCodonModel.java
+END
+AbstractCovarionDNAModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/1873/trunk/src/dr/evomodel/substmodel/AbstractCovarionDNAModel.java
+END
+EmpiricalCodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/3777/trunk/src/dr/evomodel/substmodel/EmpiricalCodonModel.java
+END
+Blosum62.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4423/trunk/src/dr/evomodel/substmodel/Blosum62.java
+END
+SubstitutionEpochModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/5034/trunk/src/dr/evomodel/substmodel/SubstitutionEpochModel.java
+END
+GeneralF81Model.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4102/trunk/src/dr/evomodel/substmodel/GeneralF81Model.java
+END
+WAG.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4423/trunk/src/dr/evomodel/substmodel/WAG.java
+END
+SubstitutionModelUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/494/trunk/src/dr/evomodel/substmodel/SubstitutionModelUtils.java
+END
+CPREV.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4423/trunk/src/dr/evomodel/substmodel/CPREV.java
+END
+FrequencyModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2935/trunk/src/dr/evomodel/substmodel/FrequencyModel.java
+END
+AbstractCovarionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2927/trunk/src/dr/evomodel/substmodel/AbstractCovarionModel.java
+END
+AbstractPCARateMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/3777/trunk/src/dr/evomodel/substmodel/AbstractPCARateMatrix.java
+END
+AbstractAminoAcidModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/7/trunk/src/dr/evomodel/substmodel/AbstractAminoAcidModel.java
+END
+LinearBiasModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/3230/trunk/src/dr/evomodel/substmodel/LinearBiasModel.java
+END
+MarginalVarianceStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1855/trunk/src/dr/evomodel/substmodel/MarginalVarianceStatistic.java
+END
+EmpiricalAminoAcidModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2930/trunk/src/dr/evomodel/substmodel/EmpiricalAminoAcidModel.java
+END
+TwoStateCovarionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2935/trunk/src/dr/evomodel/substmodel/TwoStateCovarionModel.java
+END
+AsymmetricQuadraticModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/3230/trunk/src/dr/evomodel/substmodel/AsymmetricQuadraticModel.java
+END
+SubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/1235/trunk/src/dr/evomodel/substmodel/SubstitutionModel.java
+END
+MTREV.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4423/trunk/src/dr/evomodel/substmodel/MTREV.java
+END
+TN93.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/4789/trunk/src/dr/evomodel/substmodel/TN93.java
+END

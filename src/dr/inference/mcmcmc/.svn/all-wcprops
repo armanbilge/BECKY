@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/4424/trunk/src/dr/inference/mcmcmc
+END
+MCMCMC.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4424/trunk/src/dr/inference/mcmcmc/MCMCMC.java
+END
+MCMCMCRunner.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/4424/trunk/src/dr/inference/mcmcmc/MCMCMCRunner.java
+END
+MCMCMCOptions.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/7/trunk/src/dr/inference/mcmcmc/MCMCMCOptions.java
+END

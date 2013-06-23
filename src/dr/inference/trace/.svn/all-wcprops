@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/5690/trunk/src/dr/inference/trace
+END
+TraceCorrelation.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/3831/trunk/src/dr/inference/trace/TraceCorrelation.java
+END
+SteppingStoneSamplingAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/5180/trunk/src/dr/inference/trace/SteppingStoneSamplingAnalysis.java
+END
+TraceAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/4542/trunk/src/dr/inference/trace/TraceAnalysis.java
+END
+MarginalLikelihoodAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/5564/trunk/src/dr/inference/trace/MarginalLikelihoodAnalysis.java
+END
+CnCsToDnDsPerSiteAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4572/trunk/src/dr/inference/trace/CnCsToDnDsPerSiteAnalysis.java
+END
+TracesReader.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/1156/trunk/src/dr/inference/trace/TracesReader.java
+END
+DensityRectangle.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/3830/trunk/src/dr/inference/trace/DensityRectangle.java
+END
+TraceCustomized.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/3991/trunk/src/dr/inference/trace/TraceCustomized.java
+END
+FilteredTraceList.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/5460/trunk/src/dr/inference/trace/FilteredTraceList.java
+END
+DensityEstimate.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/3796/trunk/src/dr/inference/trace/DensityEstimate.java
+END
+GeneralizedSteppingStoneSamplingAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/5690/trunk/src/dr/inference/trace/GeneralizedSteppingStoneSamplingAnalysis.java
+END
+KernelDensityEstimate.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/4764/trunk/src/dr/inference/trace/KernelDensityEstimate.java
+END
+TraceException.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/447/trunk/src/dr/inference/trace/TraceException.java
+END
+AbstractTraceList.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/5460/trunk/src/dr/inference/trace/AbstractTraceList.java
+END
+LogFileTraces.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/5460/trunk/src/dr/inference/trace/LogFileTraces.java
+END
+Filter.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/5460/trunk/src/dr/inference/trace/Filter.java
+END
+TraceFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4007/trunk/src/dr/inference/trace/TraceFactory.java
+END
+CnCsPerSiteAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4485/trunk/src/dr/inference/trace/CnCsPerSiteAnalysis.java
+END
+TracesListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1156/trunk/src/dr/inference/trace/TracesListener.java
+END
+OldDnDsPerSiteAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3807/trunk/src/dr/inference/trace/OldDnDsPerSiteAnalysis.java
+END
+DnDsPerSiteAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4836/trunk/src/dr/inference/trace/DnDsPerSiteAnalysis.java
+END
+LogFileTraceExporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/3003/trunk/src/dr/inference/trace/LogFileTraceExporter.java
+END
+ArrayTraceList.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/3808/trunk/src/dr/inference/trace/ArrayTraceList.java
+END
+TraceList.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3815/trunk/src/dr/inference/trace/TraceList.java
+END
+PathSamplingAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/5179/trunk/src/dr/inference/trace/PathSamplingAnalysis.java
+END
+Trace.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/5460/trunk/src/dr/inference/trace/Trace.java
+END
+TraceDistribution.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3988/trunk/src/dr/inference/trace/TraceDistribution.java
+END

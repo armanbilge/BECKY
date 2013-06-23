@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe
+END
+BFEapp.form
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe/BFEapp.form
+END
+BFEMain.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe/BFEMain.java
+END
+XMLTreeModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe/XMLTreeModel.java
+END
+XMLViewer.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe/XMLViewer.java
+END
+XMLMerger.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe/XMLMerger.java
+END
+XMLViewer.form
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe/XMLViewer.form
+END
+XMLMerger.form
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe/XMLMerger.form
+END
+BFEapp.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/1812/trunk/src/dr/app/bfe/BFEapp.java
+END

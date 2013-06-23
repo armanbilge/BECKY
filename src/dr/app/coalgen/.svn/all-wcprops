@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/3804/trunk/src/dr/app/coalgen
+END
+ModelPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/3497/trunk/src/dr/app/coalgen/ModelPanel.java
+END
+InputsPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3115/trunk/src/dr/app/coalgen/InputsPanel.java
+END
+CoalGenData.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3235/trunk/src/dr/app/coalgen/CoalGenData.java
+END
+CoalGenFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/3804/trunk/src/dr/app/coalgen/CoalGenFrame.java
+END
+CoalGenMenuFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2704/trunk/src/dr/app/coalgen/CoalGenMenuFactory.java
+END
+SimulationsPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3497/trunk/src/dr/app/coalgen/SimulationsPanel.java
+END
+CoalGenApp.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/3804/trunk/src/dr/app/coalgen/CoalGenApp.java
+END
+DataPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/3497/trunk/src/dr/app/coalgen/DataPanel.java
+END

@@ -1,0 +1,67 @@
+10
+
+dir
+5714
+http://beast-mcmc.googlecode.com/svn/trunk/src/dr/inference
+http://beast-mcmc.googlecode.com/svn
+
+
+
+2013-06-14T22:58:09.288729Z
+5705
+msuchard
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ca793f91-a31e-0410-b540-2769d408b6a1
+
+mcmc
+dir
+
+mcmcmc
+dir
+
+distribution
+dir
+
+model
+dir
+
+loggers
+dir
+
+markovchain
+dir
+
+tutorial
+dir
+
+ml
+dir
+
+prior
+dir
+
+parallel
+dir
+
+markovjumps
+dir
+
+operators
+dir
+
+trace
+dir
+

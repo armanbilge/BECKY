@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/5547/trunk/src/dr/evomodel/transmission
+END
+TransmissionStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/5547/trunk/src/dr/evomodel/transmission/TransmissionStatistic.java
+END
+TransmissionSimulator.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/899/trunk/src/dr/evomodel/transmission/TransmissionSimulator.java
+END
+HierarchicalTransmissionDemographicModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/4972/trunk/src/dr/evomodel/transmission/HierarchicalTransmissionDemographicModel.java
+END
+TransmissionHistoryModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2936/trunk/src/dr/evomodel/transmission/TransmissionHistoryModel.java
+END
+TransmissionDemographicModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/4957/trunk/src/dr/evomodel/transmission/TransmissionDemographicModel.java
+END
+TransmissionLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/4957/trunk/src/dr/evomodel/transmission/TransmissionLikelihood.java
+END

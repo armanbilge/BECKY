@@ -1,0 +1,245 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/5637/trunk/src/dr/evolution/tree
+END
+Tree.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/5299/trunk/src/dr/evolution/tree/Tree.java
+END
+SlidableTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/5162/trunk/src/dr/evolution/tree/SlidableTree.java
+END
+SimpleNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2224/trunk/src/dr/evolution/tree/SimpleNode.java
+END
+SplitSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/SplitSystem.java
+END
+CountConstrainedRankedHistories.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3874/trunk/src/dr/evolution/tree/CountConstrainedRankedHistories.java
+END
+ImportanceDistribution.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/1472/trunk/src/dr/evolution/tree/ImportanceDistribution.java
+END
+RateSmoothingTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/RateSmoothingTree.java
+END
+CladeDistribution.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/1178/trunk/src/dr/evolution/tree/CladeDistribution.java
+END
+Clade.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/1470/trunk/src/dr/evolution/tree/Clade.java
+END
+MutableTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/3970/trunk/src/dr/evolution/tree/MutableTree.java
+END
+FlexibleTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/5274/trunk/src/dr/evolution/tree/FlexibleTree.java
+END
+TreeNodeFilter.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/3309/trunk/src/dr/evolution/tree/TreeNodeFilter.java
+END
+TreeShape.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/3703/trunk/src/dr/evolution/tree/TreeShape.java
+END
+RankedForest.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/3870/trunk/src/dr/evolution/tree/RankedForest.java
+END
+UPGMATree.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/UPGMATree.java
+END
+MultivariateTraitTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/5637/trunk/src/dr/evolution/tree/MultivariateTraitTree.java
+END
+NeighborJoiningTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/NeighborJoiningTree.java
+END
+BranchScoreMetric.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/657/trunk/src/dr/evolution/tree/BranchScoreMetric.java
+END
+ClusteringTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1633/trunk/src/dr/evolution/tree/ClusteringTree.java
+END
+FlexibleNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2224/trunk/src/dr/evolution/tree/FlexibleNode.java
+END
+TreeTrait.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/5286/trunk/src/dr/evolution/tree/TreeTrait.java
+END
+LeastSquaresClockTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/9/trunk/src/dr/evolution/tree/LeastSquaresClockTree.java
+END
+SimpleTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/2224/trunk/src/dr/evolution/tree/SimpleTree.java
+END
+ColourChange.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/ColourChange.java
+END
+TreeDoubleTraitProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/4984/trunk/src/dr/evolution/tree/TreeDoubleTraitProvider.java
+END
+RankedNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3873/trunk/src/dr/evolution/tree/RankedNode.java
+END
+CladeMetric.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2217/trunk/src/dr/evolution/tree/CladeMetric.java
+END
+SplitUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/1437/trunk/src/dr/evolution/tree/SplitUtils.java
+END
+TreeTraitProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/5376/trunk/src/dr/evolution/tree/TreeTraitProvider.java
+END
+UnrootedTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/1617/trunk/src/dr/evolution/tree/UnrootedTree.java
+END
+MutableTreeListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/MutableTreeListener.java
+END
+NodeRef.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/3704/trunk/src/dr/evolution/tree/NodeRef.java
+END
+CladeSet.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1317/trunk/src/dr/evolution/tree/CladeSet.java
+END
+TreeMetrics.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/TreeMetrics.java
+END
+SubtreeSlide.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/3620/trunk/src/dr/evolution/tree/SubtreeSlide.java
+END
+MutableTreeUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/MutableTreeUtils.java
+END
+BranchRates.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/3215/trunk/src/dr/evolution/tree/BranchRates.java
+END
+ColouredTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/7/trunk/src/dr/evolution/tree/ColouredTree.java
+END
+LineageCountThroughTime.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3796/trunk/src/dr/evolution/tree/LineageCountThroughTime.java
+END
+TreeAttributeProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2381/trunk/src/dr/evolution/tree/TreeAttributeProvider.java
+END

@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/5460/trunk/src/dr/app/tracer/traces
+END
+DensityPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/4010/trunk/src/dr/app/tracer/traces/DensityPanel.java
+END
+FilterListPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/5460/trunk/src/dr/app/tracer/traces/FilterListPanel.java
+END
+JointDensityPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/3831/trunk/src/dr/app/tracer/traces/JointDensityPanel.java
+END
+JIntervalsChart.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3497/trunk/src/dr/app/tracer/traces/JIntervalsChart.java
+END
+FilterDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/3824/trunk/src/dr/app/tracer/traces/FilterDialog.java
+END
+TraceOptions.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/3354/trunk/src/dr/app/tracer/traces/TraceOptions.java
+END
+TableScrollPane.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/4015/trunk/src/dr/app/tracer/traces/TableScrollPane.java
+END
+TableRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/93/trunk/src/dr/app/tracer/traces/TableRenderer.java
+END
+TracePanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4007/trunk/src/dr/app/tracer/traces/TracePanel.java
+END
+FrequencyPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/4007/trunk/src/dr/app/tracer/traces/FrequencyPanel.java
+END
+CombinedTraces.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/3824/trunk/src/dr/app/tracer/traces/CombinedTraces.java
+END
+IntervalsPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/3497/trunk/src/dr/app/tracer/traces/IntervalsPanel.java
+END
+FilterDiscretePanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/5460/trunk/src/dr/app/tracer/traces/FilterDiscretePanel.java
+END
+RawTracePanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/3830/trunk/src/dr/app/tracer/traces/RawTracePanel.java
+END
+SummaryStatisticsPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/4015/trunk/src/dr/app/tracer/traces/SummaryStatisticsPanel.java
+END
+FilterAbstractPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/5460/trunk/src/dr/app/tracer/traces/FilterAbstractPanel.java
+END
+JTraceChart.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/4007/trunk/src/dr/app/tracer/traces/JTraceChart.java
+END
+FilterContinuousPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5460/trunk/src/dr/app/tracer/traces/FilterContinuousPanel.java
+END

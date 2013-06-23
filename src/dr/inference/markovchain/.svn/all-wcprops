@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/5170/trunk/src/dr/inference/markovchain
+END
+Acceptor.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/7/trunk/src/dr/inference/markovchain/Acceptor.java
+END
+MarkovChain.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/5145/trunk/src/dr/inference/markovchain/MarkovChain.java
+END
+Profiler.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2227/trunk/src/dr/inference/markovchain/Profiler.java
+END
+MarkovChainListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4424/trunk/src/dr/inference/markovchain/MarkovChainListener.java
+END
+MarkovChainDelegate.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/5170/trunk/src/dr/inference/markovchain/MarkovChainDelegate.java
+END

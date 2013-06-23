@@ -1,0 +1,185 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/5287/trunk/src/dr/app/treestat/statistics
+END
+ExternalBranchRates.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2519/trunk/src/dr/app/treestat/statistics/ExternalBranchRates.java
+END
+TreeLength.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/7/trunk/src/dr/app/treestat/statistics/TreeLength.java
+END
+NodeHeights.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1241/trunk/src/dr/app/treestat/statistics/NodeHeights.java
+END
+FuLiD.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/7/trunk/src/dr/app/treestat/statistics/FuLiD.java
+END
+TreeSummaryStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/1241/trunk/src/dr/app/treestat/statistics/TreeSummaryStatistic.java
+END
+LineageCountStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1318/trunk/src/dr/app/treestat/statistics/LineageCountStatistic.java
+END
+InternalNodeAttribute.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2519/trunk/src/dr/app/treestat/statistics/InternalNodeAttribute.java
+END
+GammaStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2218/trunk/src/dr/app/treestat/statistics/GammaStatistic.java
+END
+MRCAOlderThanStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/1318/trunk/src/dr/app/treestat/statistics/MRCAOlderThanStatistic.java
+END
+TMRCASummaryStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/1241/trunk/src/dr/app/treestat/statistics/TMRCASummaryStatistic.java
+END
+ExternalInternalRatio.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/7/trunk/src/dr/app/treestat/statistics/ExternalInternalRatio.java
+END
+RankProportionStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/1318/trunk/src/dr/app/treestat/statistics/RankProportionStatistic.java
+END
+InternalBranchLengths.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2519/trunk/src/dr/app/treestat/statistics/InternalBranchLengths.java
+END
+TreenessStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/7/trunk/src/dr/app/treestat/statistics/TreenessStatistic.java
+END
+DeltaStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2227/trunk/src/dr/app/treestat/statistics/DeltaStatistic.java
+END
+Nbar.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/7/trunk/src/dr/app/treestat/statistics/Nbar.java
+END
+CherryStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/7/trunk/src/dr/app/treestat/statistics/CherryStatistic.java
+END
+CladeMeanAttributeStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/4116/trunk/src/dr/app/treestat/statistics/CladeMeanAttributeStatistic.java
+END
+SingleChildCountStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5287/trunk/src/dr/app/treestat/statistics/SingleChildCountStatistic.java
+END
+BetaTreeDiversityStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/4136/trunk/src/dr/app/treestat/statistics/BetaTreeDiversityStatistic.java
+END
+IntervalKStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1241/trunk/src/dr/app/treestat/statistics/IntervalKStatistic.java
+END
+CladeMRCAAttributeStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/1320/trunk/src/dr/app/treestat/statistics/CladeMRCAAttributeStatistic.java
+END
+TreeHeight.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/8/trunk/src/dr/app/treestat/statistics/TreeHeight.java
+END
+RootToTipLengths.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/1241/trunk/src/dr/app/treestat/statistics/RootToTipLengths.java
+END
+LineageProportionStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/1318/trunk/src/dr/app/treestat/statistics/LineageProportionStatistic.java
+END
+InternalBranchRates.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2519/trunk/src/dr/app/treestat/statistics/InternalBranchRates.java
+END
+AbstractTreeSummaryStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/1241/trunk/src/dr/app/treestat/statistics/AbstractTreeSummaryStatistic.java
+END
+SummaryStatisticDescription.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/7/trunk/src/dr/app/treestat/statistics/SummaryStatisticDescription.java
+END
+B1Statistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/3521/trunk/src/dr/app/treestat/statistics/B1Statistic.java
+END
+CollessIndex.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/7/trunk/src/dr/app/treestat/statistics/CollessIndex.java
+END

@@ -1,0 +1,239 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/5436/trunk/src/dr/evomodel/speciation
+END
+SpeciationLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/5077/trunk/src/dr/evomodel/speciation/SpeciationLikelihood.java
+END
+MulSpeciesTreePrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/4571/trunk/src/dr/evomodel/speciation/MulSpeciesTreePrior.java
+END
+SpeciesTreeBMPrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2953/trunk/src/dr/evomodel/speciation/SpeciesTreeBMPrior.java
+END
+SpeciesBindings.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2953/trunk/src/dr/evomodel/speciation/SpeciesBindings.java
+END
+CalibrationLineagesIterator.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4112/trunk/src/dr/evomodel/speciation/CalibrationLineagesIterator.java
+END
+PopsIOMSCoalescent.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5149/trunk/src/dr/evomodel/speciation/PopsIOMSCoalescent.java
+END
+AlloppLeggedTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/5436/trunk/src/dr/evomodel/speciation/AlloppLeggedTree.java
+END
+PopsIOSpeciesTreePrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/5071/trunk/src/dr/evomodel/speciation/PopsIOSpeciesTreePrior.java
+END
+AlloppSpeciesBindings.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/5436/trunk/src/dr/evomodel/speciation/AlloppSpeciesBindings.java
+END
+BirthDeathGernhard08Model.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/4098/trunk/src/dr/evomodel/speciation/BirthDeathGernhard08Model.java
+END
+CalibrationPoints.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/4401/trunk/src/dr/evomodel/speciation/CalibrationPoints.java
+END
+MulSpeciesBindings.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5149/trunk/src/dr/evomodel/speciation/MulSpeciesBindings.java
+END
+SpeciesTreeModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/4430/trunk/src/dr/evomodel/speciation/SpeciesTreeModel.java
+END
+AlloppNode.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/5149/trunk/src/dr/evomodel/speciation/AlloppNode.java
+END
+BirthDeathSerialSkylineModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/4093/trunk/src/dr/evomodel/speciation/BirthDeathSerialSkylineModel.java
+END
+AlloppSpeciesNetworkModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/5436/trunk/src/dr/evomodel/speciation/AlloppSpeciesNetworkModel.java
+END
+BranchingLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2953/trunk/src/dr/evomodel/speciation/BranchingLikelihood.java
+END
+YuleModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2458/trunk/src/dr/evomodel/speciation/YuleModel.java
+END
+SpeciesTreeSimplePrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2953/trunk/src/dr/evomodel/speciation/SpeciesTreeSimplePrior.java
+END
+PopsIOSpeciesBindings.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/5149/trunk/src/dr/evomodel/speciation/PopsIOSpeciesBindings.java
+END
+AlloppMulLabTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/5436/trunk/src/dr/evomodel/speciation/AlloppMulLabTree.java
+END
+MultiSpeciesCoalescent.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2953/trunk/src/dr/evomodel/speciation/MultiSpeciesCoalescent.java
+END
+ModelAveragingSpeciationLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/3788/trunk/src/dr/evomodel/speciation/ModelAveragingSpeciationLikelihood.java
+END
+TaxonRichnessBirthDeathModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/3487/trunk/src/dr/evomodel/speciation/TaxonRichnessBirthDeathModel.java
+END
+MulSpeciesTreeModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5149/trunk/src/dr/evomodel/speciation/MulSpeciesTreeModel.java
+END
+RandomLocalYuleModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3972/trunk/src/dr/evomodel/speciation/RandomLocalYuleModel.java
+END
+BranchingModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1873/trunk/src/dr/evomodel/speciation/BranchingModel.java
+END
+AlloppNetworkPrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5436/trunk/src/dr/evomodel/speciation/AlloppNetworkPrior.java
+END
+AlloppDiploidHistory.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/5436/trunk/src/dr/evomodel/speciation/AlloppDiploidHistory.java
+END
+SpeciationModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4016/trunk/src/dr/evomodel/speciation/SpeciationModel.java
+END
+MaskableSpeciationModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3687/trunk/src/dr/evomodel/speciation/MaskableSpeciationModel.java
+END
+AlloppNumHybsStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/5192/trunk/src/dr/evomodel/speciation/AlloppNumHybsStatistic.java
+END
+PopsIOSpeciesTreeModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/5162/trunk/src/dr/evomodel/speciation/PopsIOSpeciesTreeModel.java
+END
+AlloppMSCoalescent.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5149/trunk/src/dr/evomodel/speciation/AlloppMSCoalescent.java
+END
+BirthDeathSerialSamplingModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5121/trunk/src/dr/evomodel/speciation/BirthDeathSerialSamplingModel.java
+END
+BetaSplittingModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2953/trunk/src/dr/evomodel/speciation/BetaSplittingModel.java
+END
+UltrametricSpeciationModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/4064/trunk/src/dr/evomodel/speciation/UltrametricSpeciationModel.java
+END
+MulMSCoalescent.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/5149/trunk/src/dr/evomodel/speciation/MulMSCoalescent.java
+END
+AlloppNetworkPriorModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/5149/trunk/src/dr/evomodel/speciation/AlloppNetworkPriorModel.java
+END

@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/4116/trunk/src/dr/evomodel/newtreelikelihood
+END
+FloatGeneralLikelihoodCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/1398/trunk/src/dr/evomodel/newtreelikelihood/FloatGeneralLikelihoodCore.java
+END
+NativeLikelihoodCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4116/trunk/src/dr/evomodel/newtreelikelihood/NativeLikelihoodCore.java
+END
+VectorTreeLikelihoodParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/1495/trunk/src/dr/evomodel/newtreelikelihood/VectorTreeLikelihoodParser.java
+END
+TreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/2009/trunk/src/dr/evomodel/newtreelikelihood/TreeLikelihood.java
+END
+LikelihoodCoreFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2009/trunk/src/dr/evomodel/newtreelikelihood/LikelihoodCoreFactory.java
+END
+OTFPCGeneralLikelihoodCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/4116/trunk/src/dr/evomodel/newtreelikelihood/OTFPCGeneralLikelihoodCore.java
+END
+GPUInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1390/trunk/src/dr/evomodel/newtreelikelihood/GPUInfo.java
+END
+GPULikelihoodCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/4116/trunk/src/dr/evomodel/newtreelikelihood/GPULikelihoodCore.java
+END
+ThreadedGPULikelihoodCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2009/trunk/src/dr/evomodel/newtreelikelihood/ThreadedGPULikelihoodCore.java
+END
+GeneralLikelihoodCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2697/trunk/src/dr/evomodel/newtreelikelihood/GeneralLikelihoodCore.java
+END
+LikelihoodCore.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/1398/trunk/src/dr/evomodel/newtreelikelihood/LikelihoodCore.java
+END

@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/3192/trunk/src/dr/evolution/colouring
+END
+SubstitutionModelToColourChangeMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/3192/trunk/src/dr/evolution/colouring/SubstitutionModelToColourChangeMatrix.java
+END
+BranchColouring.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1844/trunk/src/dr/evolution/colouring/BranchColouring.java
+END
+TwoColourSampler.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2227/trunk/src/dr/evolution/colouring/TwoColourSampler.java
+END
+TreeColouring.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3192/trunk/src/dr/evolution/colouring/TreeColouring.java
+END
+DefaultBranchColouring.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2218/trunk/src/dr/evolution/colouring/DefaultBranchColouring.java
+END
+DefaultTreeColouring.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/83/trunk/src/dr/evolution/colouring/DefaultTreeColouring.java
+END
+ColourSampler.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1844/trunk/src/dr/evolution/colouring/ColourSampler.java
+END
+BasicColourSampler.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1844/trunk/src/dr/evolution/colouring/BasicColourSampler.java
+END
+StructuredColourSampler.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/2486/trunk/src/dr/evolution/colouring/StructuredColourSampler.java
+END
+TreeColouringProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/83/trunk/src/dr/evolution/colouring/TreeColouringProvider.java
+END
+ColourChangeMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3192/trunk/src/dr/evolution/colouring/ColourChangeMatrix.java
+END

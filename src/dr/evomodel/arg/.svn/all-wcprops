@@ -1,0 +1,131 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/5279/trunk/src/dr/evomodel/arg
+END
+ARGRatePrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/1873/trunk/src/dr/evomodel/arg/ARGRatePrior.java
+END
+ARGTotalLengthStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1387/trunk/src/dr/evomodel/arg/ARGTotalLengthStatistic.java
+END
+ARGPartitionLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1607/trunk/src/dr/evomodel/arg/ARGPartitionLikelihood.java
+END
+ARGTraceAnalysisParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/1126/trunk/src/dr/evomodel/arg/ARGTraceAnalysisParser.java
+END
+ARGLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/4430/trunk/src/dr/evomodel/arg/ARGLogger.java
+END
+beast.properties
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/1359/trunk/src/dr/evomodel/arg/beast.properties
+END
+RecombinationPartitionStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/1401/trunk/src/dr/evomodel/arg/RecombinationPartitionStatistic.java
+END
+HierarchicalPartitionLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/1873/trunk/src/dr/evomodel/arg/HierarchicalPartitionLikelihood.java
+END
+UniformPartitionLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1873/trunk/src/dr/evomodel/arg/UniformPartitionLikelihood.java
+END
+parsers.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/1359/trunk/src/dr/evomodel/arg/parsers.txt
+END
+ARGReassortmentTimingStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/1401/trunk/src/dr/evomodel/arg/ARGReassortmentTimingStatistic.java
+END
+ARGReassortmentNodeCountStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/1135/trunk/src/dr/evomodel/arg/ARGReassortmentNodeCountStatistic.java
+END
+PoissonPartitionLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2982/trunk/src/dr/evomodel/arg/PoissonPartitionLikelihood.java
+END
+ARGTrace.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/1126/trunk/src/dr/evomodel/arg/ARGTrace.java
+END
+ARGTree.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/2224/trunk/src/dr/evomodel/arg/ARGTree.java
+END
+ARGTreeLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/1126/trunk/src/dr/evomodel/arg/ARGTreeLogger.java
+END
+ARGModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/4179/trunk/src/dr/evomodel/arg/ARGModel.java
+END
+ARGRelaxedClock.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3207/trunk/src/dr/evomodel/arg/ARGRelaxedClock.java
+END
+ARGDistinctTreeCountStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/1393/trunk/src/dr/evomodel/arg/ARGDistinctTreeCountStatistic.java
+END
+ARGTraceAnalysis.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2936/trunk/src/dr/evomodel/arg/ARGTraceAnalysis.java
+END
+OldTreeLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/4430/trunk/src/dr/evomodel/arg/OldTreeLogger.java
+END

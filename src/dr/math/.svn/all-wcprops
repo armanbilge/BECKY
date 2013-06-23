@@ -1,0 +1,221 @@
+K 25
+svn:wc:ra_dav:version-url
+V 36
+/svn/!svn/ver/5700/trunk/src/dr/math
+END
+DifferentialEvolution.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/7/trunk/src/dr/math/DifferentialEvolution.java
+END
+BigDecimalUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/967/trunk/src/dr/math/BigDecimalUtils.java
+END
+LogTricks.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/1918/trunk/src/dr/math/LogTricks.java
+END
+MultivariateMinimum.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/7/trunk/src/dr/math/MultivariateMinimum.java
+END
+MinimiserMonitor.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/7/trunk/src/dr/math/MinimiserMonitor.java
+END
+ConjugateDirectionSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1318/trunk/src/dr/math/ConjugateDirectionSearch.java
+END
+BoundsCheckedFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/1112/trunk/src/dr/math/BoundsCheckedFunction.java
+END
+IntegrableUnivariateFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1397/trunk/src/dr/math/IntegrableUnivariateFunction.java
+END
+MersenneTwisterFast.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/3233/trunk/src/dr/math/MersenneTwisterFast.java
+END
+MultivariateFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/7/trunk/src/dr/math/MultivariateFunction.java
+END
+UnivariateFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/306/trunk/src/dr/math/UnivariateFunction.java
+END
+FastFourierTransform.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3296/trunk/src/dr/math/FastFourierTransform.java
+END
+EmpiricalBayesPoissonSmoother.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/4572/trunk/src/dr/math/EmpiricalBayesPoissonSmoother.java
+END
+SparseMatrixExponential.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/547/trunk/src/dr/math/SparseMatrixExponential.java
+END
+Binomial.java
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/1660/trunk/src/dr/math/Binomial.java
+END
+MittagLefflerFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2653/trunk/src/dr/math/MittagLefflerFunction.java
+END
+ErrorFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/7/trunk/src/dr/math/ErrorFunction.java
+END
+NumericalDerivative.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/7/trunk/src/dr/math/NumericalDerivative.java
+END
+UnivariateMinimum.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/305/trunk/src/dr/math/UnivariateMinimum.java
+END
+RiemannApproximation.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/1112/trunk/src/dr/math/RiemannApproximation.java
+END
+KroneckerOperation.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3014/trunk/src/dr/math/KroneckerOperation.java
+END
+Integral.java
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/7/trunk/src/dr/math/Integral.java
+END
+ComplexArray.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/3296/trunk/src/dr/math/ComplexArray.java
+END
+BFloat.java
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/7/trunk/src/dr/math/BFloat.java
+END
+Procrustes.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/4043/trunk/src/dr/math/Procrustes.java
+END
+MathUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/5244/trunk/src/dr/math/MathUtils.java
+END
+MFWithGradient.java
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/7/trunk/src/dr/math/MFWithGradient.java
+END
+MachineAccuracy.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/7/trunk/src/dr/math/MachineAccuracy.java
+END
+ConjugateGradientSearch.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/9/trunk/src/dr/math/ConjugateGradientSearch.java
+END
+Polynomial.java
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/1869/trunk/src/dr/math/Polynomial.java
+END
+GammaFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/469/trunk/src/dr/math/GammaFunction.java
+END
+MonteCarloIntegral.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/7/trunk/src/dr/math/MonteCarloIntegral.java
+END
+CompoundFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/7/trunk/src/dr/math/CompoundFunction.java
+END
+Poisson.java
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/7/trunk/src/dr/math/Poisson.java
+END
+ModifiedBesselFirstKind.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3505/trunk/src/dr/math/ModifiedBesselFirstKind.java
+END
+LineFunction.java
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/9/trunk/src/dr/math/LineFunction.java
+END

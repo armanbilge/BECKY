@@ -1,0 +1,227 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/5717/trunk/src/dr/app/beagle/evomodel/substmodel
+END
+GY94CodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/5717/trunk/src/dr/app/beagle/evomodel/substmodel/GY94CodonModel.java
+END
+CodonLabeling.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/CodonLabeling.java
+END
+DefaultEigenSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/DefaultEigenSystem.java
+END
+EmpiricalRateMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/EmpiricalRateMatrix.java
+END
+ComplexColtEigenSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/5292/trunk/src/dr/app/beagle/evomodel/substmodel/ComplexColtEigenSystem.java
+END
+PCACodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/PCACodonModel.java
+END
+UniformizedSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/5293/trunk/src/dr/app/beagle/evomodel/substmodel/UniformizedSubstitutionModel.java
+END
+MarkovModulatedSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/MarkovModulatedSubstitutionModel.java
+END
+SVSComplexSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/SVSComplexSubstitutionModel.java
+END
+ComplexSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/5699/trunk/src/dr/app/beagle/evomodel/substmodel/ComplexSubstitutionModel.java
+END
+ProductChainFrequencyModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/ProductChainFrequencyModel.java
+END
+MutationDeathModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5260/trunk/src/dr/app/beagle/evomodel/substmodel/MutationDeathModel.java
+END
+SVSGeneralSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/SVSGeneralSubstitutionModel.java
+END
+BaseSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/BaseSubstitutionModel.java
+END
+HKY.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/HKY.java
+END
+GeneralSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/GeneralSubstitutionModel.java
+END
+GTR.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/GTR.java
+END
+StratifiedTraitOutputFormat.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/StratifiedTraitOutputFormat.java
+END
+MarkovJumpsSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/MarkovJumpsSubstitutionModel.java
+END
+GLMSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/GLMSubstitutionModel.java
+END
+MarkovModulatedFrequencyModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/MarkovModulatedFrequencyModel.java
+END
+ProductChainSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/ProductChainSubstitutionModel.java
+END
+PCARateMatrixMammalia.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/PCARateMatrixMammalia.java
+END
+AbstractCodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5717/trunk/src/dr/app/beagle/evomodel/substmodel/AbstractCodonModel.java
+END
+EmpiricalCodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/EmpiricalCodonModel.java
+END
+CodonPartitionedRobustCounting.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/!svn/ver/5286/trunk/src/dr/app/beagle/evomodel/substmodel/CodonPartitionedRobustCounting.java
+END
+ColtEigenSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/5292/trunk/src/dr/app/beagle/evomodel/substmodel/ColtEigenSystem.java
+END
+MarkovModulatedGY94CodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/MarkovModulatedGY94CodonModel.java
+END
+FrequencyModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/FrequencyModel.java
+END
+EigenDecomposition.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5269/trunk/src/dr/app/beagle/evomodel/substmodel/EigenDecomposition.java
+END
+MG94CodonModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/5717/trunk/src/dr/app/beagle/evomodel/substmodel/MG94CodonModel.java
+END
+DependentProductChainSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/DependentProductChainSubstitutionModel.java
+END
+AbstractPCARateMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/AbstractPCARateMatrix.java
+END
+EmpiricalAminoAcidModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/EmpiricalAminoAcidModel.java
+END
+EigenSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/EigenSystem.java
+END
+SubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/SubstitutionModel.java
+END
+TN93.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/substmodel/TN93.java
+END

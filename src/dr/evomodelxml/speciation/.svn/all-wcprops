@@ -1,0 +1,215 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/5435/trunk/src/dr/evomodelxml/speciation
+END
+PopsIOSpeciesBindingsSpInfoParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/5097/trunk/src/dr/evomodelxml/speciation/PopsIOSpeciesBindingsSpInfoParser.java
+END
+MulSpeciesBindingsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4571/trunk/src/dr/evomodelxml/speciation/MulSpeciesBindingsParser.java
+END
+SpeciesTreeModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/2953/trunk/src/dr/evomodelxml/speciation/SpeciesTreeModelParser.java
+END
+AlloppSpeciesNetworkModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/5435/trunk/src/dr/evomodelxml/speciation/AlloppSpeciesNetworkModelParser.java
+END
+BirthDeathSerialSkylineModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/4100/trunk/src/dr/evomodelxml/speciation/BirthDeathSerialSkylineModelParser.java
+END
+BirthDeathModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/3899/trunk/src/dr/evomodelxml/speciation/BirthDeathModelParser.java
+END
+YuleModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3704/trunk/src/dr/evomodelxml/speciation/YuleModelParser.java
+END
+BranchingLikelihoodParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/2953/trunk/src/dr/evomodelxml/speciation/BranchingLikelihoodParser.java
+END
+SpeciesTreeSimplePriorParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2953/trunk/src/dr/evomodelxml/speciation/SpeciesTreeSimplePriorParser.java
+END
+PopsIOSpeciesBindingsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/5097/trunk/src/dr/evomodelxml/speciation/PopsIOSpeciesBindingsParser.java
+END
+BirthDeathEpidemiologyModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/4561/trunk/src/dr/evomodelxml/speciation/BirthDeathEpidemiologyModelParser.java
+END
+ModelAveragingSpeciationLikelihoodParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/3758/trunk/src/dr/evomodelxml/speciation/ModelAveragingSpeciationLikelihoodParser.java
+END
+MultiSpeciesCoalescentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2953/trunk/src/dr/evomodelxml/speciation/MultiSpeciesCoalescentParser.java
+END
+TaxonRichnessBirthDeathModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/3487/trunk/src/dr/evomodelxml/speciation/TaxonRichnessBirthDeathModelParser.java
+END
+MulSpeciesTreeModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/4571/trunk/src/dr/evomodelxml/speciation/MulSpeciesTreeModelParser.java
+END
+RandomLocalYuleModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2944/trunk/src/dr/evomodelxml/speciation/RandomLocalYuleModelParser.java
+END
+AlloppNetworkPriorParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/5071/trunk/src/dr/evomodelxml/speciation/AlloppNetworkPriorParser.java
+END
+AlloppSpeciesBindingsApSpInfoParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5071/trunk/src/dr/evomodelxml/speciation/AlloppSpeciesBindingsApSpInfoParser.java
+END
+AlloppNumHybsStatisticParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/5192/trunk/src/dr/evomodelxml/speciation/AlloppNumHybsStatisticParser.java
+END
+PopsIOSpeciesTreeModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/5097/trunk/src/dr/evomodelxml/speciation/PopsIOSpeciesTreeModelParser.java
+END
+RLTVLoggerParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/2944/trunk/src/dr/evomodelxml/speciation/RLTVLoggerParser.java
+END
+AlloppMSCoalescentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4283/trunk/src/dr/evomodelxml/speciation/AlloppMSCoalescentParser.java
+END
+SpeciesBindingsSPinfoParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2953/trunk/src/dr/evomodelxml/speciation/SpeciesBindingsSPinfoParser.java
+END
+AlloppSpeciesBindingsIndividualParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/4283/trunk/src/dr/evomodelxml/speciation/AlloppSpeciesBindingsIndividualParser.java
+END
+BirthDeathSerialSamplingModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5129/trunk/src/dr/evomodelxml/speciation/BirthDeathSerialSamplingModelParser.java
+END
+BetaSplittingModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2953/trunk/src/dr/evomodelxml/speciation/BetaSplittingModelParser.java
+END
+MulMSCoalescentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/4571/trunk/src/dr/evomodelxml/speciation/MulMSCoalescentParser.java
+END
+AlloppNetworkPriorModelParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/5149/trunk/src/dr/evomodelxml/speciation/AlloppNetworkPriorModelParser.java
+END
+SpeciationLikelihoodParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/4426/trunk/src/dr/evomodelxml/speciation/SpeciationLikelihoodParser.java
+END
+MulSpeciesTreePriorParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/5071/trunk/src/dr/evomodelxml/speciation/MulSpeciesTreePriorParser.java
+END
+SpeciesTreeBMPriorParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/2953/trunk/src/dr/evomodelxml/speciation/SpeciesTreeBMPriorParser.java
+END
+SpeciesBindingsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/2953/trunk/src/dr/evomodelxml/speciation/SpeciesBindingsParser.java
+END
+PopsIOMSCoalescentParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/5097/trunk/src/dr/evomodelxml/speciation/PopsIOMSCoalescentParser.java
+END
+AlloppSpeciesBindingsParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/5071/trunk/src/dr/evomodelxml/speciation/AlloppSpeciesBindingsParser.java
+END
+PopsIOSpeciesTreePriorParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/5097/trunk/src/dr/evomodelxml/speciation/PopsIOSpeciesTreePriorParser.java
+END

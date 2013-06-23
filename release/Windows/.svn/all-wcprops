@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/5418/trunk/release/Windows
+END
+BEAUti_launch4j.xml
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/5418/trunk/release/Windows/BEAUti_launch4j.xml
+END
+TreeStat_launch4j.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/5418/trunk/release/Windows/TreeStat_launch4j.xml
+END
+BEAST_launch4j.xml
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/5418/trunk/release/Windows/BEAST_launch4j.xml
+END
+LogAnalyser_launch4j.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/5418/trunk/release/Windows/LogAnalyser_launch4j.xml
+END
+LogCombiner_launch4j.xml
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/5418/trunk/release/Windows/LogCombiner_launch4j.xml
+END
+BEASTMC3_launch4j.xml
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/5418/trunk/release/Windows/BEASTMC3_launch4j.xml
+END
+TreeAnnotator_launch4j.xml
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/5418/trunk/release/Windows/TreeAnnotator_launch4j.xml
+END

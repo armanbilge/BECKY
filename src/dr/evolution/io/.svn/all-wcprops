@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/5454/trunk/src/dr/evolution/io
+END
+PatternImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3865/trunk/src/dr/evolution/io/PatternImporter.java
+END
+FastaImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/3055/trunk/src/dr/evolution/io/FastaImporter.java
+END
+Importer.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/3055/trunk/src/dr/evolution/io/Importer.java
+END
+TreeImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/7/trunk/src/dr/evolution/io/TreeImporter.java
+END
+PhylipSequentialImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/7/trunk/src/dr/evolution/io/PhylipSequentialImporter.java
+END
+NewickImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/3115/trunk/src/dr/evolution/io/NewickImporter.java
+END
+MicroSatImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/5454/trunk/src/dr/evolution/io/MicroSatImporter.java
+END
+NexusImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/5406/trunk/src/dr/evolution/io/NexusImporter.java
+END
+TreeExporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/767/trunk/src/dr/evolution/io/TreeExporter.java
+END
+SequenceImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/7/trunk/src/dr/evolution/io/SequenceImporter.java
+END
+MigrateTreeImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/3116/trunk/src/dr/evolution/io/MigrateTreeImporter.java
+END
+TreeTrace.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/1844/trunk/src/dr/evolution/io/TreeTrace.java
+END

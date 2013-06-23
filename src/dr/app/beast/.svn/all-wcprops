@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/5721/trunk/src/dr/app/beast
+END
+BeastMC3.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/4679/trunk/src/dr/app/beast/BeastMC3.java
+END
+BeastMC3Dialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/4675/trunk/src/dr/app/beast/BeastMC3Dialog.java
+END
+BeastMain.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/!svn/ver/5627/trunk/src/dr/app/beast/BeastMain.java
+END
+BeastVersion.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/5356/trunk/src/dr/app/beast/BeastVersion.java
+END
+BeastMPI.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/5271/trunk/src/dr/app/beast/BeastMPI.java
+END
+beast.properties
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2492/trunk/src/dr/app/beast/beast.properties
+END
+beagle_parsers.properties
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/5721/trunk/src/dr/app/beast/beagle_parsers.properties
+END
+release_parsers.properties
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/5697/trunk/src/dr/app/beast/release_parsers.properties
+END
+BeastRemote.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2681/trunk/src/dr/app/beast/BeastRemote.java
+END
+BeastParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/4348/trunk/src/dr/app/beast/BeastParser.java
+END
+development_parsers.properties
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/5705/trunk/src/dr/app/beast/development_parsers.properties
+END
+BeastDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/5107/trunk/src/dr/app/beast/BeastDialog.java
+END

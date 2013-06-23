@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/2486/trunk/src/dr/inference/parallel
+END
+MPILikelihoodRunner.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2486/trunk/src/dr/inference/parallel/MPILikelihoodRunner.java
+END
+MPIServices.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/1871/trunk/src/dr/inference/parallel/MPIServices.java
+END
+ServiceRequest.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1117/trunk/src/dr/inference/parallel/ServiceRequest.java
+END
+MPISerializable.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1117/trunk/src/dr/inference/parallel/MPISerializable.java
+END

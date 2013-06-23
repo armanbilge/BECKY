@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/4321/trunk/examples/release/clockModels
+END
+testStrictClockTipTime.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/4258/trunk/examples/release/clockModels/testStrictClockTipTime.xml
+END
+testStrictClockNoDate2.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3975/trunk/examples/release/clockModels/testStrictClockNoDate2.xml
+END
+testUCRelaxedClockLogNormal.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/4187/trunk/examples/release/clockModels/testUCRelaxedClockLogNormal.xml
+END
+testStrictClock.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/3463/trunk/examples/release/clockModels/testStrictClock.xml
+END
+testLocalClock.xml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/3463/trunk/examples/release/clockModels/testLocalClock.xml
+END
+testRandomLocalClock.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4095/trunk/examples/release/clockModels/testRandomLocalClock.xml
+END
+testUncorrelatedRelaxedClock.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/3463/trunk/examples/release/clockModels/testUncorrelatedRelaxedClock.xml
+END
+testStrictClockTipDatesSampling.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/4321/trunk/examples/release/clockModels/testStrictClockTipDatesSampling.xml
+END
+testStrictClockNoDate.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/3975/trunk/examples/release/clockModels/testStrictClockNoDate.xml
+END

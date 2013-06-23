@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3763/trunk/src/dr/app/phylogeography/tools/kml
+END
+TreeSettings.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/3725/trunk/src/dr/app/phylogeography/tools/kml/TreeSettings.java
+END
+SurfaceDecoration.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3725/trunk/src/dr/app/phylogeography/tools/kml/SurfaceDecoration.java
+END
+Settings.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/3763/trunk/src/dr/app/phylogeography/tools/kml/Settings.java
+END
+TreeType.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/3725/trunk/src/dr/app/phylogeography/tools/kml/TreeType.java
+END
+AnalysisType.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/3725/trunk/src/dr/app/phylogeography/tools/kml/AnalysisType.java
+END
+LineStyle.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3725/trunk/src/dr/app/phylogeography/tools/kml/LineStyle.java
+END
+TreeDefinition.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3725/trunk/src/dr/app/phylogeography/tools/kml/TreeDefinition.java
+END
+Location.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/3725/trunk/src/dr/app/phylogeography/tools/kml/Location.java
+END
+BranchStyle.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3725/trunk/src/dr/app/phylogeography/tools/kml/BranchStyle.java
+END

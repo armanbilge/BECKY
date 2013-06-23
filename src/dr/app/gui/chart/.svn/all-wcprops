@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/5604/trunk/src/dr/app/gui/chart
+END
+LinearAxis.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/LinearAxis.java
+END
+ChartLayout.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/ChartLayout.java
+END
+FrequencyPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/4544/trunk/src/dr/app/gui/chart/FrequencyPlot.java
+END
+ChartSetupDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/4007/trunk/src/dr/app/gui/chart/ChartSetupDialog.java
+END
+ChartSelector.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/5265/trunk/src/dr/app/gui/chart/ChartSelector.java
+END
+KDENumericalDensityPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/5183/trunk/src/dr/app/gui/chart/KDENumericalDensityPlot.java
+END
+KDESetupDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/KDESetupDialog.java
+END
+ScatterPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/5265/trunk/src/dr/app/gui/chart/ScatterPlot.java
+END
+Axis.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/5097/trunk/src/dr/app/gui/chart/Axis.java
+END
+LogAxis.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/LogAxis.java
+END
+AreaPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/4007/trunk/src/dr/app/gui/chart/AreaPlot.java
+END
+PDFPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/4305/trunk/src/dr/app/gui/chart/PDFPlot.java
+END
+DensityEstimatePlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/4007/trunk/src/dr/app/gui/chart/DensityEstimatePlot.java
+END
+JChart.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/5265/trunk/src/dr/app/gui/chart/JChart.java
+END
+BlankAxis.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/BlankAxis.java
+END
+CategoryDensityPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/4057/trunk/src/dr/app/gui/chart/CategoryDensityPlot.java
+END
+ErrorBarPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/5604/trunk/src/dr/app/gui/chart/ErrorBarPlot.java
+END
+Plot.java
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/5265/trunk/src/dr/app/gui/chart/Plot.java
+END
+NumericalDensityPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/4010/trunk/src/dr/app/gui/chart/NumericalDensityPlot.java
+END
+RegressionPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4007/trunk/src/dr/app/gui/chart/RegressionPlot.java
+END
+ChartException.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/ChartException.java
+END
+ChartRuntimeException.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/ChartRuntimeException.java
+END
+LineDistributionPlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/4007/trunk/src/dr/app/gui/chart/LineDistributionPlot.java
+END
+LinePlot.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/4738/trunk/src/dr/app/gui/chart/LinePlot.java
+END
+DiscreteAxis.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/DiscreteAxis.java
+END
+JChartPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/JChartPanel.java
+END
+DiscreteJChart.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3497/trunk/src/dr/app/gui/chart/DiscreteJChart.java
+END

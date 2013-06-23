@@ -1,0 +1,137 @@
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/5232/trunk/src/dr/app/oldbeauti
+END
+MCMCPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/MCMCPanel.java
+END
+BeautiTester.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/1364/trunk/src/dr/app/oldbeauti/BeautiTester.java
+END
+BeastGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/5232/trunk/src/dr/app/oldbeauti/BeastGenerator.java
+END
+BeautiMacFileMenuFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/BeautiMacFileMenuFactory.java
+END
+NexusApplicationImporter.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1364/trunk/src/dr/app/oldbeauti/NexusApplicationImporter.java
+END
+BeautiApp.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/BeautiApp.java
+END
+BeautiMenuBarFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/BeautiMenuBarFactory.java
+END
+PriorDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/PriorDialog.java
+END
+TaxaPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3876/trunk/src/dr/app/oldbeauti/TaxaPanel.java
+END
+ModelPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/ModelPanel.java
+END
+TreeUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1848/trunk/src/dr/app/oldbeauti/TreeUtils.java
+END
+CommandLineBeauti.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1364/trunk/src/dr/app/oldbeauti/CommandLineBeauti.java
+END
+BeautiFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/BeautiFrame.java
+END
+BeautiOptions.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/3664/trunk/src/dr/app/oldbeauti/BeautiOptions.java
+END
+GuessDatesException.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1364/trunk/src/dr/app/oldbeauti/GuessDatesException.java
+END
+DataPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/DataPanel.java
+END
+BeautiDefaultFileMenuFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/BeautiDefaultFileMenuFactory.java
+END
+PriorType.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1364/trunk/src/dr/app/oldbeauti/PriorType.java
+END
+XMLWriter.java
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/1364/trunk/src/dr/app/oldbeauti/XMLWriter.java
+END
+OperatorsPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/OperatorsPanel.java
+END
+DiscretePriorDialog.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/DiscretePriorDialog.java
+END
+PriorsPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/3497/trunk/src/dr/app/oldbeauti/PriorsPanel.java
+END

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/!svn/ver/4562/trunk/release/Mac/lib
+END
+libquaqua64.jnilib
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/4562/trunk/release/Mac/lib/libquaqua64.jnilib
+END
+libNucleotideLikelihoodCore.jnilib
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/4562/trunk/release/Mac/lib/libNucleotideLikelihoodCore.jnilib
+END
+quaqua-filechooser-only.jar
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/4562/trunk/release/Mac/lib/quaqua-filechooser-only.jar
+END
+quaqua.jar
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/4562/trunk/release/Mac/lib/quaqua.jar
+END
+libquaqua.jnilib
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4562/trunk/release/Mac/lib/libquaqua.jnilib
+END
+libAminoAcidLikelihoodCore.jnilib
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/4562/trunk/release/Mac/lib/libAminoAcidLikelihoodCore.jnilib
+END

@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/5279/trunk/src/dr/evomodel/arg/operators
+END
+ARGSwapOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3620/trunk/src/dr/evomodel/arg/operators/ARGSwapOperator.java
+END
+ARGSubtreeSlideOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/3620/trunk/src/dr/evomodel/arg/operators/ARGSubtreeSlideOperator.java
+END
+SlidingPatternsOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/1801/trunk/src/dr/evomodel/arg/operators/SlidingPatternsOperator.java
+END
+NonContiguousPartitionsException.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/1126/trunk/src/dr/evomodel/arg/operators/NonContiguousPartitionsException.java
+END
+ARGExchangeOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/3620/trunk/src/dr/evomodel/arg/operators/ARGExchangeOperator.java
+END
+ObsoleteARGAddRemoveEventOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/4179/trunk/src/dr/evomodel/arg/operators/ObsoleteARGAddRemoveEventOperator.java
+END
+ARGReassortmentOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/2954/trunk/src/dr/evomodel/arg/operators/ARGReassortmentOperator.java
+END
+ARGPartitioningOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/4179/trunk/src/dr/evomodel/arg/operators/ARGPartitioningOperator.java
+END
+ObsoleteARGNewEventOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/4179/trunk/src/dr/evomodel/arg/operators/ObsoleteARGNewEventOperator.java
+END
+ARGAddRemoveEventOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/5279/trunk/src/dr/evomodel/arg/operators/ARGAddRemoveEventOperator.java
+END

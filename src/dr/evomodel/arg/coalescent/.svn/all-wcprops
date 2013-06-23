@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/2227/trunk/src/dr/evomodel/arg/coalescent
+END
+ARGUniformPrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/1387/trunk/src/dr/evomodel/arg/coalescent/ARGUniformPrior.java
+END
+VeryOldCoalescentLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/2227/trunk/src/dr/evomodel/arg/coalescent/VeryOldCoalescentLikelihood.java
+END
+ARGCoalescentLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/1873/trunk/src/dr/evomodel/arg/coalescent/ARGCoalescentLikelihood.java
+END

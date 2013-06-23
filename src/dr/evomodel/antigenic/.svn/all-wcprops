@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/5621/trunk/src/dr/evomodel/antigenic
+END
+ContinuousAntigenicTraitLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/5304/trunk/src/dr/evomodel/antigenic/ContinuousAntigenicTraitLikelihood.java
+END
+NPAntigenicLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/5400/trunk/src/dr/evomodel/antigenic/NPAntigenicLikelihood.java
+END
+AntigenicLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5600/trunk/src/dr/evomodel/antigenic/AntigenicLikelihood.java
+END
+AntigenicDriftPrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5332/trunk/src/dr/evomodel/antigenic/AntigenicDriftPrior.java
+END
+DriftedTraitsLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5318/trunk/src/dr/evomodel/antigenic/DriftedTraitsLogger.java
+END
+AntigenicTraitLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/5304/trunk/src/dr/evomodel/antigenic/AntigenicTraitLikelihood.java
+END
+DistanceDependentCRPGibbsOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/5319/trunk/src/dr/evomodel/antigenic/DistanceDependentCRPGibbsOperator.java
+END
+AntigenicLikelihoodSimple.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/5621/trunk/src/dr/evomodel/antigenic/AntigenicLikelihoodSimple.java
+END
+MultidimensionalScalingLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/5473/trunk/src/dr/evomodel/antigenic/MultidimensionalScalingLikelihood.java
+END
+DriftedLocationsStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/5318/trunk/src/dr/evomodel/antigenic/DriftedLocationsStatistic.java
+END
+ClusterSingleMoveOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/4284/trunk/src/dr/evomodel/antigenic/ClusterSingleMoveOperator.java
+END
+AntigenicSplitPrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5311/trunk/src/dr/evomodel/antigenic/AntigenicSplitPrior.java
+END
+ClusterSplitMergeOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/4265/trunk/src/dr/evomodel/antigenic/ClusterSplitMergeOperator.java
+END
+DirichletProcessGibbsOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/4250/trunk/src/dr/evomodel/antigenic/DirichletProcessGibbsOperator.java
+END
+DiscreteAntigenicTraitLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/5318/trunk/src/dr/evomodel/antigenic/DiscreteAntigenicTraitLikelihood.java
+END

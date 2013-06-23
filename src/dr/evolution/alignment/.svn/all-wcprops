@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/5454/trunk/src/dr/evolution/alignment
+END
+Patterns.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/5454/trunk/src/dr/evolution/alignment/Patterns.java
+END
+SiteList.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/7/trunk/src/dr/evolution/alignment/SiteList.java
+END
+WrappedAlignment.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/3130/trunk/src/dr/evolution/alignment/WrappedAlignment.java
+END
+JackknifePatterns.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/7/trunk/src/dr/evolution/alignment/JackknifePatterns.java
+END
+PatternList.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1266/trunk/src/dr/evolution/alignment/PatternList.java
+END
+ExtractPairs.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/7/trunk/src/dr/evolution/alignment/ExtractPairs.java
+END
+PairedSitePatterns.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/1638/trunk/src/dr/evolution/alignment/PairedSitePatterns.java
+END
+SimpleSiteList.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1638/trunk/src/dr/evolution/alignment/SimpleSiteList.java
+END
+Defects.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2218/trunk/src/dr/evolution/alignment/Defects.java
+END
+Alignment.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/7/trunk/src/dr/evolution/alignment/Alignment.java
+END
+HypermutantAlignment.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3131/trunk/src/dr/evolution/alignment/HypermutantAlignment.java
+END
+ConvertAlignment.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/3130/trunk/src/dr/evolution/alignment/ConvertAlignment.java
+END
+Consensus.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/7/trunk/src/dr/evolution/alignment/Consensus.java
+END
+ShuffledSiteList.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/7/trunk/src/dr/evolution/alignment/ShuffledSiteList.java
+END
+GapStrippedAlignment.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/1638/trunk/src/dr/evolution/alignment/GapStrippedAlignment.java
+END
+SitePatterns.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/4163/trunk/src/dr/evolution/alignment/SitePatterns.java
+END
+AscertainedSitePatterns.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3194/trunk/src/dr/evolution/alignment/AscertainedSitePatterns.java
+END
+GapUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/7/trunk/src/dr/evolution/alignment/GapUtils.java
+END
+AlignmentParseException.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/18/trunk/src/dr/evolution/alignment/AlignmentParseException.java
+END
+SimpleAlignment.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/5097/trunk/src/dr/evolution/alignment/SimpleAlignment.java
+END
+CharSetAlignment.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/4150/trunk/src/dr/evolution/alignment/CharSetAlignment.java
+END
+ResamplePatterns.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/1639/trunk/src/dr/evolution/alignment/ResamplePatterns.java
+END
+MsatPatternStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/!svn/ver/3353/trunk/src/dr/evolution/alignment/MsatPatternStatistic.java
+END
+BootstrapPatterns.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/7/trunk/src/dr/evolution/alignment/BootstrapPatterns.java
+END

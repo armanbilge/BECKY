@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/3578/trunk/src/test/dr/integration
+END
+PathSampling.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2788/trunk/src/test/dr/integration/PathSampling.java
+END
+GTRParameterEstimationTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/3578/trunk/src/test/dr/integration/GTRParameterEstimationTest.java
+END
+BEASTInputFile.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/1781/trunk/src/test/dr/integration/BEASTInputFile.java
+END

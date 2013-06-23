@@ -1,0 +1,125 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors
+END
+testCoalescent.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testCoalescent.xml
+END
+testExponentialGrowth.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testExponentialGrowth.xml
+END
+testCataclysmCoalescent.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testCataclysmCoalescent.xml
+END
+testPiecewiseExponential.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testPiecewiseExponential.xml
+END
+testBSP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testBSP.xml
+END
+testEBSP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testEBSP.xml
+END
+testCoalescentNoClock.xml
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testCoalescentNoClock.xml
+END
+testYulePrior.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testYulePrior.xml
+END
+testGMRFCoalescent.xml
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testGMRFCoalescent.xml
+END
+testYuleCase3.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testYuleCase3.xml
+END
+testBSPNoClock.xml
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testBSPNoClock.xml
+END
+testYuleModel.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testYuleModel.xml
+END
+testBirthDeathAsYule.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testBirthDeathAsYule.xml
+END
+testBSP1.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testBSP1.xml
+END
+testYuleOneSite.xml
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testYuleOneSite.xml
+END
+testCoalescentNoClock1.xml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testCoalescentNoClock1.xml
+END
+testYuleModel_10taxa.xml
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testYuleModel_10taxa.xml
+END
+testBirthDeathModel_10taxa.xml
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testBirthDeathModel_10taxa.xml
+END
+testYule.xml
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testYule.xml
+END
+testLinearBSP.xml
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/4409/trunk/examples/release/testXML/treePriors/testLinearBSP.xml
+END

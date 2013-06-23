@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/5722/trunk/src/dr/app/beagle/evomodel/treelikelihood
+END
+OldAncestralStateBeagleTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/5719/trunk/src/dr/app/beagle/evomodel/treelikelihood/OldAncestralStateBeagleTreeLikelihood.java
+END
+BufferIndexHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/treelikelihood/BufferIndexHelper.java
+END
+OldMarkovJumpsBeagleTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/5718/trunk/src/dr/app/beagle/evomodel/treelikelihood/OldMarkovJumpsBeagleTreeLikelihood.java
+END
+AncestralStateBeagleTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/5719/trunk/src/dr/app/beagle/evomodel/treelikelihood/AncestralStateBeagleTreeLikelihood.java
+END
+MarkovJumpsBeagleTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/5718/trunk/src/dr/app/beagle/evomodel/treelikelihood/MarkovJumpsBeagleTreeLikelihood.java
+END
+OldBeagleTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5232/trunk/src/dr/app/beagle/evomodel/treelikelihood/OldBeagleTreeLikelihood.java
+END
+BeagleTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/!svn/ver/5722/trunk/src/dr/app/beagle/evomodel/treelikelihood/BeagleTreeLikelihood.java
+END
+ALSBeagleTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5260/trunk/src/dr/app/beagle/evomodel/treelikelihood/ALSBeagleTreeLikelihood.java
+END
+SplitBySiteTraitLogger.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/5719/trunk/src/dr/app/beagle/evomodel/treelikelihood/SplitBySiteTraitLogger.java
+END
+AbstractTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/5599/trunk/src/dr/app/beagle/evomodel/treelikelihood/AbstractTreeLikelihood.java
+END
+SubstitutionModelDelegate.java
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/!svn/ver/5362/trunk/src/dr/app/beagle/evomodel/treelikelihood/SubstitutionModelDelegate.java
+END
+AncestralStateTraitProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/5719/trunk/src/dr/app/beagle/evomodel/treelikelihood/AncestralStateTraitProvider.java
+END
+PartialsRescalingScheme.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/treelikelihood/PartialsRescalingScheme.java
+END
+BeagleOperationReport.java
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/treelikelihood/BeagleOperationReport.java
+END
+StarTreeLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/5231/trunk/src/dr/app/beagle/evomodel/treelikelihood/StarTreeLikelihood.java
+END
+MarkovJumpsTraitProvider.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/5719/trunk/src/dr/app/beagle/evomodel/treelikelihood/MarkovJumpsTraitProvider.java
+END

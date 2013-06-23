@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/5656/trunk/src/dr/evomodel/epidemiology/casetocase
+END
+AbstractCase.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/5651/trunk/src/dr/evomodel/epidemiology/casetocase/AbstractCase.java
+END
+AbstractOutbreak.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/5651/trunk/src/dr/evomodel/epidemiology/casetocase/AbstractOutbreak.java
+END
+Morelli12Outbreak.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/5639/trunk/src/dr/evomodel/epidemiology/casetocase/Morelli12Outbreak.java
+END
+TransmissionTreeOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/5589/trunk/src/dr/evomodel/epidemiology/casetocase/TransmissionTreeOperator.java
+END
+SimpleOutbreak.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/5650/trunk/src/dr/evomodel/epidemiology/casetocase/SimpleOutbreak.java
+END
+TransmissionWilsonBaldingA.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/5360/trunk/src/dr/evomodel/epidemiology/casetocase/TransmissionWilsonBaldingA.java
+END
+CaseToCaseTransmissionLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/5656/trunk/src/dr/evomodel/epidemiology/casetocase/CaseToCaseTransmissionLikelihood.java
+END
+TransmissionWilsonBaldingB.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/5360/trunk/src/dr/evomodel/epidemiology/casetocase/TransmissionWilsonBaldingB.java
+END
+TransmissionExchangeOperatorA.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/5360/trunk/src/dr/evomodel/epidemiology/casetocase/TransmissionExchangeOperatorA.java
+END
+TransmissionExchangeOperatorB.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/5360/trunk/src/dr/evomodel/epidemiology/casetocase/TransmissionExchangeOperatorB.java
+END
+NodePaintingCreepOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5359/trunk/src/dr/evomodel/epidemiology/casetocase/NodePaintingCreepOperator.java
+END
+NodePaintingSwitchOperator.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/!svn/ver/5399/trunk/src/dr/evomodel/epidemiology/casetocase/NodePaintingSwitchOperator.java
+END

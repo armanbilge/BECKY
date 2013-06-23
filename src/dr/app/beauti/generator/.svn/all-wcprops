@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/5654/trunk/src/dr/app/beauti/generator
+END
+STARBEASTGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/4686/trunk/src/dr/app/beauti/generator/STARBEASTGenerator.java
+END
+ParameterPriorGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/4456/trunk/src/dr/app/beauti/generator/ParameterPriorGenerator.java
+END
+SubstitutionModelGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/!svn/ver/4456/trunk/src/dr/app/beauti/generator/SubstitutionModelGenerator.java
+END
+BaseComponentGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/5097/trunk/src/dr/app/beauti/generator/BaseComponentGenerator.java
+END
+BeastGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/5652/trunk/src/dr/app/beauti/generator/BeastGenerator.java
+END
+ComponentGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5097/trunk/src/dr/app/beauti/generator/ComponentGenerator.java
+END
+TreeLikelihoodGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/5646/trunk/src/dr/app/beauti/generator/TreeLikelihoodGenerator.java
+END
+InitialTreeGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/5454/trunk/src/dr/app/beauti/generator/InitialTreeGenerator.java
+END
+PatternListGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/5454/trunk/src/dr/app/beauti/generator/PatternListGenerator.java
+END
+TreePriorGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5129/trunk/src/dr/app/beauti/generator/TreePriorGenerator.java
+END
+BranchRatesModelGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/!svn/ver/4517/trunk/src/dr/app/beauti/generator/BranchRatesModelGenerator.java
+END
+OperatorsGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5642/trunk/src/dr/app/beauti/generator/OperatorsGenerator.java
+END
+AlignmentGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5367/trunk/src/dr/app/beauti/generator/AlignmentGenerator.java
+END
+Generator.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/5097/trunk/src/dr/app/beauti/generator/Generator.java
+END
+TreeModelGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5654/trunk/src/dr/app/beauti/generator/TreeModelGenerator.java
+END
+TMRCAStatisticsGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/!svn/ver/4369/trunk/src/dr/app/beauti/generator/TMRCAStatisticsGenerator.java
+END
+LogGenerator.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/5097/trunk/src/dr/app/beauti/generator/LogGenerator.java
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/5551/trunk/src/dr/app/seqgen
+END
+RecomboGen.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/3356/trunk/src/dr/app/seqgen/RecomboGen.java
+END
+MicrosatelliteSimulator.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/3702/trunk/src/dr/app/seqgen/MicrosatelliteSimulator.java
+END
+GeoDiffusionSimulator.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/3565/trunk/src/dr/app/seqgen/GeoDiffusionSimulator.java
+END
+SeqGen.java
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/5551/trunk/src/dr/app/seqgen/SeqGen.java
+END
+SequenceSimulator.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4762/trunk/src/dr/app/seqgen/SequenceSimulator.java
+END

@@ -1,0 +1,467 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/!svn/ver/5668/trunk/src/dr/inference/model
+END
+CompositeParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/5303/trunk/src/dr/inference/model/CompositeParameter.java
+END
+StatisticList.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/7/trunk/src/dr/inference/model/StatisticList.java
+END
+MaskedParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2931/trunk/src/dr/inference/model/MaskedParameter.java
+END
+ParallelCompoundLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/2460/trunk/src/dr/inference/model/ParallelCompoundLikelihood.java
+END
+CompoundModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2460/trunk/src/dr/inference/model/CompoundModel.java
+END
+OneOnX3Prior.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/3375/trunk/src/dr/inference/model/OneOnX3Prior.java
+END
+RatioStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/RatioStatistic.java
+END
+ModelListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/1196/trunk/src/dr/inference/model/ModelListener.java
+END
+TestStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/TestStatistic.java
+END
+DecomposedMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/833/trunk/src/dr/inference/model/DecomposedMatrix.java
+END
+CorrelationStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/367/trunk/src/dr/inference/model/CorrelationStatistic.java
+END
+CoulombPrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4236/trunk/src/dr/inference/model/CoulombPrior.java
+END
+SplineBasis.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2424/trunk/src/dr/inference/model/SplineBasis.java
+END
+LogarithmStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/LogarithmStatistic.java
+END
+NewMatrixParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/3192/trunk/src/dr/inference/model/NewMatrixParameter.java
+END
+DifferenceStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/DifferenceStatistic.java
+END
+BooleanLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/5107/trunk/src/dr/inference/model/BooleanLikelihood.java
+END
+Likelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/5107/trunk/src/dr/inference/model/Likelihood.java
+END
+Variable.java
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/5543/trunk/src/dr/inference/model/Variable.java
+END
+NotStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/NotStatistic.java
+END
+MarkovRandomFieldMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5217/trunk/src/dr/inference/model/MarkovRandomFieldMatrix.java
+END
+RPNexpressionCalculator.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/3898/trunk/src/dr/inference/model/RPNexpressionCalculator.java
+END
+ValuesPool.java
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/2225/trunk/src/dr/inference/model/ValuesPool.java
+END
+ThreadedCompoundLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/!svn/ver/5107/trunk/src/dr/inference/model/ThreadedCompoundLikelihood.java
+END
+NegativeStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/NegativeStatistic.java
+END
+SumStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/SumStatistic.java
+END
+WeightedMixtureModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/4329/trunk/src/dr/inference/model/WeightedMixtureModel.java
+END
+ParameterChooser.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2225/trunk/src/dr/inference/model/ParameterChooser.java
+END
+LoggableStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/1848/trunk/src/dr/inference/model/LoggableStatistic.java
+END
+DefaultModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/5213/trunk/src/dr/inference/model/DefaultModel.java
+END
+TransposedMatrixParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/!svn/ver/5211/trunk/src/dr/inference/model/TransposedMatrixParameter.java
+END
+DuplicatedParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4637/trunk/src/dr/inference/model/DuplicatedParameter.java
+END
+VarianceStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/VarianceStatistic.java
+END
+IntersectionBounds.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1889/trunk/src/dr/inference/model/IntersectionBounds.java
+END
+OneOnXPrior.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2974/trunk/src/dr/inference/model/OneOnXPrior.java
+END
+BayesianStochasticSearchVariableSelection.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/!svn/ver/4165/trunk/src/dr/inference/model/BayesianStochasticSearchVariableSelection.java
+END
+VectorSliceParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/4179/trunk/src/dr/inference/model/VectorSliceParameter.java
+END
+AbstractModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/4179/trunk/src/dr/inference/model/AbstractModel.java
+END
+LikelihoodBenchmarker.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/2009/trunk/src/dr/inference/model/LikelihoodBenchmarker.java
+END
+MatrixInverseStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/4286/trunk/src/dr/inference/model/MatrixInverseStatistic.java
+END
+VariableListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/1873/trunk/src/dr/inference/model/VariableListener.java
+END
+MonotonicStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1574/trunk/src/dr/inference/model/MonotonicStatistic.java
+END
+ParameterParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/4772/trunk/src/dr/inference/model/ParameterParser.java
+END
+ConstantLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/5668/trunk/src/dr/inference/model/ConstantLikelihood.java
+END
+DesignMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/4291/trunk/src/dr/inference/model/DesignMatrix.java
+END
+PathLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/5107/trunk/src/dr/inference/model/PathLikelihood.java
+END
+ParallelLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/1117/trunk/src/dr/inference/model/ParallelLikelihood.java
+END
+DiagonalMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/5545/trunk/src/dr/inference/model/DiagonalMatrix.java
+END
+MatrixParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/5509/trunk/src/dr/inference/model/MatrixParameter.java
+END
+ValuesPoolParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2222/trunk/src/dr/inference/model/ValuesPoolParser.java
+END
+CompoundSymmetricMatrix.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/3021/trunk/src/dr/inference/model/CompoundSymmetricMatrix.java
+END
+Statistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/4826/trunk/src/dr/inference/model/Statistic.java
+END
+BooleanStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/1318/trunk/src/dr/inference/model/BooleanStatistic.java
+END
+MeanStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/MeanStatistic.java
+END
+ProductStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/ProductStatistic.java
+END
+Parameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/5617/trunk/src/dr/inference/model/Parameter.java
+END
+ParameterChooserParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/2222/trunk/src/dr/inference/model/ParameterChooserParser.java
+END
+ProductParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/5261/trunk/src/dr/inference/model/ProductParameter.java
+END
+SubStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/SubStatistic.java
+END
+EqualityConstraintModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5465/trunk/src/dr/inference/model/EqualityConstraintModel.java
+END
+CompoundLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/5599/trunk/src/dr/inference/model/CompoundLikelihood.java
+END
+EqualityConstrainedParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/!svn/ver/5466/trunk/src/dr/inference/model/EqualityConstrainedParameter.java
+END
+FiniteSetParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/2884/trunk/src/dr/inference/model/FiniteSetParameter.java
+END
+DummyLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2974/trunk/src/dr/inference/model/DummyLikelihood.java
+END
+Model.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2460/trunk/src/dr/inference/model/Model.java
+END
+RPNcalculatorStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3898/trunk/src/dr/inference/model/RPNcalculatorStatistic.java
+END
+PearsonCorrelation.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/4987/trunk/src/dr/inference/model/PearsonCorrelation.java
+END
+ParameterIntegerParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/3731/trunk/src/dr/inference/model/ParameterIntegerParser.java
+END
+ReciprocalStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/ReciprocalStatistic.java
+END
+ExponentialStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/ExponentialStatistic.java
+END
+MixtureModelLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/5261/trunk/src/dr/inference/model/MixtureModelLikelihood.java
+END
+StatisticParser.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/2212/trunk/src/dr/inference/model/StatisticParser.java
+END
+CompoundParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/5619/trunk/src/dr/inference/model/CompoundParameter.java
+END
+ExpressionStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2984/trunk/src/dr/inference/model/ExpressionStatistic.java
+END
+AbstractModelLikelihood.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/5107/trunk/src/dr/inference/model/AbstractModelLikelihood.java
+END
+NotBooleanStatistic.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4803/trunk/src/dr/inference/model/NotBooleanStatistic.java
+END
+Bounds.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/3759/trunk/src/dr/inference/model/Bounds.java
+END

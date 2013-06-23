@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/5727/trunk/src/dr/app/beauti
+END
+ComboBoxRenderer.java
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/!svn/ver/2347/trunk/src/dr/app/beauti/ComboBoxRenderer.java
+END
+BeautiFrame.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/5367/trunk/src/dr/app/beauti/BeautiFrame.java
+END
+BeautiMacFileMenuFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/4569/trunk/src/dr/app/beauti/BeautiMacFileMenuFactory.java
+END
+BeautiPanel.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/3497/trunk/src/dr/app/beauti/BeautiPanel.java
+END
+BeautiApp.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/5727/trunk/src/dr/app/beauti/BeautiApp.java
+END
+BeautiMenuBarFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/3497/trunk/src/dr/app/beauti/BeautiMenuBarFactory.java
+END
+BeautiDefaultFileMenuFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/!svn/ver/4569/trunk/src/dr/app/beauti/BeautiDefaultFileMenuFactory.java
+END

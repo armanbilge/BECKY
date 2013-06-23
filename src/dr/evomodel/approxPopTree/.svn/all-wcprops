@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/2869/trunk/src/dr/evomodel/approxPopTree
+END
+PopTreeModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2869/trunk/src/dr/evomodel/approxPopTree/PopTreeModel.java
+END
+CoalescentPopulationMRCAModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/!svn/ver/2866/trunk/src/dr/evomodel/approxPopTree/CoalescentPopulationMRCAModel.java
+END
+AbstractPopulationMRCAModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2866/trunk/src/dr/evomodel/approxPopTree/AbstractPopulationMRCAModel.java
+END
+ConstantPopulationMRCAModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/!svn/ver/2866/trunk/src/dr/evomodel/approxPopTree/ConstantPopulationMRCAModel.java
+END
+UniformPopulationMRCAModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/!svn/ver/2866/trunk/src/dr/evomodel/approxPopTree/UniformPopulationMRCAModel.java
+END

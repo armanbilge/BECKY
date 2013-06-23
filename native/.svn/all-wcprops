@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/!svn/ver/4642/trunk/native
+END
+Makefile.ia64
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/4521/trunk/native/Makefile.ia64
+END
+GeneralLikelihoodCore.h
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/4521/trunk/native/GeneralLikelihoodCore.h
+END
+NativeMemoryLikelihoodCore.h
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4521/trunk/native/NativeMemoryLikelihoodCore.h
+END
+AminoAcidLikelihoodCore.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4521/trunk/native/AminoAcidLikelihoodCore.c
+END
+Makefile.sunos
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/4521/trunk/native/Makefile.sunos
+END
+Makefile.OSX
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/4559/trunk/native/Makefile.OSX
+END
+NativeSubstitutionModel.c
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4521/trunk/native/NativeSubstitutionModel.c
+END
+AminoAcidLikelihoodCore.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4521/trunk/native/AminoAcidLikelihoodCore.h
+END
+compileNativeWin32.bat
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/4521/trunk/native/compileNativeWin32.bat
+END
+Makefile.amd64
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/4521/trunk/native/Makefile.amd64
+END
+Makefile.solaris
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/4521/trunk/native/Makefile.solaris
+END
+NucleotideLikelihoodCore.c
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/4521/trunk/native/NucleotideLikelihoodCore.c
+END
+NativeSubstitutionModel.h
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/4521/trunk/native/NativeSubstitutionModel.h
+END
+NucleotideLikelihoodCore.h
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/4521/trunk/native/NucleotideLikelihoodCore.h
+END
+Makefile.icc
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/svn/!svn/ver/4521/trunk/native/Makefile.icc
+END
+Makefile.linux
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/!svn/ver/4521/trunk/native/Makefile.linux
+END
+GeneralLikelihoodCore.c
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/4521/trunk/native/GeneralLikelihoodCore.c
+END
+NativeMemoryLikelihoodCore.c
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/4521/trunk/native/NativeMemoryLikelihoodCore.c
+END

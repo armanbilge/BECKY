@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel
+END
+GMRFBayesianSkyride+strict .xml
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel/GMRFBayesianSkyride+strict%20.xml
+END
+extendedBayesianSkyline+uncorrelatedLn.xml
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel/extendedBayesianSkyline+uncorrelatedLn.xml
+END
+constant+uncorrelatedExp.xml
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel/constant+uncorrelatedExp.xml
+END
+BayesianSkyline+unccorelatedExp.xml
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel/BayesianSkyline+unccorelatedExp.xml
+END
+expansionDoubling+strict.xml.xml
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel/expansionDoubling+strict.xml.xml
+END
+birthDeath+unccorelatedLn.xml
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel/birthDeath+unccorelatedLn.xml
+END
+exponentialDoubling+strict.xml
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel/exponentialDoubling+strict.xml
+END
+Yule+unccorelatedExp.xml
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/4413/trunk/examples/release/testXML/treePrior+clockModel/Yule+unccorelatedExp.xml
+END

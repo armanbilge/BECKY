@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/sitemodel
+END
+HomogenousBranchSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/sitemodel/HomogenousBranchSubstitutionModel.java
+END
+SiteRateModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/sitemodel/SiteRateModel.java
+END
+GammaSiteRateModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/sitemodel/GammaSiteRateModel.java
+END
+EpochBranchSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/sitemodel/EpochBranchSubstitutionModel.java
+END
+BranchSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/sitemodel/BranchSubstitutionModel.java
+END
+ExternalInternalBranchSubstitutionModel.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/!svn/ver/5230/trunk/src/dr/app/beagle/evomodel/sitemodel/ExternalInternalBranchSubstitutionModel.java
+END
