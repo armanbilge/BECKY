@@ -359,6 +359,7 @@ public class TreeAnnotator {
         }
         progressStream.println();
         progressStream.println();
+        progressStream.println("Best Tree Id: " + bestTree.getId());
         if (useSumCladeCredibility) {
             progressStream.println("Highest Sum Clade Credibility: " + bestScore);
         } else {
