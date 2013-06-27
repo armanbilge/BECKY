@@ -10,9 +10,14 @@ import java.util.EnumSet;
 
 import dr.cophylogeny.CophylogenyModel.Relationship;
 import dr.evolution.tree.NodeRef;
+import dr.evolution.tree.SimpleNode;
+import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
 import dr.evolution.util.Taxon;
+import dr.evolution.util.TaxonList;
+import dr.evomodel.tree.TreeModel.Node;
 import dr.math.MathUtils;
+import dr.math.distributions.ExponentialDistribution;
 
 /**
  * @author Arman D. Bilge
@@ -58,12 +63,12 @@ public class CoevolutionSimulator {
 				int[] hostNodeIds = MathUtils.shuffled(hostNodeCount + 1);
 				int j = 0;
 				do {
-					if (j++ > hostNodeCount) {
+					if (j > hostNodeCount) {
 						i = -1; // Force the simulation to start over
 						break;
 					}
 					relationships = EnumSet.noneOf(Relationship.class);
-					int r = hostNodeIds[j] - 1;
+					int r = hostNodeIds[j++] - 1;
 					hostNode = r == CophylogenyLikelihood.NO_HOST ? null : hostTree.getNode(r);
 					relationships.add(Relationship.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
 					relationships.add(Relationship.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
@@ -72,6 +77,85 @@ public class CoevolutionSimulator {
 				cophylogenyLikelihood.setStatesForNode(node, hostNode);
 			}
 		}
+	}
+	
+	public Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
+		
+		SimpleNode root;
+		do {
+			root = simulateCoevolution(hostTree,
+					hostTree.getRoot(),
+					hostTree.getNodeHeight(hostTree.getRoot()),
+					model.getDuplicationRate(),
+					model.getHostShiftRate(),
+					model.getLossRate());
+		} while (root == null);
+		return new SimpleTree(root);
+	}
+	
+	private SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
+				
+		SimpleNode node = new SimpleNode();
+		node.setHeight(height);
+		node.setAttribute("host", hostNode);
+		
+		double nextDuplication = height - MathUtils.nextExponential(duplicationRate);
+		double nextHostShift = height - MathUtils.nextExponential(hostShiftRate);
+		double nextLoss = height - MathUtils.nextExponential(lossRate);
+		
+		SimpleNode child1 = null;
+		SimpleNode child2 = null;
+		
+		double hostNodeHeight = hostTree.getNodeHeight(hostNode);
+		if (hostNodeHeight > nextDuplication && hostNodeHeight > nextHostShift && hostNodeHeight > nextLoss) {
+			if (hostTree.isExternal(hostNode)) {
+				// Cannot coevolve anymore
+				return node;
+			}
+			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, duplicationRate, hostShiftRate, lossRate);
+			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, duplicationRate, hostShiftRate, lossRate);
+		} else {
+			switch(getMaxIndex(nextDuplication, nextHostShift, nextLoss)) {
+			case 0:
+				child1 = simulateCoevolution(hostTree, hostNode, nextDuplication, duplicationRate, hostShiftRate, lossRate);
+				child2 = simulateCoevolution(hostTree, hostNode, nextDuplication, duplicationRate, hostShiftRate, lossRate);
+				break;
+			case 1:
+				int nodeCount = hostTree.getNodeCount();
+				NodeRef newHost;
+				Relationship r;
+				do {
+					newHost = hostTree.getNode(MathUtils.nextInt(nodeCount));
+					r = Relationship.determineRelationship(hostTree, hostNode, newHost).relationship;
+				} while (hostTree.getNodeHeight(newHost) >= nextHostShift && nextHostShift < hostTree.getNodeHeight(hostTree.getParent(newHost)) 
+						&& (r != Relationship.COUSIN || r != Relationship.SISTER));
+				return simulateCoevolution(hostTree, newHost, nextHostShift, duplicationRate, hostShiftRate, lossRate);
+			case 2: return null; // null indicates the child linneage was lost
+			default: break;
+			}
+		}
+		
+		if (child1 != null && child2 != null) {
+			// Both linneages survived
+			node.addChild(child1);
+			node.addChild(child2);
+		} else if (child1 == child2) {
+			// Both are null, hence this entire linneage was lost
+			return null;
+		} else {
+			// Just one child linneage is null/lost
+			return child2 == null ? child1 : child2; // Set this node to the continuing child linneage
+		}
+		return node;
+	}
+	
+	private static int getMaxIndex(double ... values) {
+		double max = 0;
+		int maxIndex = -1;
+		for (int i = 0; i < values.length; ++i) {
+			if (values[i] > max) maxIndex = i;
+		}
+		return maxIndex;
 	}
 		
 	public static void debugHelper(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood) {

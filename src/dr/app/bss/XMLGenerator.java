@@ -13,8 +13,8 @@ import dr.evolution.datatype.Codons;
 import dr.evolution.datatype.DataType;
 import dr.evolution.datatype.Nucleotides;
 import dr.evolution.tree.Tree;
+import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
-import dr.evolution.util.TaxonList;
 import dr.evomodel.sitemodel.SiteModel;
 import dr.evomodel.substmodel.NucModelType;
 import dr.evomodel.tree.TreeModel;
@@ -81,7 +81,7 @@ public class XMLGenerator {
 		try {
 
 			int suffix = 1;
-			ArrayList<TreeModel> taxonList = new ArrayList<TreeModel>();
+			ArrayList<Taxa> taxaList = new ArrayList<Taxa>();
 			for (PartitionData data : dataList) {
 
 				if (data.record == null) {
@@ -90,29 +90,52 @@ public class XMLGenerator {
 
 				} else {
 
-						TreeModel treeModel = new TreeModel(data.record.getTree());
-
-						if (taxonList.size() == 0 | !Utils.isTreeModelInList(treeModel, taxonList)) {
+					Taxa taxa = null;
+					if (data.demographicModelIndex == 0 && data.record.treeSet) {
+						
+						 taxa = new Taxa(data.record.getTree().asList()); 
+						
+					} else if (data.demographicModelIndex == 0 && data.record.taxaSet) { 
+					
+						throw new RuntimeException("Data and demographic model incompatible for partition " + suffix);
+						
+					} else if( (data.demographicModelIndex > 0 && data.demographicModelIndex <= 3) && data.record.treeSet) {
+						
+						taxa = new Taxa(data.record.getTree().asList()); 
+						
+					} else if((data.demographicModelIndex > 0 && data.demographicModelIndex <= 3) && data.record.taxaSet) {
+						
+						 taxa = data.record.getTaxa();
+						
+					} else {
+						
+						//
+						
+					}// END: demo model check
+					
+						if (taxaList.size() == 0 
+								| !Utils.isTaxaInList(taxa, taxaList)
+								) {
 
 							data.taxaIdref += suffix;
 
-							writeTaxa(treeModel, writer, String.valueOf(suffix));
+							writeTaxa(taxa, writer, String.valueOf(suffix));
 							writer.writeBlankLine();
 
-							taxonList.add(treeModel);
+							taxaList.add(taxa);
 
 //							 System.out.println("NOT IN LIST");
 
 						} else {
 
-							int index = Utils.treeModelIsIdenticalWith(treeModel, taxonList) + 1;
+							int index = Utils.taxaIsIdenticalWith(taxa, taxaList) + 1;
 							data.taxaIdref += index;
 
 //							 System.out.println("IDENTICAL WITH " + index);
 
 						}
 
-				}// END: exception
+				}// END: treeModel set check
 
 				suffix++;
 
@@ -128,6 +151,7 @@ public class XMLGenerator {
 		// ////////////////////////
 		// ---topology element---//
 		// ////////////////////////
+		
 		try {	
 			
 			int suffix = 1;
@@ -136,7 +160,6 @@ public class XMLGenerator {
 		
 				if (data.demographicModelIndex == 0) {
 				
-					
 					TreeModel treeModel = data.createTreeModel();
 
 					if (treeModelList.size() == 0 | !Utils.isTreeModelInList(treeModel, treeModelList)) {
@@ -148,7 +171,6 @@ public class XMLGenerator {
 
 						treeModelList.add(treeModel);
 
-
 					} else {
 
 						int index = Utils.treeModelIsIdenticalWith(treeModel, treeModelList) + 1;
@@ -156,7 +178,7 @@ public class XMLGenerator {
 
 					}// END: list check
 				
-				} else {
+				} else if(data.demographicModelIndex > 0 && data.demographicModelIndex <= 3){
 					
 						data.demographicModelIdref += suffix;
 						data.treeModelIdref += suffix;
@@ -164,7 +186,11 @@ public class XMLGenerator {
 						writeDemographicModel(data, writer, String.valueOf(suffix));
 						writer.writeBlankLine();
 					
-				} //END: demo model check
+				} else {
+					
+					// throw exception
+					
+				}// END: demo model check
 			
 				suffix++;
 			}// END: partition loop
@@ -176,100 +202,6 @@ public class XMLGenerator {
 
 		}// END: try-catch block	
 		
-		// /////////////////////////////////
-		// ---demographic model element---//
-		// /////////////////////////////////
-		
-//		try {	
-//			
-//			int suffix = 1;
-//			ArrayList<PartitionData> partitionList = new ArrayList<PartitionData>();
-//			for (PartitionData data : dataList) {
-//
-//				if (partitionList.size() == 0 | !Utils.isElementInList(data, partitionList, Utils.DEMOGRAPHIC_MODEL_ELEMENT)) {
-//
-//					data.demographicModelIdref += suffix;
-////					data.treeModelIdref += suffix;
-//					
-//					writeDemographicModel(data, writer, String.valueOf(suffix));
-//					writer.writeBlankLine();
-//					partitionList.add(data);
-//
-//					// System.out.println("NOT IN LIST");
-//
-//				} else {
-//
-//					int index = Utils.isIdenticalWith(data, partitionList, Utils.DEMOGRAPHIC_MODEL_ELEMENT) + 1;
-//					data.demographicModelIdref += index;
-////					data.treeModelIdref += suffix;
-//					// System.out.println("IDENTICAL WITH " + index);
-//
-//				}
-//
-//				suffix++;
-//
-//			}// END: partition loop
-//			
-//		} catch (Exception e) {
-//
-//			throw new RuntimeException("Demographic model generation has failed:\n"
-//					+ e.getMessage());
-//
-//		}// END: try-catch block
-		
-		// //////////////////////
-		// ---newick element---//
-		// //////////////////////
-
-//		try {
-//
-//			int suffix = 1;
-//			ArrayList<TreeModel> treeModelList = new ArrayList<TreeModel>();
-//			for (PartitionData data : dataList) {
-//
-//					if (data.demographicModelIndex == 0) {
-//
-//						TreeModel treeModel = data.createTreeModel();
-//
-//						if (treeModelList.size() == 0 | !Utils.isTreeModelInList(treeModel, treeModelList)) {
-//
-//							data.treeModelIdref += suffix;
-//
-//							writeNewick(treeModel, writer, String.valueOf(suffix));
-//							writer.writeBlankLine();
-//
-//							treeModelList.add(treeModel);
-//
-//							// System.out.println("NOT IN LIST");
-//
-//						} else {
-//
-//							int index = Utils.treeModelIsIdenticalWith(treeModel, treeModelList) + 1;
-//							data.treeModelIdref += index;
-//
-//							// System.out.println("IDENTICAL WITH " + index);
-//
-//						}
-//
-//					} else {
-//
-//						// do nothing
-//
-//					}// END: NoModel check
-//
-//
-//				suffix++;
-//
-//			}// END: partition loop
-//
-//		} catch (Exception e) {
-//
-//			throw new RuntimeException("Starting tree generation has failed:\n"
-//					+ e.getMessage());
-//
-//		}// END: try-catch block
-
-		
 		// //////////////////////////
 		// ---tree model element---//
 		// //////////////////////////
@@ -277,24 +209,23 @@ public class XMLGenerator {
 		try {
 
 			int suffix = 1;
-			ArrayList<TreeModel> treeModelList = new ArrayList<TreeModel>();
+			ArrayList<TreesTableRecord> recordsList = new ArrayList<TreesTableRecord>();
 			for (PartitionData data : dataList) {
 
-				TreeModel treeModel = data.createTreeModel();
+				TreesTableRecord record = data.record;
+				if (recordsList.size() == 0 | !Utils.isRecordInList(record, recordsList)) {
 
-				if (treeModelList.size() == 0 | !Utils.isTreeModelInList(treeModel, treeModelList)) {
-
-					writeTreeModel(treeModel, writer, String.valueOf(suffix));
+					writeTreeModel(writer, String.valueOf(suffix));
 					writer.writeBlankLine();
 
-					treeModelList.add(treeModel);
+					recordsList.add(record);
 					
 				}
 
 				suffix++;
 
 			}// END: partition loop
-
+			
 		} catch (Exception e) {
 
 			throw new RuntimeException("Tree model generation has failed:\n"
@@ -516,8 +447,12 @@ public class XMLGenerator {
 
 		writer.writeOpenTag(
 				BeagleSequenceSimulatorParser.BEAGLE_SEQUENCE_SIMULATOR,
-				new Attribute[] { new Attribute.Default<String>(XMLParser.ID,
-						"simulator") });
+				new Attribute[] { 
+						new Attribute.Default<String>(XMLParser.ID,
+						"simulator"),
+						new Attribute.Default<String>(BeagleSequenceSimulatorParser.PARALLEL,
+								String.valueOf(dataList.useParallel))
+				});
 
 		for (PartitionData data : dataList) {
 
@@ -880,15 +815,15 @@ public class XMLGenerator {
 
 	}// END: writeBranchRatesModel
 
-	private void writeTaxa(TaxonList taxonList, XMLWriter writer, String suffix) {
+	private void writeTaxa(Taxa taxa, XMLWriter writer, String suffix) {
 
 		writer.writeOpenTag(TaxaParser.TAXA, // tagname
 				new Attribute[] { // attributes[]
 				new Attribute.Default<String>(XMLParser.ID, TaxaParser.TAXA + suffix) });
 
-		for (int i = 0; i < taxonList.getTaxonCount(); i++) {
+		for (int i = 0; i < taxa.getTaxonCount(); i++) {
 
-			Taxon taxon = taxonList.getTaxon(i);
+			Taxon taxon = taxa.getTaxon(i);
 
 			writer.writeTag(
 					TaxonParser.TAXON, // tagname
@@ -902,7 +837,9 @@ public class XMLGenerator {
 		writer.writeCloseTag(TaxaParser.TAXA);
 	}// END: writeTaxa
 
-	private void writeTreeModel(TreeModel tree, XMLWriter writer, String suffix) {
+	private void writeTreeModel(
+//			TreeModel tree, 
+			XMLWriter writer, String suffix) {
 
 		final String treeModelName = TreeModel.TREE_MODEL + suffix;
 
@@ -1036,6 +973,9 @@ public class XMLGenerator {
 
 		case 0: // HKY
 
+			//TODO
+			System.out.println("FUBAR");
+			
 			writer.writeOpenTag(NucModelType.HKY.getXMLName(),
 					new Attribute[] { new Attribute.Default<String>(
 							XMLParser.ID, data.substitutionModelIdref) });
@@ -1233,4 +1173,97 @@ public class XMLGenerator {
 
 	}// END: writeParameter
 
+	// /////////////////////////////////
+	// ---demographic model element---//
+	// /////////////////////////////////
+	
+//	try {	
+//		
+//		int suffix = 1;
+//		ArrayList<PartitionData> partitionList = new ArrayList<PartitionData>();
+//		for (PartitionData data : dataList) {
+//
+//			if (partitionList.size() == 0 | !Utils.isElementInList(data, partitionList, Utils.DEMOGRAPHIC_MODEL_ELEMENT)) {
+//
+//				data.demographicModelIdref += suffix;
+////				data.treeModelIdref += suffix;
+//				
+//				writeDemographicModel(data, writer, String.valueOf(suffix));
+//				writer.writeBlankLine();
+//				partitionList.add(data);
+//
+//				// System.out.println("NOT IN LIST");
+//
+//			} else {
+//
+//				int index = Utils.isIdenticalWith(data, partitionList, Utils.DEMOGRAPHIC_MODEL_ELEMENT) + 1;
+//				data.demographicModelIdref += index;
+////				data.treeModelIdref += suffix;
+//				// System.out.println("IDENTICAL WITH " + index);
+//
+//			}
+//
+//			suffix++;
+//
+//		}// END: partition loop
+//		
+//	} catch (Exception e) {
+//
+//		throw new RuntimeException("Demographic model generation has failed:\n"
+//				+ e.getMessage());
+//
+//	}// END: try-catch block
+	
+	// //////////////////////
+	// ---newick element---//
+	// //////////////////////
+
+//	try {
+//
+//		int suffix = 1;
+//		ArrayList<TreeModel> treeModelList = new ArrayList<TreeModel>();
+//		for (PartitionData data : dataList) {
+//
+//				if (data.demographicModelIndex == 0) {
+//
+//					TreeModel treeModel = data.createTreeModel();
+//
+//					if (treeModelList.size() == 0 | !Utils.isTreeModelInList(treeModel, treeModelList)) {
+//
+//						data.treeModelIdref += suffix;
+//
+//						writeNewick(treeModel, writer, String.valueOf(suffix));
+//						writer.writeBlankLine();
+//
+//						treeModelList.add(treeModel);
+//
+//						// System.out.println("NOT IN LIST");
+//
+//					} else {
+//
+//						int index = Utils.treeModelIsIdenticalWith(treeModel, treeModelList) + 1;
+//						data.treeModelIdref += index;
+//
+//						// System.out.println("IDENTICAL WITH " + index);
+//
+//					}
+//
+//				} else {
+//
+//					// do nothing
+//
+//				}// END: NoModel check
+//
+//
+//			suffix++;
+//
+//		}// END: partition loop
+//
+//	} catch (Exception e) {
+//
+//		throw new RuntimeException("Starting tree generation has failed:\n"
+//				+ e.getMessage());
+//
+//	}// END: try-catch block
+	
 }// END: class

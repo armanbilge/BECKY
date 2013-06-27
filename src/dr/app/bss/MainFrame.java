@@ -46,7 +46,7 @@ public class MainFrame extends DocumentFrame implements FileMenuHandler {
 	private PartitionDataList dataList;
 	
 	private final String TAXA_TAB_NAME = "Taxa";
-	private final String TREES_TAB_NAME = "Trees";
+	private final String TREES_TAB_NAME = "Data";
 	private final String PARTITIONS_TAB_NAME = "Partitions";
 	private final String SIMULATION_TAB_NAME = "Simulation";
 	private final String TERMINAL_TAB_NAME = "Terminal";
@@ -191,6 +191,7 @@ public class MainFrame extends DocumentFrame implements FileMenuHandler {
 
 							} else {
 
+								//TODO: create TreeModel before simulating, keep string for printing in Terminal
 								// create partition
 								Partition partition = new Partition(
 										data.createTreeModel(), //
@@ -222,7 +223,7 @@ public class MainFrame extends DocumentFrame implements FileMenuHandler {
 								partitionsList
 								);
 
-						writer.println(beagleSequenceSimulator.simulate(false)
+						writer.println(beagleSequenceSimulator.simulate(dataList.useParallel)
 								.toString());
 						writer.close();
 
@@ -491,18 +492,14 @@ public class MainFrame extends DocumentFrame implements FileMenuHandler {
 
 		if (SwingUtilities.isEventDispatchThread()) {
 
-			taxaPanel.fireTaxaChanged();
-			setStatus(Integer.toString(dataList.allTaxa.getTaxonCount())
-					+ " taxa loaded.");
-
+			doTaxaChanged();
+			
 		} else {
 
 			SwingUtilities.invokeLater(new Runnable() {
 				public void run() {
 
-					taxaPanel.fireTaxaChanged();
-					setStatus(Integer.toString(dataList.allTaxa
-							.getTaxonCount()) + " taxa loaded.");
+					doTaxaChanged();
 
 				}
 			});
@@ -510,6 +507,15 @@ public class MainFrame extends DocumentFrame implements FileMenuHandler {
 
 	}// END: fireTaxaChanged
 
+	private void doTaxaChanged() {
+		
+		treesPanel.fireTableDataChanged();
+		taxaPanel.fireTaxaChanged();
+		setStatus(Integer.toString(dataList.allTaxa
+				.getTaxonCount()) + " taxa loaded.");
+		
+	}//END: doTaxaChanged
+	
 	public void setBusy() {
 
 		if (SwingUtilities.isEventDispatchThread()) {

@@ -253,7 +253,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		
 		public String formatTrait(NodeRef n) {
 			if (n == null) {
-				return null;
+				return Integer.toString(-1);
 			}
 			return Integer.toString(n.getNumber());
 		}

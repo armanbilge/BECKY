@@ -55,19 +55,38 @@ public class MultivariateTraitUtils {
     public static double[][] computeTreeTraitPrecision(FullyConjugateMultivariateTraitLikelihood trait, boolean conditionOnRoot) {
         double[][] treePrecision = computeTreePrecision(trait, conditionOnRoot);
         double[][] traitPrecision = trait.getDiffusionModel().getPrecisionmatrix();
-        int dimTrait = traitPrecision.length;
-        if (dimTrait > 1) {
-            treePrecision = KroneckerOperation.product(treePrecision, traitPrecision);
+        return productKronecker(treePrecision, traitPrecision);
+    }
+
+    private static double[][] productKronecker(double[][] A, double[][] B) {
+        if (B.length > 1) {
+            A = KroneckerOperation.product(A, B);
         } else {
-            final double precision = traitPrecision[0][0];
-            for (int i = 0; i < treePrecision.length; i++) {
-                for (int j = 0; j < treePrecision[i].length; j++) {
-                    treePrecision[i][j] *= precision;
+            final double b = B[0][0];
+            for (int i = 0; i < A.length; ++i) {
+                for (int j = 0; j < A[i].length; ++j) {
+                    A[i][j] *= b;
                 }
             }
         }
-        return treePrecision;
+        return A;
     }
+
+    private static double[] getShiftContributionToMean(NodeRef node, FullyConjugateMultivariateTraitLikelihood trait) {
+
+        MultivariateTraitTree treeModel = trait.getTreeModel();
+        double shiftContribution[] = new double[trait.dimTrait];
+
+        if (!treeModel.isRoot(node)) {
+            NodeRef parent = treeModel.getParent(node);
+            double shiftContributionParent[] = getShiftContributionToMean(parent, trait);
+            for (int i = 0; i < shiftContribution.length; ++i) {
+                shiftContribution[i] = trait.getShiftForBranchLength(node)[i] + shiftContributionParent[i];
+            }
+        }
+        return shiftContribution;
+    }
+
 
     public static double[] computeTreeTraitMean(FullyConjugateMultivariateTraitLikelihood trait, boolean conditionOnRoot) {
         double[] root = trait.getPriorMean();
@@ -80,11 +99,25 @@ public class MultivariateTraitUtils {
         for (int i = 0; i < nTaxa; ++i) {
             System.arraycopy(root, 0, mean, i * root.length, root.length);
         }
+
+        if (trait.driftModels != null) {
+            MultivariateTraitTree myTreeModel = trait.getTreeModel();
+            for (int i = 0; i < nTaxa; ++i) {
+                double[] shiftContribution = getShiftContributionToMean(myTreeModel.getExternalNode(i), trait);
+                for (int j = 0; j < trait.dimTrait; ++j) {
+                    mean[i * trait.dimTrait + j] = mean[i * trait.dimTrait + j] + shiftContribution[j];
+                }
+            }
+        }
+
         return mean;
     }
 
-    public static double[][] computeTreeTraitVariance(FullyConjugateMultivariateTraitLikelihood trait) {
-        throw new RuntimeException("Not yet implemented.");
+    public static double[][] computeTreeTraitVariance(FullyConjugateMultivariateTraitLikelihood trait, boolean conditionOnRoot) {
+        double[][] treeVariance = computeTreeVariance(trait, conditionOnRoot);
+        double[][] traitVariance =
+                new SymmetricMatrix(trait.getDiffusionModel().getPrecisionmatrix()).inverse().toComponents();
+        return productKronecker(treeVariance, traitVariance);
     }
 
     public static double[][] computeTreeVariance(FullyConjugateMultivariateTraitLikelihood trait, boolean conditionOnRoot) {
