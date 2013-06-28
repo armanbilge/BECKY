@@ -102,6 +102,7 @@ public class CoevolutionSimulator {
 		return new SimpleTree(root);
 	}
 	
+	private static int taxon = 0;
 	private static SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
 				
 		SimpleNode node = new SimpleNode();
@@ -114,9 +115,10 @@ public class CoevolutionSimulator {
 		EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(duplicationRate, hostShiftRate, lossRate);
 		
 		double hostNodeHeight = hostTree.getNodeHeight(hostNode);
-		if (hostNodeHeight > nextEvent.time) {
+		if (hostNodeHeight < nextEvent.time) {
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
+				node.setTaxon(new Taxon(Integer.toString(taxon++)));
 				return node;
 			}
 			// Cospeciation event;
