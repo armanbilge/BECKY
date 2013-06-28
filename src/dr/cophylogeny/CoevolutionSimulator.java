@@ -8,16 +8,25 @@ package dr.cophylogeny;
 
 import java.util.EnumSet;
 
+import dr.app.util.Arguments;
+import dr.app.util.Arguments.*;
 import dr.cophylogeny.CophylogenyModel.Relationship;
+import dr.evolution.coalescent.ConstantPopulation;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
 import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
+import dr.evolution.tree.TreeTraitProvider;
+import dr.evolution.util.MutableTaxonList;
+import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
-import dr.evolution.util.TaxonList;
-import dr.evomodel.tree.TreeModel.Node;
+import dr.evolution.util.Units;
+import dr.evomodel.coalescent.CoalescentSimulator;
+import dr.evomodel.coalescent.ConstantPopulationModel;
+import dr.evomodel.coalescent.DemographicModel;
+import dr.inference.model.Parameter;
+import dr.inference.model.Parameter.Default;
 import dr.math.MathUtils;
-import dr.math.distributions.ExponentialDistribution;
 
 /**
  * @author Arman D. Bilge
@@ -79,7 +88,7 @@ public class CoevolutionSimulator {
 		}
 	}
 	
-	public Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
+	public static Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
 		
 		SimpleNode root;
 		do {
@@ -93,45 +102,46 @@ public class CoevolutionSimulator {
 		return new SimpleTree(root);
 	}
 	
-	private SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
+	private static SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
 				
 		SimpleNode node = new SimpleNode();
 		node.setHeight(height);
 		node.setAttribute("host", hostNode);
 		
-		double nextDuplication = height - MathUtils.nextExponential(duplicationRate);
-		double nextHostShift = height - MathUtils.nextExponential(hostShiftRate);
-		double nextLoss = height - MathUtils.nextExponential(lossRate);
-		
 		SimpleNode child1 = null;
 		SimpleNode child2 = null;
 		
+		EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(duplicationRate, hostShiftRate, lossRate);
+		
 		double hostNodeHeight = hostTree.getNodeHeight(hostNode);
-		if (hostNodeHeight > nextDuplication && hostNodeHeight > nextHostShift && hostNodeHeight > nextLoss) {
+		if (hostNodeHeight > nextEvent.time) {
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
 				return node;
 			}
+			// Cospeciation event;
 			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, duplicationRate, hostShiftRate, lossRate);
 			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, duplicationRate, hostShiftRate, lossRate);
 		} else {
-			switch(getMaxIndex(nextDuplication, nextHostShift, nextLoss)) {
+			switch(nextEvent.index) {
 			case 0:
-				child1 = simulateCoevolution(hostTree, hostNode, nextDuplication, duplicationRate, hostShiftRate, lossRate);
-				child2 = simulateCoevolution(hostTree, hostNode, nextDuplication, duplicationRate, hostShiftRate, lossRate);
+				// Duplication event
+				child1 = simulateCoevolution(hostTree, hostNode, nextEvent.time, duplicationRate, hostShiftRate, lossRate);
+				child2 = simulateCoevolution(hostTree, hostNode, nextEvent.time, duplicationRate, hostShiftRate, lossRate);
 				break;
 			case 1:
+				// Host-shift event
 				int nodeCount = hostTree.getNodeCount();
 				NodeRef newHost;
 				Relationship r;
 				do {
 					newHost = hostTree.getNode(MathUtils.nextInt(nodeCount));
 					r = Relationship.determineRelationship(hostTree, hostNode, newHost).relationship;
-				} while (hostTree.getNodeHeight(newHost) >= nextHostShift && nextHostShift < hostTree.getNodeHeight(hostTree.getParent(newHost)) 
+				} while (hostTree.getNodeHeight(newHost) >= nextEvent.time && nextEvent.time < hostTree.getNodeHeight(hostTree.getParent(newHost)) 
 						&& (r != Relationship.COUSIN || r != Relationship.SISTER));
-				return simulateCoevolution(hostTree, newHost, nextHostShift, duplicationRate, hostShiftRate, lossRate);
-			case 2: return null; // null indicates the child linneage was lost
-			default: break;
+				return simulateCoevolution(hostTree, newHost, nextEvent.time, duplicationRate, hostShiftRate, lossRate);
+			case 2: return null; // Loss event; null indicates the child linneage was lost
+			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
 			}
 		}
 		
@@ -148,16 +158,65 @@ public class CoevolutionSimulator {
 		}
 		return node;
 	}
-	
-	private static int getMaxIndex(double ... values) {
-		double max = 0;
-		int maxIndex = -1;
-		for (int i = 0; i < values.length; ++i) {
-			if (values[i] > max) maxIndex = i;
-		}
-		return maxIndex;
-	}
 		
+	private static class EventIndexAndTime {
+		public final int index;
+		public final double time;
+		public EventIndexAndTime(int index, double time) {
+			this.index = index;
+			this.time = time;
+		}
+	}
+	
+	private static final double sum(double...values) {
+		double sum = 0;
+		for (double value : values) sum += value;
+		return sum;
+	}
+	
+	private static final EventIndexAndTime simulateSimultaneousPoissonProcesses(double...lambdas) {
+		final double lambda = sum(lambdas);
+		final double[] p = new double[lambdas.length - 1];
+		p[0] = lambdas[0] / lambda;
+		for (int i = 1; i < p.length; ++i)
+			p[i] = lambdas[i] / lambda + p[i - 1];
+		final double time = MathUtils.nextExponential(lambda);
+		final double U = 1 - MathUtils.nextDouble();
+		int i;
+		for (i = 0; i < p.length || p[i] > U; ++i);
+		return new EventIndexAndTime(i, time);
+	}
+			
+	public static void main(String[] args) {
+		
+		Arguments arguments = new Arguments(new Option[]{
+				new IntegerOption("t", "# taxa in host tree"),
+				new RealArrayOption("coev", 3, "coevolutionary rates"),				
+		}, false);
+		
+		try {
+			arguments.parseArguments(args);
+		} catch (ArgumentException e) {
+			arguments.printUsage("coevolution-sim", "");
+			System.exit(1);
+		}
+	
+		MutableTaxonList taxa = new Taxa();
+		final int TAXA = arguments.getIntegerOption("t");
+		for (int i = 0; i < TAXA; ++i) taxa.addTaxon(new Taxon(Integer.toString(i)));
+		
+		final Tree hostTree = (new CoalescentSimulator()).simulateTree(taxa, new ConstantPopulationModel(new Parameter.Default(100), Units.Type.YEARS));
+		System.out.println(Tree.Utils.newick(hostTree, new TreeTraitProvider[]{new NodeRefProvider(hostTree, "nodeRef")}));
+		
+		final double[] rates = arguments.getRealArrayOption("coev");
+		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[0]), new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), Units.Type.YEARS);
+		final Tree symbiontTree = simulateCoevolution(hostTree, scm);
+		final CophylogenyLikelihood cl = new CophylogenyLikelihood(hostTree, symbiontTree, null, null, "host.nodeRef", "nodeRef", null);
+		for (int i = 0; i < symbiontTree.getNodeCount(); ++i) cl.setStatesForNode(symbiontTree.getNode(i), (NodeRef) symbiontTree.getNodeAttribute(symbiontTree.getNode(i), "host"));
+		System.out.println(Tree.Utils.newick(symbiontTree, new TreeTraitProvider[]{cl}));
+		
+	}
+	
 	public static void debugHelper(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood) {
 				
 		System.err.println("host tree:");
