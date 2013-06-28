@@ -183,7 +183,7 @@ public class CoevolutionSimulator {
 		final double time = MathUtils.nextExponential(lambda);
 		final double U = 1 - MathUtils.nextDouble();
 		int i;
-		for (i = 0; i < p.length || p[i] > U; ++i);
+		for (i = 0; i < p.length && p[i] > U; ++i);
 		return new EventIndexAndTime(i, time);
 	}
 			
