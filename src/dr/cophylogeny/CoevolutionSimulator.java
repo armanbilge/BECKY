@@ -105,17 +105,18 @@ public class CoevolutionSimulator {
 	private static int taxon = 0;
 	private static SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
 				
-		SimpleNode node = new SimpleNode();
+		final SimpleNode node = new SimpleNode();
 		node.setHeight(height);
 		node.setAttribute("host", hostNode);
 		
 		SimpleNode child1 = null;
 		SimpleNode child2 = null;
 		
-		EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(duplicationRate, hostShiftRate, lossRate);
+		final EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(duplicationRate, hostShiftRate, lossRate);
+		final double eventHeight = height - nextEvent.time;
 		
-		double hostNodeHeight = hostTree.getNodeHeight(hostNode);
-		if (hostNodeHeight < nextEvent.time) {
+		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
+		if (hostNodeHeight > eventHeight) {
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
 				node.setTaxon(new Taxon(Integer.toString(taxon++)));
@@ -128,8 +129,8 @@ public class CoevolutionSimulator {
 			switch(nextEvent.index) {
 			case 0:
 				// Duplication event
-				child1 = simulateCoevolution(hostTree, hostNode, nextEvent.time, duplicationRate, hostShiftRate, lossRate);
-				child2 = simulateCoevolution(hostTree, hostNode, nextEvent.time, duplicationRate, hostShiftRate, lossRate);
+				child1 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
+				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
 				break;
 			case 1:
 				// Host-shift event
@@ -139,9 +140,9 @@ public class CoevolutionSimulator {
 				do {
 					newHost = hostTree.getNode(MathUtils.nextInt(nodeCount));
 					r = Relationship.determineRelationship(hostTree, hostNode, newHost).relationship;
-				} while (hostTree.getNodeHeight(newHost) >= nextEvent.time && nextEvent.time < hostTree.getNodeHeight(hostTree.getParent(newHost)) 
+				} while (hostTree.getNodeHeight(newHost) >= eventHeight && eventHeight < hostTree.getNodeHeight(hostTree.getParent(newHost)) 
 						&& (r != Relationship.COUSIN || r != Relationship.SISTER));
-				return simulateCoevolution(hostTree, newHost, nextEvent.time, duplicationRate, hostShiftRate, lossRate);
+				return simulateCoevolution(hostTree, newHost, eventHeight, duplicationRate, hostShiftRate, lossRate);
 			case 2: return null; // Loss event; null indicates the child linneage was lost
 			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
 			}
