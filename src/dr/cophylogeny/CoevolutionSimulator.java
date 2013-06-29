@@ -6,8 +6,12 @@
  */
 package dr.cophylogeny;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.EnumSet;
 
+import dr.app.tools.NexusExporter;
 import dr.app.util.Arguments;
 import dr.app.util.Arguments.*;
 import dr.cophylogeny.CophylogenyModel.Relationship;
@@ -193,14 +197,17 @@ public class CoevolutionSimulator {
 	public static void main(String[] args) {
 		
 		Arguments arguments = new Arguments(new Option[]{
-				new IntegerOption("t", "# taxa in host tree"),
-				new RealArrayOption("coev", 3, "coevolutionary rates"),				
+				new StringOption("h", "filename", "symbiont tree file name"),
+				new RealArrayOption("r", 3, "coevolutionary rates"),
+				new StringOption("s","filename", "symbiont tree file name"),
+				new IntegerOption("t", "# taxa in host tree")
 		}, false);
 		
 		try {
 			arguments.parseArguments(args);
 		} catch (ArgumentException e) {
-			arguments.printUsage("coevolution-sim", "");
+			e.printStackTrace(System.err);
+			arguments.printUsage("coevolutionsim", "");
 			System.exit(1);
 		}
 	
@@ -208,15 +215,31 @@ public class CoevolutionSimulator {
 		final int TAXA = arguments.getIntegerOption("t");
 		for (int i = 0; i < TAXA; ++i) taxa.addTaxon(new Taxon(Integer.toString(i)));
 		
-		final Tree hostTree = (new CoalescentSimulator()).simulateTree(taxa, new ConstantPopulationModel(new Parameter.Default(100), Units.Type.YEARS));
-		System.out.println(Tree.Utils.newick(hostTree, new TreeTraitProvider[]{new NodeRefProvider(hostTree, "nodeRef")}));
+		final Tree hostTree = new CoalescentSimulator().simulateTree(taxa, new ConstantPopulationModel(new Parameter.Default(100), Units.Type.YEARS));
+		PrintStream stream;
+		try {
+			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("h")));
+			new NexusExporter(stream).exportTree(hostTree);
+			stream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 		
-		final double[] rates = arguments.getRealArrayOption("coev");
+		final double[] rates = arguments.getRealArrayOption("r");
 		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[0]), new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), Units.Type.YEARS);
 		final Tree symbiontTree = simulateCoevolution(hostTree, scm);
 		final CophylogenyLikelihood cl = new CophylogenyLikelihood(hostTree, symbiontTree, null, null, "host.nodeRef", "nodeRef", null);
 		for (int i = 0; i < symbiontTree.getNodeCount(); ++i) cl.setStatesForNode(symbiontTree.getNode(i), (NodeRef) symbiontTree.getNodeAttribute(symbiontTree.getNode(i), "host"));
-		System.out.println(Tree.Utils.newick(symbiontTree, new TreeTraitProvider[]{cl}));
+
+		try {
+			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("s")));
+			new NexusExporter(stream).exportTree(symbiontTree);
+			stream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
 		
 	}
 	
