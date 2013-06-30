@@ -16,6 +16,7 @@ import dr.app.util.Arguments;
 import dr.app.util.Arguments.*;
 import dr.cophylogeny.CophylogenyModel.Relationship;
 import dr.evolution.coalescent.ConstantPopulation;
+import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
 import dr.evolution.tree.SimpleTree;
@@ -111,7 +112,7 @@ public class CoevolutionSimulator {
 				
 		final SimpleNode node = new SimpleNode();
 		node.setHeight(height);
-		node.setAttribute("host", hostNode);
+		node.setAttribute("host.NodeRef", hostNode.getNumber());
 		
 		SimpleNode child1 = null;
 		SimpleNode child2 = null;
@@ -216,6 +217,13 @@ public class CoevolutionSimulator {
 		for (int i = 0; i < TAXA; ++i) taxa.addTaxon(new Taxon(Integer.toString(i)));
 		
 		final Tree hostTree = new CoalescentSimulator().simulateTree(taxa, new ConstantPopulationModel(new Parameter.Default(100), Units.Type.YEARS));
+		
+		MutableTree mutableTree = (MutableTree) hostTree;
+		for (int i = 0; i < mutableTree.getNodeCount(); i++) {
+			NodeRef node = mutableTree.getNode(i);
+			mutableTree.setNodeAttribute(node, "nodeRef", node.getNumber());
+		}
+		
 		PrintStream stream;
 		try {
 			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("h")));
@@ -229,9 +237,7 @@ public class CoevolutionSimulator {
 		final double[] rates = arguments.getRealArrayOption("r");
 		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[0]), new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), Units.Type.YEARS);
 		final Tree symbiontTree = simulateCoevolution(hostTree, scm);
-		final CophylogenyLikelihood cl = new CophylogenyLikelihood(hostTree, symbiontTree, null, null, "host.nodeRef", "nodeRef", null);
-		for (int i = 0; i < symbiontTree.getNodeCount(); ++i) cl.setStatesForNode(symbiontTree.getNode(i), (NodeRef) symbiontTree.getNodeAttribute(symbiontTree.getNode(i), "host"));
-
+		
 		try {
 			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("s")));
 			new NexusExporter(stream).exportTree(symbiontTree);
