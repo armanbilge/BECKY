@@ -95,6 +95,8 @@ public class CoevolutionSimulator {
 	
 	public static Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
 		
+		symbiontCounts = new int[hostTree.getTaxonCount()];
+		
 		SimpleNode root;
 		do {
 			root = simulateCoevolution(hostTree,
@@ -107,7 +109,7 @@ public class CoevolutionSimulator {
 		return new SimpleTree(root);
 	}
 	
-	private static int taxon = 0;
+	private static int[] symbiontCounts;
 	private static SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
 				
 		final SimpleNode node = new SimpleNode();
@@ -124,7 +126,8 @@ public class CoevolutionSimulator {
 			node.setHeight(hostTree.getNodeHeight(hostNode));
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
-				node.setTaxon(new Taxon("symbiont" + hostTree.getTaxonId(hostNode.getNumber())));
+				int i = hostNode.getNumber();
+				node.setTaxon(new Taxon("symbiont" + hostTree.getTaxonId(i) + "." + ++symbiontCounts[i]));
 				return node;
 			}
 			// Cospeciation event;
@@ -192,7 +195,7 @@ public class CoevolutionSimulator {
 		final double time = MathUtils.nextExponential(lambda);
 		final double U = 1 - MathUtils.nextDouble();
 		int i;
-		for (i = 0; i < p.length && p[i] > U; ++i);
+		for (i = 0; i < p.length && p[i] < U; ++i);
 		return new EventIndexAndTime(i, time);
 	}
 			
