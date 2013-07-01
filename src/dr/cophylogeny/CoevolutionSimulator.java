@@ -111,8 +111,7 @@ public class CoevolutionSimulator {
 	private static SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
 				
 		final SimpleNode node = new SimpleNode();
-		node.setHeight(height);
-		node.setAttribute("host.NodeRef", hostNode.getNumber());
+		node.setAttribute("host.nodeRef", hostNode.getNumber());
 		
 		SimpleNode child1 = null;
 		SimpleNode child2 = null;
@@ -122,15 +121,17 @@ public class CoevolutionSimulator {
 		
 		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
 		if (hostNodeHeight > eventHeight) {
+			node.setHeight(hostTree.getNodeHeight(hostNode));
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
-				node.setTaxon(new Taxon(Integer.toString(taxon++)));
+				node.setTaxon(new Taxon("symbiont" + hostTree.getTaxonId(hostNode.getNumber())));
 				return node;
 			}
 			// Cospeciation event;
 			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, duplicationRate, hostShiftRate, lossRate);
 			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, duplicationRate, hostShiftRate, lossRate);
 		} else {
+			node.setHeight(eventHeight);
 			switch(nextEvent.index) {
 			case 0:
 				// Duplication event
