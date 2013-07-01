@@ -215,13 +215,15 @@ public class CoevolutionSimulator {
 	
 		MutableTaxonList taxa = new Taxa();
 		final int TAXA = arguments.getIntegerOption("t");
-		for (int i = 0; i < TAXA; ++i) taxa.addTaxon(new Taxon(Integer.toString(i)));
+		for (int i = 0; i < TAXA; ++i) taxa.addTaxon(new Taxon("host" + i));
 		
 		final Tree hostTree = new CoalescentSimulator().simulateTree(taxa, new ConstantPopulationModel(new Parameter.Default(100), Units.Type.YEARS));
 		
 		MutableTree mutableTree = (MutableTree) hostTree;
+		final double rootHeight = hostTree.getNodeHeight(hostTree.getRoot());
 		for (int i = 0; i < mutableTree.getNodeCount(); i++) {
 			NodeRef node = mutableTree.getNode(i);
+			mutableTree.setNodeHeight(node, mutableTree.getNodeHeight(node) / rootHeight);
 			mutableTree.setNodeAttribute(node, "nodeRef", node.getNumber());
 		}
 		
