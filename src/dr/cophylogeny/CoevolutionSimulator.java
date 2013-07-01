@@ -127,7 +127,7 @@ public class CoevolutionSimulator {
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
 				int i = hostNode.getNumber();
-				node.setTaxon(new Taxon("symbiont" + hostTree.getTaxonId(i) + "." + ++symbiontCounts[i]));
+				node.setTaxon(new Taxon("symbiont" + i + "." + ++symbiontCounts[i]));
 				return node;
 			}
 			// Cospeciation event;
@@ -218,7 +218,7 @@ public class CoevolutionSimulator {
 	
 		MutableTaxonList taxa = new Taxa();
 		final int TAXA = arguments.getIntegerOption("t");
-		for (int i = 0; i < TAXA; ++i) taxa.addTaxon(new Taxon("host" + i));
+		for (int i = 1; i <= TAXA; ++i) taxa.addTaxon(new Taxon("host" + i));
 		
 		final Tree hostTree = new CoalescentSimulator().simulateTree(taxa, new ConstantPopulationModel(new Parameter.Default(100), Units.Type.YEARS));
 		
