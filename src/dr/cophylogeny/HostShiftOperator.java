@@ -21,27 +21,31 @@ import dr.math.MathUtils;
  */
 public class HostShiftOperator extends SimpleMCMCOperator {
 	
-	private Tree hostTree;
-	private Tree symbiontTree;
-	private CophylogenyLikelihood cophylogenyLikelihood;
-	private int[] hostNodeIndices;
+	private final Tree hostTree;
+	private final Tree symbiontTree;
+	private final CophylogenyLikelihood cophylogenyLikelihood;
+	private final int[] hostNodeIndices;
 	
 	/**
 	 * 
 	 */
-	public HostShiftOperator(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood, double weight) {
+	public HostShiftOperator(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood, boolean sampleNoHost, double weight) {
 		this.hostTree = hostTree;
 		this.symbiontTree = symbiontTree;
 		this.cophylogenyLikelihood = cophylogenyLikelihood;
 		setWeight(weight);
-		hostNodeIndices = new int[hostTree.getNodeCount() + 1];
-		for (int i = 0; i < hostNodeIndices.length; i++) {
-			hostNodeIndices[i] = i - 1; // Introduces a -1, aka CophylogenyLikelihood.NO_HOST
+		if (sampleNoHost) {
+			hostNodeIndices = new int[hostTree.getNodeCount() + 1];
+			for (int i = 0; i < hostNodeIndices.length; i++) {
+				hostNodeIndices[i] = i - 1; // Introduces a -1, aka CophylogenyLikelihood.NO_HOST
+			}
+			// Note that the MathUtils.shuffled() function will also initialize the array for us.
+			//     I choose not to use it because I want a -1 in my array, as well as because this array
+			//     will be reused, using their function doesn't really save me a step or efficiency.
+			MathUtils.shuffle(hostNodeIndices);
+		} else {
+			hostNodeIndices = MathUtils.shuffled(hostTree.getNodeCount());
 		}
-		// Note that the MathUtils.shuffled() function will also initialize the array for us.
-		//     I choose not to use it because I want a -1 in my array, as well as because this array
-		//     will be reused, using their function doesn't really save me a step or efficiency.
-		MathUtils.shuffle(hostNodeIndices);
 	}
 
 	@Override

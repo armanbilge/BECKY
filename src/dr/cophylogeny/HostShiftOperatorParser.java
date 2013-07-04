@@ -22,6 +22,7 @@ import dr.xml.XMLSyntaxRule;
 public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 	
 	public static final String HOST_SHIFT_OPERATOR = "hostShiftOperator";
+	public static final String SAMPLE_NO_HOST = "sampleNoHost";
 	public static final String HOST_TREE = "hostTree";
 	public static final String SYMBIONT_TREE = "symbiontTree";
 
@@ -35,6 +36,9 @@ public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 		
 		final double weight = xo.getDoubleAttribute(MCMCOperator.WEIGHT);
 		
+		final boolean usingNoHost = xo.hasAttribute(SAMPLE_NO_HOST) ?
+							xo.getBooleanAttribute(SAMPLE_NO_HOST) : false;
+		
 		XMLObject cxo = xo.getChild(HOST_TREE);
 		final Tree hostTree = (Tree) cxo.getChild(Tree.class);
 		
@@ -43,7 +47,7 @@ public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 		
 		final CophylogenyLikelihood cophylogenyLikelihood = (CophylogenyLikelihood) xo.getChild(CophylogenyLikelihood.class);
 		
-		return new HostShiftOperator(hostTree, symbiontTree, cophylogenyLikelihood, weight);
+		return new HostShiftOperator(hostTree, symbiontTree, cophylogenyLikelihood, usingNoHost, weight);
 	}
 
 	@Override
@@ -53,7 +57,7 @@ public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 
 	@Override
 	public String getParserDescription() {
-		return "This basic operator shifts hosts on the symbiont tree while maintaining validity.";
+		return "This basic operator shifts hosts on the symbiont tree while maintaining biological validity.";
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -64,6 +68,7 @@ public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 
 	private final XMLSyntaxRule[] rules = {
 			AttributeRule.newDoubleRule(MCMCOperator.WEIGHT),
+			AttributeRule.newBooleanRule(SAMPLE_NO_HOST, true),
 			new ElementRule(HOST_TREE, new XMLSyntaxRule[]{
 					new ElementRule(Tree.class)
 			}),
