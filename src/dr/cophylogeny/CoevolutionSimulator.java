@@ -13,24 +13,24 @@ import java.util.EnumSet;
 
 import dr.app.tools.NexusExporter;
 import dr.app.util.Arguments;
-import dr.app.util.Arguments.*;
+import dr.app.util.Arguments.ArgumentException;
+import dr.app.util.Arguments.IntegerOption;
+import dr.app.util.Arguments.Option;
+import dr.app.util.Arguments.RealArrayOption;
+import dr.app.util.Arguments.StringOption;
 import dr.cophylogeny.CophylogenyModel.Relationship;
-import dr.evolution.coalescent.ConstantPopulation;
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
 import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
-import dr.evolution.tree.TreeTraitProvider;
 import dr.evolution.util.MutableTaxonList;
 import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
 import dr.evolution.util.Units;
 import dr.evomodel.coalescent.CoalescentSimulator;
 import dr.evomodel.coalescent.ConstantPopulationModel;
-import dr.evomodel.coalescent.DemographicModel;
 import dr.inference.model.Parameter;
-import dr.inference.model.Parameter.Default;
 import dr.math.MathUtils;
 
 /**
@@ -151,7 +151,8 @@ public class CoevolutionSimulator {
 					r = Relationship.determineRelationship(hostTree, hostNode, newHost).relationship;
 				} while (hostTree.getNodeHeight(newHost) >= eventHeight && eventHeight < hostTree.getNodeHeight(hostTree.getParent(newHost)) 
 						&& (r != Relationship.COUSIN || r != Relationship.SISTER));
-				return simulateCoevolution(hostTree, newHost, eventHeight, duplicationRate, hostShiftRate, lossRate);
+				child1 = simulateCoevolution(hostTree, newHost, eventHeight, duplicationRate, hostShiftRate, lossRate);
+				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
 			case 2: return null; // Loss event; null indicates the child linneage was lost
 			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
 			}
