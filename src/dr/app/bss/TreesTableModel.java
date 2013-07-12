@@ -55,6 +55,7 @@ public class TreesTableModel extends AbstractTableModel {
 
 		// remove taxa connected to this row from Taxa panel
 		String value = dataList.recordsList.get(row).getName();
+		
 		Utils.removeTaxaWithAttributeValue(dataList, Utils.TREE_FILENAME, value);
 
 		dataList.recordsList.remove(row);
@@ -68,8 +69,10 @@ public class TreesTableModel extends AbstractTableModel {
 		Utils.removeTaxaWithAttributeValue(dataList, Utils.TREE_FILENAME, value);
 
 		// add taxa with attributes
+		if(record.isTreeSet()) {
 		applyTaxa(record.getTree());
-
+		}
+		
 		dataList.recordsList.set(row, record);
 		fireTableDataChanged();
 
@@ -133,6 +136,7 @@ public class TreesTableModel extends AbstractTableModel {
 			return treeFileButton;
 
 		case TAXA_SET_INDEX:
+			
 			JButton taxaEditorButton = new JButton(Utils.EDIT_TAXA_SET);
 			taxaEditorButton.addActionListener(new ListenOpenTaxaEditor(row));
 			return taxaEditorButton;
@@ -247,23 +251,6 @@ public class TreesTableModel extends AbstractTableModel {
 		worker.execute();
 
 	}// END: loadTreeFile
-
-	// private void removeTaxaWithAttributeValue(PartitionDataList dataList,
-	// String attribute, String value) {
-	//
-	// synchronized (dataList.allTaxa) {
-	// for (int i = 0; i < dataList.allTaxa.getTaxonCount(); i++) {
-	//
-	// Taxon taxon = dataList.allTaxa.getTaxon(i);
-	// if (taxon.getAttribute(attribute).toString()
-	// .equalsIgnoreCase(value)) {
-	// dataList.allTaxa.removeTaxon(taxon);
-	// i--;
-	// }
-	// }
-	// }
-	//
-	// }// END: removeTaxaWithAttributeValue
 
 	public void setDataList(PartitionDataList dataList) {
 		this.dataList = dataList;
