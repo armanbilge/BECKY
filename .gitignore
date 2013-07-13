@@ -1,2 +1,4 @@
-release_phylogeography/
-bin/
+.classpath
+.project
+.settings/
+build/
