@@ -46,7 +46,7 @@
         <!-- Create the distribution directory -->
         <mkdir dir="${dist}"/>
 
-        <jar jarfile="${dist}/becky.jar">
+        <jar jarfile="${dist}/org.ithinktree.code.phylo.becky.BECKY.jar">
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
                 <attribute name="Main-Class" value="${main_class}"/>
