@@ -22,14 +22,14 @@ To install BECKY, simply create a `plugins/` folder in the same location as your
 3. Run the included python script `SetupCophylogenyAnalysis.py` with the following arguments:
    ```
    python SetupCophylogenyAnalysis.py -a <associations-file> -j <host-prefix> -k <host-xml>
-                                      -s <symbiont-prefix> -t <symbiont-xml> > <output-xml>`
+                                       -s <symbiont-prefix> -t <symbiont-xml> > <output-xml>
    ```
    **Note that you must redirect `stdout` to a new XML file.**
    
    For example:
    ```
    python SetupCophylogenyAnalysis.py -a assoc.txt -j gopher -k gopher.xml
-                                      -s louse -t louse.xml > coevolution.xml
+                                       -s louse -t louse.xml > coevolution.xml
    ```
    
 
