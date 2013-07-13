@@ -13,9 +13,9 @@ To install BECKY, simply create a `plugins/` folder in the same location as your
 
 2. Next, prepare an associations file in the following format:
    ```
-   symbiont1.1  [tab]  host1
-   symbiont1.2  [tab]  host1
-   symbiont2.1  [tab]  host2
+   symbiont1.1 <tab> host1
+   symbiont1.2 <tab> host1
+   symbiont2.1 <tab> host2
    ```
 
 3. Run the included python script `SetupCophylogenyAnalysis.py` with the following arguments:
