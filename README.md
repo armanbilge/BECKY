@@ -3,6 +3,8 @@
 
 A plugin for [BEAST1](http://beast.bio.ed.ac.uk/) that enables inference of cophylogenies and, in particular, coevolutionary phenomenon in an ecological context.
 
+[**DOWNLOAD**](https://github.com/coevolution/BECKY/releases)
+
 ## Installation and Usage
 
 To install BECKY, simply create a `plugins/` folder in the same location as your BEAST XML file and place `org.ithinktree.code.phylo.becky.BECKY.jar` in it.
@@ -18,8 +20,17 @@ To install BECKY, simply create a `plugins/` folder in the same location as your
    ```
 
 3. Run the included python script `SetupCophylogenyAnalysis.py` with the following arguments:
-   `python SetupCophylogenyAnalysis.py -a <associations-file> -j <host-prefix> -k <host-xml> -s <symbiont-prefix> -t <symbiont-xml> > <output-xml>`
-   (e.g., `python SetupCophylogenyAnalysis.py -a assoc.txt -j gopher -k gopher.xml -s louse -t louse.xml > coevolution.xml`).
-   Note that you must redirect `stdout` to a new XML file.
+   ```
+   python SetupCophylogenyAnalysis.py -a <associations-file> -j <host-prefix> -k <host-xml>
+                                      -s <symbiont-prefix> -t <symbiont-xml> > <output-xml>`
+   ```
+   **Note that you must redirect `stdout` to a new XML file.**
+   
+   For example:
+   ```
+   python SetupCophylogenyAnalysis.py -a assoc.txt -j gopher -k gopher.xml
+                                      -s louse -t louse.xml > coevolution.xml
+   ```
+   
 
-4. BEAST can be started normally. For BEAST to succesfully find BECKY, ake sure to place the jar file in a `plugins/` folder at the same location as your input XML.
+4. BEAST can be started normally. For BEAST to succesfully find BECKY, make sure to place the jar file in a `plugins/` folder at the same location as your input XML.
