@@ -31,7 +31,7 @@ import dr.inference.model.Variable.ChangeType;
 @SuppressWarnings("serial")
 public class CophylogenyLikelihood extends AbstractModelLikelihood implements TreeTraitProvider, Units {
 
-	public static final String STATES_KEY = "states";
+	public static final String STATES_KEY = "host.nodeRef";
 	public static final int NO_HOST = -1;
 	
 	Tree hostTree;
