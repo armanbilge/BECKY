@@ -33,6 +33,7 @@ COPHYLOGENY = 'cophylogeny'
 COPHYLOGENY_LIKELIHOOD = 'cophylogenyLikelihood'
 DUPLICATION_RATE = 'duplicationRate'
 FALSE = 'false'
+FILE_NAME = 'fileName'
 GAMMA_PRIOR = 'gammaPrior'
 HOST = 'host'
 HOST_ATTRIBUTE_NAME = 'hostAttributeName'
@@ -316,6 +317,7 @@ for prior in priors:
     host_priors.append(prior)
 host_priors.append(END_COPHYLOGENY_MODEL_XML())
 
+host_log.set(FILE_NAME, COEVOLUTION + '.log')
 host_log.append(BEGIN_COPHYLOGENY_MODEL_XML())
 for parameter in file_log:
     host_log.append(parameter)
