@@ -277,6 +277,7 @@ for prior in symbiont_priors.iterfind('*'):
 for likelihood in symbiont_likelihoods.iterfind('*'):
     host_likelihoods.append(likelihood)
 symbiont_mcmc.remove(symbiont_mcmc.find(POSTERIOR))
+symbiont_mcmc.remove(symbiont_mcmc.find(OPERATORS))
 
 for parameter in symbiont_log.iterfind('*'):
     host_log.append(parameter)
