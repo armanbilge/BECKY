@@ -24,6 +24,7 @@ public class CoevolutionSimulatorParser extends AbstractXMLObjectParser {
 	public static final String HOST_TREE = "hostTree";
 	public static final String SYMBIONT_TREE = "symbiontTree";
 	public static final String HOST_ATTRIBUTE_NAME = "hostAttributeName";
+	public static final String SIMULATE_NO_HOST = "simulateNoHost";
 	
 	@Override
 	public String getParserName() {
@@ -33,9 +34,10 @@ public class CoevolutionSimulatorParser extends AbstractXMLObjectParser {
 	@Override
 	public Object parseXMLObject(XMLObject xo) throws XMLParseException {
 
-		CoevolutionSimulator simulator = new CoevolutionSimulator();
-
 		final String hostAttributeName = xo.getStringAttribute(HOST_ATTRIBUTE_NAME);
+		
+		final boolean usingNoHost = xo.hasAttribute(SIMULATE_NO_HOST) ?
+				xo.getBooleanAttribute(SIMULATE_NO_HOST) : false;
 		
 		XMLObject cxo = xo.getChild(HOST_TREE);
 		final Tree hostTree = (Tree) cxo.getChild(Tree.class);
@@ -44,8 +46,8 @@ public class CoevolutionSimulatorParser extends AbstractXMLObjectParser {
 		final Tree symbiontTree = (Tree) cxo.getChild(Tree.class);
 		
 		final CophylogenyLikelihood cophylogenyLikelihood = (CophylogenyLikelihood) xo.getChild(CophylogenyLikelihood.class);
-				
-		simulator.simulateCoevolution(hostTree, symbiontTree, cophylogenyLikelihood, hostAttributeName);
+		
+		new CoevolutionSimulator().simulateCoevolution(hostTree, symbiontTree, cophylogenyLikelihood, hostAttributeName, usingNoHost);
 		return null;
 	}
 

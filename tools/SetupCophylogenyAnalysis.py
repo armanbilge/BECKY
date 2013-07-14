@@ -67,6 +67,7 @@ SCALE_FACTOR = 'scaleFactor'
 SCALE_OPERATOR = 'scaleOperator'
 SHAPE = 'shape'
 SIMPLE_COPHYLOGENY_MODEL = 'simpleCophylogenyModel'
+SIMULATE_NO_HOST = 'simulateNoHost'
 SIMULATOR = 'simulator'
 STATE_TAG_NAME = 'stateTagName'
 STRICT_CLOCK_BRANCH_RATES = 'strictClockBranchRates'
@@ -191,7 +192,7 @@ def create_coevolution_simulator():
     cs = Element(COEVOLUTION_SIMULATOR, attrib={ID: '.'.join([COPHYLOGENY,
                                                                SIMULATOR]),
                                                  HOST_ATTRIBUTE_NAME: HOST,
-                                                 SAMPLE_NO_HOST: FALSE})
+                                                 SIMULATE_NO_HOST: FALSE})
     cs.append(create_nested_idref(HOST_TREE, TREE_MODEL,
                                    '.'.join([HOST_TAXON, TREE_MODEL])))
     cs.append(create_nested_idref(SYMBIONT_TREE, TREE_MODEL,

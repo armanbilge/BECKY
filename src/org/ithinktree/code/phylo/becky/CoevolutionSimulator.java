@@ -51,7 +51,7 @@ public class CoevolutionSimulator {
 	 * @param symbiontTree
 	 * @param hostAttributeName
 	 */
-	public void simulateCoevolution(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood, String hostAttributeName) {
+	public void simulateCoevolution(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood, String hostAttributeName, boolean usingNoHost) {
 		
 		for (int i = 0; i < symbiontTree.getExternalNodeCount(); i++) {
 			NodeRef node = symbiontTree.getExternalNode(i);
@@ -65,8 +65,8 @@ public class CoevolutionSimulator {
 		
 		int[] postOrderList = new int[symbiontTree.getNodeCount()];
 		Tree.Utils.postOrderTraversalList(symbiontTree, postOrderList);
-		int hostNodeCount = hostTree.getNodeCount();
-		for (int i = 0; i < postOrderList.length; i++) {
+		int[] hostNodeIds = MathUtils.shuffled(hostTree.getNodeCount() + (usingNoHost ? 1 : 0));
+		for (int i = 0; i < postOrderList.length; ++i) {
 			NodeRef node = symbiontTree.getNode(postOrderList[i]);
 			if (!symbiontTree.isExternal(node)) {
 				
@@ -75,15 +75,15 @@ public class CoevolutionSimulator {
 
 				NodeRef hostNode = null;
 				EnumSet<Relationship> relationships;
-				int[] hostNodeIds = MathUtils.shuffled(hostNodeCount + 1);
+				MathUtils.shuffle(hostNodeIds);
 				int j = 0;
 				do {
-					if (j > hostNodeCount) {
+					if (j >= hostNodeIds.length) {
 						i = -1; // Force the simulation to start over
 						break;
 					}
 					relationships = EnumSet.noneOf(Relationship.class);
-					int r = hostNodeIds[j++] - 1;
+					int r = hostNodeIds[j++] - (usingNoHost ? 1 : 0);
 					hostNode = r == CophylogenyLikelihood.NO_HOST ? null : hostTree.getNode(r);
 					relationships.add(Relationship.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
 					relationships.add(Relationship.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
