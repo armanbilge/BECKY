@@ -102,8 +102,8 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 				NodeRef selfHostChild1 = hostTree.getChild(selfHost, 0);
 				if (Relationship.determineRelationship(hostTree, selfHostChild1, child1Host).relationship == Relationship.determineRelationship(hostTree, selfHostChild1, child2Host).relationship) {
 					
-					// Inherent cospeciation, then a loss and host-shift along one linneage (unknown), and then potentially additional losses along both linneages
-					// Because we do not know which linneage experienced the loss and host-shift, we sum over both
+					// Inherent cospeciation, then a loss and host-shift along one lineage (unknown), and then potentially additional losses along both lineages
+					// Because we do not know which lineage experienced the loss and host-shift, we sum over both
 					// TODO For now this is an expensive call; maybe it can be fixed?
 					logL += Math.log(
 							Math.exp(calculateEventLogLikelihood(false, true, 1, child1BranchTime)) +
@@ -111,7 +111,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 							);
 				}
 					
-				// Inherent cospeciation, then potential losses along both linneages
+				// Inherent cospeciation, then potential losses along both lineages
 				// Note that where there are no losses we have case of simple cospeciation
 				logL += calculateEventLogLikelihood(false, false, child1Relationship.generations, child1BranchTime) +
 						calculateEventLogLikelihood(false, false, child2Relationship.generations, child2BranchTime);

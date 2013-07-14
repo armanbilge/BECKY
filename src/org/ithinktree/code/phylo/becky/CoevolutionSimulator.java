@@ -154,21 +154,21 @@ public class CoevolutionSimulator {
 						&& (r != Relationship.COUSIN || r != Relationship.SISTER));
 				child1 = simulateCoevolution(hostTree, newHost, eventHeight, duplicationRate, hostShiftRate, lossRate);
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
-			case 2: return null; // Loss event; null indicates the child linneage was lost
+			case 2: return null; // Loss event; null indicates the child lineage was lost
 			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
 			}
 		}
 		
 		if (child1 != null && child2 != null) {
-			// Both linneages survived
+			// Both lineages survived
 			node.addChild(child1);
 			node.addChild(child2);
 		} else if (child1 == child2) {
-			// Both are null, hence this entire linneage was lost
+			// Both are null, hence this entire lineage was lost
 			return null;
 		} else {
-			// Just one child linneage is null/lost
-			return child2 == null ? child1 : child2; // Set this node to the continuing child linneage
+			// Just one child lineage is null/lost
+			return child2 == null ? child1 : child2; // Set this node to the continuing child lineage
 		}
 		return node;
 	}
