@@ -124,15 +124,11 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 				// Duplication event
 				return calculateEventLogLikelihood(true, false, 0, selfBranchTime);
 
-			} else if (child1Relationship.relationship == Relationship.SELF && (child2Relationship.relationship == Relationship.COUSIN || child2Relationship.relationship == Relationship.SISTER)) {
+			} else if ((child1Relationship.relationship == Relationship.SELF && (child2Relationship.relationship == Relationship.COUSIN || child2Relationship.relationship == Relationship.SISTER))
+					|| (child2Relationship.relationship == Relationship.SELF && (child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER))) {
 
-				// Child2 host-shift event
-				return calculateEventLogLikelihood(false, true, 0, child2BranchTime);
-
-			} else if (child2Relationship.relationship == Relationship.SELF && (child1Relationship.relationship == Relationship.COUSIN || child2Relationship.relationship == Relationship.SISTER)) {
-				
-				// Child1 host-shift event
-				return calculateEventLogLikelihood(false, true, 0, child1BranchTime);
+				// Host-shift event
+				return calculateEventLogLikelihood(false, true, 0, selfBranchTime);
 				
 			} else if ((child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER)
 					&& (child2Relationship.relationship == Relationship.COUSIN || child2Relationship.relationship == Relationship.SISTER)) {
