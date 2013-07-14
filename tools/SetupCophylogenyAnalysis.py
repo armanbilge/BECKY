@@ -16,8 +16,8 @@ except ImportError:
 
 parser = OptionParser()
 parser.add_option('-a', '--associations', dest='assoc_filename')
-parser.add_option('-j', '--host', dest='HOST_TAXON')
-parser.add_option('-k', '--host-xml', dest='HOST_XML')
+parser.add_option('-i', '--host', dest='HOST_TAXON')
+parser.add_option('-j', '--host-xml', dest='HOST_XML')
 parser.add_option('-s', '--symbiont', dest='SYMBIONT_TAXON')
 parser.add_option('-t', '--symbiont-xml', dest='SYMBIONT_XML')
 
