@@ -54,6 +54,7 @@ NAME = 'name'
 NODE_REF = 'nodeRef'
 NODE_REF_PROVIDER = 'nodeRefProvider'
 OFFSET = 'offset'
+OPERATOR_ANALYSIS = 'operatorAnalysis'
 OPERATORS = 'operators'
 PARAMETER = 'parameter'
 PRIOR = 'prior'
@@ -250,6 +251,7 @@ for taxon in symbiont_taxa.iterfind(TAXON):
 host_root = host_ET.getroot()
 host_operators = host_ET.find(OPERATORS)
 host_mcmc = host_ET.find(MCMC)
+host_mcmc.set(OPERATOR_ANALYSIS, COEVOLUTION + '.ops')
 host_priors = host_mcmc.find(POSTERIOR).find(PRIOR)
 host_likelihoods = host_mcmc.find(POSTERIOR).find(LIKELIHOOD)
 host_log = host_mcmc.findall(LOG)[1]
