@@ -34,14 +34,14 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	public static final String STATES_KEY = "host.nodeRef";
 	public static final int NO_HOST = -1;
 	
-	Tree hostTree;
-	Tree symbiontTree;
-	CophylogenyModel cophylogenyModel;
-	BranchRateModel branchRateModel;
-	String hostAttributeName;
-	String reconstructionTagName;
+	private Tree hostTree;
+	private Tree symbiontTree;
+	private CophylogenyModel cophylogenyModel;
+	private BranchRateModel branchRateModel;
+	private String hostAttributeName;
+	private String reconstructionTagName;
 	
-	TreeTraitProvider.Helper treeTraits = new Helper();
+	private TreeTraitProvider.Helper treeTraits = new Helper();
 	
 	/**
 	 * 
@@ -108,6 +108,10 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		return this;
 	}
 
+	public boolean evaluateEarly() {
+		return true;
+	}
+	
 	@Override
 	public double getLogLikelihood() {
 		if (!likelihoodKnown) {
