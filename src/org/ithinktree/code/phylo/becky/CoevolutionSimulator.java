@@ -10,6 +10,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.ithinktree.code.phylo.becky.CophylogenyModel.Relationship;
 
@@ -97,6 +99,7 @@ public class CoevolutionSimulator {
 	public static Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
 		
 		symbiontCounts = new int[hostTree.getTaxonCount()];
+		associations = new HashMap<String,String>();
 		
 		SimpleNode root;
 		do {
@@ -111,6 +114,7 @@ public class CoevolutionSimulator {
 	}
 	
 	private static int[] symbiontCounts;
+	private static Map<String,String> associations;
 	private static SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
 				
 		final SimpleNode node = new SimpleNode();
@@ -128,7 +132,9 @@ public class CoevolutionSimulator {
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
 				int i = hostNode.getNumber();
-				node.setTaxon(new Taxon("symbiont" + i + "." + ++symbiontCounts[i]));
+				String taxonId = "symbiont" + i + "." + ++symbiontCounts[i];
+				node.setTaxon(new Taxon(taxonId));
+				associations.put(taxonId,hostTree.getTaxonId(i));
 				return node;
 			}
 			// Cospeciation event;
@@ -207,7 +213,8 @@ public class CoevolutionSimulator {
 				new StringOption("h", "filename", "symbiont tree file name"),
 				new RealArrayOption("r", 3, "coevolutionary rates"),
 				new StringOption("s","filename", "symbiont tree file name"),
-				new IntegerOption("t", "# taxa in host tree")
+				new IntegerOption("t", "# taxa in host tree"),
+				new StringOption("a", "filename", "associations txt file name")
 		}, false);
 		
 		try {
@@ -249,6 +256,17 @@ public class CoevolutionSimulator {
 		try {
 			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("s")));
 			new NexusExporter(stream).exportTree(symbiontTree);
+			stream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
+		try {
+			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("a")));
+			for (String key : associations.keySet()) {
+				stream.println(key + "\t" + associations.get(key));
+			}
 			stream.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
