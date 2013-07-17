@@ -95,11 +95,10 @@ public class CoevolutionSimulator {
 	
 	public static Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
 		
-		symbiontCounts = new int[hostTree.getTaxonCount()];
-		associations = new HashMap<String,String>();
-		
 		SimpleNode root;
 		do {
+			symbiontCounts = new int[hostTree.getTaxonCount()];
+			associations = new HashMap<String,String>();
 			root = simulateCoevolution(hostTree,
 					hostTree.getRoot(),
 					hostTree.getNodeHeight(hostTree.getRoot()),
@@ -157,6 +156,7 @@ public class CoevolutionSimulator {
 						&& (r != Relationship.COUSIN || r != Relationship.SISTER)));
 				child1 = simulateCoevolution(hostTree, newHost, eventHeight, duplicationRate, hostShiftRate, lossRate);
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
+				break;
 			case 2: return null; // Loss event; null indicates the child lineage was lost
 			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
 			}
