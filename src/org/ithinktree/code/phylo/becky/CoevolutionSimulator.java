@@ -19,11 +19,6 @@ import org.ithinktree.code.phylo.becky.CophylogenyModel.Relationship;
 import dr.app.tools.NexusExporter;
 import dr.app.util.Arguments;
 import dr.app.util.Arguments.ArgumentException;
-import dr.app.util.Arguments.IntegerOption;
-import dr.app.util.Arguments.Option;
-import dr.app.util.Arguments.RealOption;
-import dr.app.util.Arguments.RealArrayOption;
-import dr.app.util.Arguments.StringOption;
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
@@ -213,12 +208,12 @@ public class CoevolutionSimulator {
 		
 		Locale.setDefault(Locale.US);
 		Arguments arguments = new Arguments(new Option[]{
-				new StringOption("h", "filename", "host tree file name"),
-				new StringOption("s","filename", "symbiont tree file name"),				
-				new StringOption("a", "filename", "associations text file name"),
-				new IntegerOption("t", "# taxa in host tree"),
-				new RealArrayOption("r", 3, "coevolutionary rates"),
-				new RealOption("seed", "random number generator seed")
+				new Arguments.StringOption("h", "filename", "host tree file name"),
+				new Arguments.StringOption("s","filename", "symbiont tree file name"),				
+				new Arguments.StringOption("a", "filename", "associations text file name"),
+				new Arguments.IntegerOption("t", "# taxa in host tree"),
+				new Arguments.RealArrayOption("r", 3, "coevolutionary rates"),
+				new Arguments.LongOption("seed", "random number generator seed")
 		});
 		
 		try {
