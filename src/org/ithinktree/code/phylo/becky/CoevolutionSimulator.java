@@ -207,7 +207,7 @@ public class CoevolutionSimulator {
 	public static void main(String[] args) {
 		
 		Locale.setDefault(Locale.US);
-		Arguments arguments = new Arguments(new Option[]{
+		Arguments arguments = new Arguments(new Arguments.Option[]{
 				new Arguments.StringOption("h", "filename", "host tree file name"),
 				new Arguments.StringOption("s","filename", "symbiont tree file name"),				
 				new Arguments.StringOption("a", "filename", "associations text file name"),
