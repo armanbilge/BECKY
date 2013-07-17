@@ -5,10 +5,10 @@
  * 
  */
 
-package org.ithinktree.code.phylo.becky;
+package org.ithinktree.becky;
 
 import org.apache.commons.math.util.MathUtils;
-import org.ithinktree.code.phylo.becky.CophylogenyModel.Relationship.NodalRelationship;
+import org.ithinktree.becky.CophylogenyModel.Relationship.NodalRelationship;
 
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;

@@ -1,4 +1,4 @@
-package org.ithinktree.code.phylo.becky;
+package org.ithinktree.becky;
 
 import dr.evolution.util.Taxon;
 import dr.evomodel.speciation.SpeciesBindings;

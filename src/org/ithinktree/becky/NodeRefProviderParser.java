@@ -4,7 +4,7 @@
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
  */
-package org.ithinktree.code.phylo.becky;
+package org.ithinktree.becky;
 
 import dr.evolution.tree.Tree;
 import dr.xml.AbstractXMLObjectParser;

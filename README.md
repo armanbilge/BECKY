@@ -7,7 +7,7 @@ A plugin for [BEAST1](http://beast.bio.ed.ac.uk/) that enables inference of coph
 
 ## Installation and Usage
 
-To install BECKY, simply create a `plugins/` folder in the same location as your BEAST XML file and place `org.ithinktree.code.phylo.becky.BECKY.jar` in it.
+To install BECKY, simply create a `plugins/` folder in the same location as your BEAST XML file and place `org.ithinktree.becky.BECKY.jar` in it.
 
 1. To setup an analysis, first use BEAUti to setup two BEAST XMLs, one for the host organism and another for the symbiont.
 

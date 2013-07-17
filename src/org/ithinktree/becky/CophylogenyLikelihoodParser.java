@@ -5,7 +5,7 @@
  * 
  */
 
-package org.ithinktree.code.phylo.becky;
+package org.ithinktree.becky;
 
 import dr.evolution.tree.Tree;
 import dr.evomodel.branchratemodel.BranchRateModel;

@@ -3,7 +3,7 @@
  * 
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  */
-package org.ithinktree.code.phylo.becky;
+package org.ithinktree.becky;
 
 import java.util.HashSet;
 import java.util.Set;

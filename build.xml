@@ -8,7 +8,7 @@
     <property name="lib" location="lib"/>
     <property name="dist" location="${build}/dist"/>
 
-    <property name="main_class" value="org.ithinktree.code.phylo.becky.CoevolutionSimulator"/>
+    <property name="main_class" value="org.ithinktree.becky.CoevolutionSimulator"/>
 
     <path id="classpath">
         <fileset dir="${lib}" includes="**/*.jar"/>
@@ -37,7 +37,7 @@
                fork="true"
                memoryinitialsize="256m"
                memorymaximumsize="1024m">
-            <include name="org/ithinktree/code/phylo/becky/*.java"/>
+            <include name="org/ithinktree/becky/*.java"/>
         </javac>
         <echo message="Successfully compiled."/>
     </target>
@@ -46,14 +46,15 @@
         <!-- Create the distribution directory -->
         <mkdir dir="${dist}"/>
 
-        <jar jarfile="${dist}/org.ithinktree.code.phylo.becky.BECKY.jar">
+        <jar jarfile="${dist}/org.ithinktree.becky.BECKY.jar">
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
                 <attribute name="Main-Class" value="${main_class}"/>
             </manifest>
             <fileset dir="${build}">
-                <include name="org/ithinktree/code/phylo/becky/**"/>
+                <include name="org/ithinktree/becky/**"/>
             </fileset>
+            <zipgroupfileset dir="${lib}" includes="beast.jar"/>
         </jar>
     </target>
 

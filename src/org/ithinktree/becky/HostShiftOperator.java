@@ -4,11 +4,11 @@
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
  */
-package org.ithinktree.code.phylo.becky;
+package org.ithinktree.becky;
 
 import java.util.EnumSet;
 
-import org.ithinktree.code.phylo.becky.CophylogenyModel.Relationship;
+import org.ithinktree.becky.CophylogenyModel.Relationship;
 
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
