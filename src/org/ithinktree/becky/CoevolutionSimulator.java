@@ -152,7 +152,7 @@ public class CoevolutionSimulator {
 				do {
 					newHost = hostTree.getNode(MathUtils.nextInt(nodeCount));
 					r = Relationship.determineRelationship(hostTree, hostNode, newHost).relationship;
-				} while (hostTree.isRoot(newHost) || (hostTree.getNodeHeight(newHost) >= eventHeight && eventHeight < hostTree.getNodeHeight(hostTree.getParent(newHost)) 
+				} while (hostTree.isRoot(newHost) || (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree.getNodeHeight(hostTree.getParent(newHost)) 
 						&& (r != Relationship.COUSIN || r != Relationship.SISTER)));
 				child1 = simulateCoevolution(hostTree, newHost, eventHeight, duplicationRate, hostShiftRate, lossRate);
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
