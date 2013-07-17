@@ -131,10 +131,10 @@ public class CoevolutionSimulator {
 			node.setHeight(hostTree.getNodeHeight(hostNode));
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
-				int i = hostNode.getNumber();
-				String taxonId = "symbiont" + i + "." + ++symbiontCounts[i];
+				int i = Integer.parseInt(hostTree.getNodeTaxon(hostNode).getId().substring(4));
+				String taxonId = "symbiont" + i + "." + ++symbiontCounts[i - 1];
 				node.setTaxon(new Taxon(taxonId));
-				associations.put(taxonId,hostTree.getTaxonId(i));
+				associations.put(taxonId,hostTree.getNodeTaxon(hostNode).getId());
 				return node;
 			}
 			// Cospeciation event;
@@ -210,11 +210,11 @@ public class CoevolutionSimulator {
 	public static void main(String[] args) {
 		
 		Arguments arguments = new Arguments(new Option[]{
-				new StringOption("h", "filename", "symbiont tree file name"),
-				new RealArrayOption("r", 3, "coevolutionary rates"),
-				new StringOption("s","filename", "symbiont tree file name"),
+				new StringOption("h", "filename", "host tree file name"),
+				new StringOption("s","filename", "symbiont tree file name"),				
+				new StringOption("a", "filename", "associations text file name"),
 				new IntegerOption("t", "# taxa in host tree"),
-				new StringOption("a", "filename", "associations txt file name")
+				new RealArrayOption("r", 3, "coevolutionary rates"),
 		}, false);
 		
 		try {
