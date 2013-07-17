@@ -185,14 +185,8 @@ public class CoevolutionSimulator {
 		}
 	}
 	
-	private static final double sum(double...values) {
-		double sum = 0;
-		for (double value : values) sum += value;
-		return sum;
-	}
-	
 	private static final EventIndexAndTime simulateSimultaneousPoissonProcesses(double...lambdas) {
-		final double lambda = sum(lambdas);
+		final double lambda = MathUtils.getTotal(lambdas);
 		final double[] p = new double[lambdas.length - 1];
 		p[0] = lambdas[0] / lambda;
 		for (int i = 1; i < p.length; ++i)
