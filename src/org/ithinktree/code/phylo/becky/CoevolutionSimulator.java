@@ -11,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import org.ithinktree.code.phylo.becky.CophylogenyModel.Relationship;
@@ -20,6 +21,7 @@ import dr.app.util.Arguments;
 import dr.app.util.Arguments.ArgumentException;
 import dr.app.util.Arguments.IntegerOption;
 import dr.app.util.Arguments.Option;
+import dr.app.util.Arguments.RealOption;
 import dr.app.util.Arguments.RealArrayOption;
 import dr.app.util.Arguments.StringOption;
 import dr.evolution.tree.MutableTree;
@@ -209,13 +211,15 @@ public class CoevolutionSimulator {
 			
 	public static void main(String[] args) {
 		
+		Locale.setDefault(Locale.US);
 		Arguments arguments = new Arguments(new Option[]{
 				new StringOption("h", "filename", "host tree file name"),
 				new StringOption("s","filename", "symbiont tree file name"),				
 				new StringOption("a", "filename", "associations text file name"),
 				new IntegerOption("t", "# taxa in host tree"),
 				new RealArrayOption("r", 3, "coevolutionary rates"),
-		}, false);
+				new RealOption("seed", "random number generator seed")
+		});
 		
 		try {
 			arguments.parseArguments(args);
@@ -225,6 +229,17 @@ public class CoevolutionSimulator {
 			System.exit(1);
 		}
 	
+		long seed = MathUtils.getSeed();
+		if (arguments.hasOption("seed")) {
+            seed = arguments.getLongOption("seed");
+            if (seed <= 0) {
+                System.err.println("The random number seed should be > 0");
+                System.exit(1);
+            }
+    		MathUtils.setSeed(seed);
+        }
+		System.err.println("Seed: " + seed);
+		
 		MutableTaxonList taxa = new Taxa();
 		final int TAXA = arguments.getIntegerOption("t");
 		for (int i = 1; i <= TAXA; ++i) taxa.addTaxon(new Taxon("host" + i));
