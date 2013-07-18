@@ -35,7 +35,6 @@ import dr.math.MathUtils;
 
 /**
  * @author Arman D. Bilge
- *
  */
 public class CoevolutionSimulator {
 
@@ -93,12 +92,12 @@ public class CoevolutionSimulator {
 		}
 	}
 	
-	public static Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
+	public Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
 		
 		SimpleNode root;
 		do {
 			symbiontCounts = new int[hostTree.getTaxonCount()];
-			associations = new HashMap<String,String>();
+			associations.clear();
 			root = simulateCoevolution(hostTree,
 					hostTree.getRoot(),
 					hostTree.getNodeHeight(hostTree.getRoot()),
@@ -109,9 +108,9 @@ public class CoevolutionSimulator {
 		return new SimpleTree(root);
 	}
 	
-	private static int[] symbiontCounts;
-	private static Map<String,String> associations;
-	private static SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
+	private int[] symbiontCounts;
+	public final Map<String,String> associations = new HashMap<String,String>();
+	private SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
 				
 		final SimpleNode node = new SimpleNode();
 		node.setAttribute("host.nodeRef", hostNode.getNumber());
@@ -176,7 +175,7 @@ public class CoevolutionSimulator {
 		return node;
 	}
 		
-	private static class EventIndexAndTime {
+	private class EventIndexAndTime {
 		public final int index;
 		public final double time;
 		public EventIndexAndTime(int index, double time) {
@@ -185,7 +184,7 @@ public class CoevolutionSimulator {
 		}
 	}
 	
-	private static final EventIndexAndTime simulateSimultaneousPoissonProcesses(double...lambdas) {
+	private final EventIndexAndTime simulateSimultaneousPoissonProcesses(double...lambdas) {
 		final double lambda = MathUtils.getTotal(lambdas);
 		final double[] p = new double[lambdas.length - 1];
 		p[0] = lambdas[0] / lambda;
@@ -255,7 +254,8 @@ public class CoevolutionSimulator {
 		
 		final double[] rates = arguments.getRealArrayOption("r");
 		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[0]), new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), Units.Type.YEARS);
-		final Tree symbiontTree = simulateCoevolution(hostTree, scm);
+		CoevolutionSimulator cs = new CoevolutionSimulator();
+		final Tree symbiontTree = cs.simulateCoevolution(hostTree, scm);
 		
 		try {
 			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("s")));
@@ -268,8 +268,8 @@ public class CoevolutionSimulator {
 		
 		try {
 			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("a")));
-			for (String key : associations.keySet()) {
-				stream.println(key + "\t" + associations.get(key));
+			for (String key : cs.associations.keySet()) {
+				stream.println(key + "\t" + cs.associations.get(key));
 			}
 			stream.close();
 		} catch (FileNotFoundException e) {
