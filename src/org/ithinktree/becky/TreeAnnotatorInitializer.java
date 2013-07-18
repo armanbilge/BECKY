@@ -55,7 +55,6 @@ public class TreeAnnotatorInitializer {
 		Map<String, Integer> symbiontNexusHeader = null;
 		
 		int totalTrees = 10000;
-        int totalTreesUsed = 0;
         int stepSize = totalTrees / 60;
         
         PrintStream progressStream = System.err;
@@ -99,8 +98,8 @@ public class TreeAnnotatorInitializer {
 	private final Map<BitSet,Integer> clades = new HashMap<BitSet,Integer>();
 	private int[] ids;
 	private TaxonList hostTaxonList;
-	private static final String NODE_REF = "nodeRef";
-	private static final String HOST_NODE_REF = "host.nodeRef";
+	private final String NODE_REF = "nodeRef";
+	private final String HOST_NODE_REF = "host.nodeRef";
 	
 	private BitSet addNewClades(MutableTree tree, NodeRef node) {
 
@@ -144,7 +143,13 @@ public class TreeAnnotatorInitializer {
 			System.exit(1);
 		}
 
-		
+		try {
+			new TreeAnnotatorInitializer(arguments.getStringOption("h"), arguments.getStringOption("s"), arguments.getStringOption("i"), arguments.getStringOption("t"));
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+			arguments.printUsage("annotationinitializer", "");
+			System.exit(1);
+		}
 		
 	}
 
