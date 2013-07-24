@@ -1,4 +1,4 @@
-package org.ithinktree.becky.JPRIMEWrappers;
+package org.ithinktree.becky.JrRIMEWrappers;
 
 import java.util.HashMap;
 import java.util.Iterator;

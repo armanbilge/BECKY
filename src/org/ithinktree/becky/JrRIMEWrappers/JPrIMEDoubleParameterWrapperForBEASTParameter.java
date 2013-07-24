@@ -1,4 +1,4 @@
-package org.ithinktree.becky.JPRIMEWrappers;
+package org.ithinktree.becky.JrRIMEWrappers;
 
 import se.cbb.jprime.io.SampleDouble;
 import se.cbb.jprime.mcmc.DoubleParameter;
