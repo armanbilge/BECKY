@@ -1,4 +1,4 @@
-package org.ithinktree.becky.JPRIMEWrappers;
+package org.ithinktree.becky.JPrIMEWrappers;
 
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;

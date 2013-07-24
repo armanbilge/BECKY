@@ -1,4 +1,4 @@
-package org.ithinktree.becky.JPRIMEWrappers;
+package org.ithinktree.becky.JPrIMEWrappers;
 
 import java.util.ArrayList;
 import java.util.List;

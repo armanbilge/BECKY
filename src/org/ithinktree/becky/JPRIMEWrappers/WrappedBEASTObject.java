@@ -1,4 +1,4 @@
-package org.ithinktree.becky.JPRIMEWrappers;
+package org.ithinktree.becky.JPrIMEWrappers;
 
 public interface WrappedBEASTObject<T> {
 
