@@ -1,8 +1,6 @@
 package org.ithinktree.becky;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +14,7 @@ public class JPRIMERBTreeWrapperForBEASTTree extends RBTree {
 	private final Tree tree;
 	
 	public JPRIMERBTreeWrapperForBEASTTree(Tree tree) {
-		super(null, 1);
+		super(tree.getId(), 1);
 		this.tree = tree;
 		root = getRoot();
 	}

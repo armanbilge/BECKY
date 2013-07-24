@@ -118,7 +118,7 @@ public class TreeAnnotatorInitializer {
 		int id = clades.get(bitSet);
 		ids[(Integer) tree.getNodeAttribute(node, NODE_REF)] = id;
 		tree.setNodeAttribute(node, NODE_REF, id);
-		
+
 		return bitSet;
 	}
 

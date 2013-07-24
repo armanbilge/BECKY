@@ -38,7 +38,9 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	private Tree symbiontTree;
 	private CophylogenyModel cophylogenyModel;
 	private BranchRateModel branchRateModel;
+	@SuppressWarnings("unused")
 	private String hostAttributeName;
+	@SuppressWarnings("unused")
 	private String reconstructionTagName;
 	
 	private TreeTraitProvider.Helper treeTraits = new Helper();
