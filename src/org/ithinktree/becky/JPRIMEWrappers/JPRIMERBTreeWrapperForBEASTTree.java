@@ -1,4 +1,4 @@
-package org.ithinktree.becky;
+package org.ithinktree.becky.JPRIMEWrappers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,11 +9,11 @@ import se.cbb.jprime.topology.RootedTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 
-public class JPRIMERBTreeWrapperForBEASTTree extends RBTree {
+public class JPrIMERBTreeWrapperForBEASTTree extends RBTree implements WrappedBEASTObject<Tree> {
 
 	private final Tree tree;
 	
-	public JPRIMERBTreeWrapperForBEASTTree(Tree tree) {
+	public JPrIMERBTreeWrapperForBEASTTree(Tree tree) {
 		super(tree.getId(), 1);
 		this.tree = tree;
 		root = getRoot();
@@ -189,6 +189,11 @@ public class JPRIMERBTreeWrapperForBEASTTree extends RBTree {
 	@Override
 	public String toString() {
 		return Tree.Utils.newick(tree);
+	}
+
+	@Override
+	public Tree getWrappedBEASTObject() {
+		return tree;
 	}
 
 }

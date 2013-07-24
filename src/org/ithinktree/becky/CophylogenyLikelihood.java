@@ -48,6 +48,9 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	/**
 	 * 
 	 */
+	public CophylogenyLikelihood(String name) {
+		super(name);
+	}
 	
 	public CophylogenyLikelihood(Tree hostTree, Tree symbiontTree, CophylogenyModel cophylogenyModel, BranchRateModel branchRateModel, String reconstructionTagName, String hostAttributeName, String id) {
 		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName, hostAttributeName);
