@@ -37,25 +37,25 @@ public class TreeAnnotatorInitializer {
 	 * @throws ImportException 
 	 * 
 	 */
-	public TreeAnnotatorInitializer(String hostTreesFile, String symbiontTreesFile, String hostTreesOutputFile, String symbiontTreesOutputFile) throws IOException, ImportException {
+	public TreeAnnotatorInitializer(final String hostTreesFile, final String symbiontTreesFile, final String hostTreesOutputFile, final String symbiontTreesOutputFile) throws IOException, ImportException {
 		
-		FileReader hostFileReader = new FileReader(hostTreesFile);
-		FileReader symbiontFileReader = new FileReader(symbiontTreesFile);
+		final FileReader hostFileReader = new FileReader(hostTreesFile);
+		final FileReader symbiontFileReader = new FileReader(symbiontTreesFile);
 		
-		TreeImporter hostTreeImporter = new NexusImporter(hostFileReader);
-		TreeImporter symbiontTreeImporter = new NexusImporter(hostFileReader);
+		final TreeImporter hostTreeImporter = new NexusImporter(hostFileReader);
+		final TreeImporter symbiontTreeImporter = new NexusImporter(hostFileReader);
 		
-		PrintStream hostTreesStream = new PrintStream(new FileOutputStream(hostTreesOutputFile));
-		PrintStream symbiontTreesStream = new PrintStream(new FileOutputStream(symbiontTreesOutputFile));
+		final PrintStream hostTreesStream = new PrintStream(new FileOutputStream(hostTreesOutputFile));
+		final PrintStream symbiontTreesStream = new PrintStream(new FileOutputStream(symbiontTreesOutputFile));
 		
-		NexusExporter hostNexusExporter = new NexusExporter(hostTreesStream);
-		NexusExporter symbiontNexusExporter = new NexusExporter(symbiontTreesStream);
+		final NexusExporter hostNexusExporter = new NexusExporter(hostTreesStream);
+		final NexusExporter symbiontNexusExporter = new NexusExporter(symbiontTreesStream);
 		
 		Map<String, Integer> hostNexusHeader = null;
 		Map<String, Integer> symbiontNexusHeader = null;
 		
 		int totalTrees = 10000;
-        int stepSize = totalTrees / 60;
+        final int stepSize = totalTrees / 60;
         
         PrintStream progressStream = System.err;
         progressStream.println("Reading trees (bar assumes 10,000 trees)...");
@@ -87,6 +87,9 @@ public class TreeAnnotatorInitializer {
 		
 		hostTreesStream.println("End;");
 		symbiontTreesStream.println("End;");
+		progressStream.println();
+		progressStream.println();
+		progressStream.println("Done.");
 		
 		hostFileReader.close();
 		symbiontFileReader.close();
@@ -101,9 +104,9 @@ public class TreeAnnotatorInitializer {
 	private final String NODE_REF = "nodeRef";
 	private final String HOST_NODE_REF = "host.nodeRef";
 	
-	private BitSet addNewClades(MutableTree tree, NodeRef node) {
+	private BitSet addNewClades(final MutableTree tree, final NodeRef node) {
 
-		BitSet bitSet = new BitSet();
+		final BitSet bitSet = new BitSet();
 		if (tree.isExternal(node)) {
 			bitSet.set(hostTaxonList.getTaxonIndex(tree.getNodeTaxon(node).getId()));
 		} else {
@@ -115,7 +118,7 @@ public class TreeAnnotatorInitializer {
 		if (!clades.containsKey(bitSet))
 			clades.put(bitSet, clades.size());
 
-		int id = clades.get(bitSet);
+		final int id = clades.get(bitSet);
 		ids[(Integer) tree.getNodeAttribute(node, NODE_REF)] = id;
 		tree.setNodeAttribute(node, NODE_REF, id);
 
@@ -128,7 +131,7 @@ public class TreeAnnotatorInitializer {
 	 */
 	public static void main(String[] args) {
 		
-		Arguments arguments = new Arguments(new Option[]{
+		final Arguments arguments = new Arguments(new Option[]{
 				new StringOption("h", "filename", "host input trees file name"),
 				new StringOption("i", "filename", "host output trees file name"),
 				new StringOption("s", "filename", "symbiont input trees file name"),
