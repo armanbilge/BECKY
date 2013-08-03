@@ -92,7 +92,13 @@ public class CoevolutionSimulator {
 		}
 	}
 	
-	public Tree simulateCoevolution(Tree hostTree, SimpleCophylogenyModel model) {
+	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed) {
+		if (!isRelaxed)
+			return simulateCoevolution(hostTree, rate, model, false, 0.0);
+		throw new IllegalArgumentException();
+	}
+	
+	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final double stdev) {
 		
 		SimpleNode root;
 		do {
@@ -101,24 +107,36 @@ public class CoevolutionSimulator {
 			root = simulateCoevolution(hostTree,
 					hostTree.getRoot(),
 					hostTree.getNodeHeight(hostTree.getRoot()),
+					rate,
 					model.getDuplicationRate(),
 					model.getHostShiftRate(),
-					model.getLossRate());
+					model.getLossRate(),
+					isRelaxed,
+					stdev);
 		} while (root == null);
 		return new SimpleTree(root);
 	}
 	
 	private int[] symbiontCounts;
 	public final Map<String,String> associations = new HashMap<String,String>();
-	private SimpleNode simulateCoevolution(Tree hostTree, NodeRef hostNode, double height, double duplicationRate, double hostShiftRate, double lossRate) {
+	private SimpleNode simulateCoevolution(final Tree hostTree, final NodeRef hostNode, final double height, final double rate, final double duplicationRate, final double hostShiftRate, final double lossRate, final boolean isRelaxed, final double stdev) {
 				
 		final SimpleNode node = new SimpleNode();
+		
+		final double relaxedRate;
+		if (isRelaxed) {
+			relaxedRate = Math.exp(rate + stdev * MathUtils.nextGaussian());
+		} else {
+			relaxedRate = rate;
+		}
+		
+		node.setAttribute("coevolution.clock.rate", relaxedRate);
 		node.setAttribute("host.nodeRef", hostNode.getNumber());
 		
-		SimpleNode child1 = null;
-		SimpleNode child2 = null;
+		final SimpleNode child1;
+		final SimpleNode child2;
 		
-		final EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(duplicationRate, hostShiftRate, lossRate);
+		final EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(relaxedRate * duplicationRate, relaxedRate * hostShiftRate, relaxedRate * lossRate);
 		final double eventHeight = height - nextEvent.time;
 		
 		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
@@ -133,15 +151,15 @@ public class CoevolutionSimulator {
 				return node;
 			}
 			// Cospeciation event;
-			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, duplicationRate, hostShiftRate, lossRate);
-			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, duplicationRate, hostShiftRate, lossRate);
+			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, rate, duplicationRate, hostShiftRate, lossRate, isRelaxed, stdev);
+			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, rate, duplicationRate, hostShiftRate, lossRate, isRelaxed, stdev);
 		} else {
 			node.setHeight(eventHeight);
 			switch(nextEvent.index) {
 			case 0:
 				// Duplication event
-				child1 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
-				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
+				child1 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostShiftRate, lossRate, isRelaxed, stdev);
+				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostShiftRate, lossRate, isRelaxed, stdev);
 				break;
 			case 1:
 				// Host-shift event
@@ -153,8 +171,8 @@ public class CoevolutionSimulator {
 					r = Relationship.determineRelationship(hostTree, hostNode, newHost).relationship;
 				} while (hostTree.isRoot(newHost) || (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree.getNodeHeight(hostTree.getParent(newHost)) 
 						&& (r != Relationship.COUSIN || r != Relationship.SISTER)));
-				child1 = simulateCoevolution(hostTree, newHost, eventHeight, duplicationRate, hostShiftRate, lossRate);
-				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, duplicationRate, hostShiftRate, lossRate);
+				child1 = simulateCoevolution(hostTree, newHost, eventHeight, rate, duplicationRate, hostShiftRate, lossRate, isRelaxed, stdev);
+				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostShiftRate, lossRate, isRelaxed, stdev);
 				break;
 			case 2: return null; // Loss event; null indicates the child lineage was lost
 			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
@@ -184,7 +202,7 @@ public class CoevolutionSimulator {
 		}
 	}
 	
-	private final EventIndexAndTime simulateSimultaneousPoissonProcesses(double...lambdas) {
+	private final EventIndexAndTime simulateSimultaneousPoissonProcesses(final double...lambdas) {
 		final double lambda = MathUtils.getTotal(lambdas);
 		final double[] p = new double[lambdas.length - 1];
 		p[0] = lambdas[0] / lambda;
@@ -196,7 +214,7 @@ public class CoevolutionSimulator {
 		for (i = 0; i < p.length && p[i] < U; ++i);
 		return new EventIndexAndTime(i, time);
 	}
-			
+				
 	public static void main(String[] args) {
 		
 		Locale.setDefault(Locale.US);
@@ -206,6 +224,7 @@ public class CoevolutionSimulator {
 				new Arguments.StringOption("a", "filename", "associations text file name"),
 				new Arguments.IntegerOption("t", "# taxa in host tree"),
 				new Arguments.RealArrayOption("r", 3, "coevolutionary rates"),
+				new Arguments.RealOption("c", "relaxed clock stdev"),
 				new Arguments.LongOption("seed", "random number generator seed")
 		});
 		
@@ -226,9 +245,9 @@ public class CoevolutionSimulator {
             }
     		MathUtils.setSeed(seed);
         }
-		System.err.println("Seed: " + seed);
+		System.err.println("Seed used: " + seed);
 		
-		MutableTaxonList taxa = new Taxa();
+		final MutableTaxonList taxa = new Taxa();
 		final int TAXA = arguments.getIntegerOption("t");
 		for (int i = 1; i <= TAXA; ++i) taxa.addTaxon(new Taxon("host" + i));
 		
@@ -236,7 +255,7 @@ public class CoevolutionSimulator {
 		
 		MutableTree mutableTree = (MutableTree) hostTree;
 		final double rootHeight = hostTree.getNodeHeight(hostTree.getRoot());
-		for (int i = 0; i < mutableTree.getNodeCount(); i++) {
+		for (int i = 0; i < mutableTree.getNodeCount(); ++i) {
 			NodeRef node = mutableTree.getNode(i);
 			mutableTree.setNodeHeight(node, mutableTree.getNodeHeight(node) / rootHeight);
 			mutableTree.setNodeAttribute(node, "nodeRef", node.getNumber());
@@ -254,8 +273,13 @@ public class CoevolutionSimulator {
 		
 		final double[] rates = arguments.getRealArrayOption("r");
 		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[0]), new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), Units.Type.YEARS);
-		CoevolutionSimulator cs = new CoevolutionSimulator();
-		final Tree symbiontTree = cs.simulateCoevolution(hostTree, scm);
+		final CoevolutionSimulator cs = new CoevolutionSimulator();
+		final Tree symbiontTree;
+		if (arguments.hasOption("c")) {
+			symbiontTree = cs.simulateCoevolution(hostTree, rates[0], scm, true, arguments.getRealOption("c"));
+		} else {
+			symbiontTree = cs.simulateCoevolution(hostTree, rates[0], scm, false);
+		}
 		
 		try {
 			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("s")));
