@@ -38,6 +38,8 @@
                memoryinitialsize="256m"
                memorymaximumsize="1024m">
             <include name="org/ithinktree/becky/*.java"/>
+            <include name="org/ithinktree/becky/jprimewrappers/*.java"/>
+            <include name="org/ithinktree/becky/test/*.java"/>
         </javac>
         <echo message="Successfully compiled."/>
     </target>
@@ -56,6 +58,7 @@
             </fileset>
             <zipgroupfileset dir="${lib}" includes="beast.jar"/>
             <zipgroupfileset dir="${lib}" includes="jprime-0.3.2.jar"/>
+            <zipgroupfileset dir="${lib}" includes="junit-4.11.jar"/>
         </jar>
     </target>
 
