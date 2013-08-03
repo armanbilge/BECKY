@@ -130,7 +130,7 @@ public class CoevolutionSimulator {
 			relaxedRate = rate;
 		}
 		
-		node.setAttribute("coevolution.clock.rate", relaxedRate);
+		node.setAttribute("cophylogeny.clock.rate", relaxedRate);
 		node.setAttribute("host.nodeRef", hostNode.getNumber());
 		
 		final SimpleNode child1;
