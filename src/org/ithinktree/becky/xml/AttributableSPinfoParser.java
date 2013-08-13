@@ -1,4 +1,4 @@
-package org.ithinktree.becky;
+package org.ithinktree.becky.xml;
 
 import java.util.ArrayList;
 import java.util.List;

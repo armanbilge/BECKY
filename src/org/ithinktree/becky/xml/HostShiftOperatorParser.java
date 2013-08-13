@@ -1,12 +1,16 @@
 /**
- * CoevolutionSimulatorParser.java
+ * HostShiftOperator.java
  * 
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
  */
-package org.ithinktree.becky;
+package org.ithinktree.becky.xml;
+
+import org.ithinktree.becky.CophylogenyLikelihood;
+import org.ithinktree.becky.HostShiftOperator;
 
 import dr.evolution.tree.Tree;
+import dr.inference.operators.MCMCOperator;
 import dr.xml.AbstractXMLObjectParser;
 import dr.xml.AttributeRule;
 import dr.xml.ElementRule;
@@ -18,26 +22,25 @@ import dr.xml.XMLSyntaxRule;
  * @author Arman D. Bilge
  *
  */
-public class CoevolutionSimulatorParser extends AbstractXMLObjectParser {
-
-	public static final String COEVOLUTION_SIMULATOR = "coevolutionSimulator";
+public class HostShiftOperatorParser extends AbstractXMLObjectParser {
+	
+	public static final String HOST_SHIFT_OPERATOR = "hostShiftOperator";
+	public static final String SAMPLE_NO_HOST = "sampleNoHost";
 	public static final String HOST_TREE = "hostTree";
 	public static final String SYMBIONT_TREE = "symbiontTree";
-	public static final String HOST_ATTRIBUTE_NAME = "hostAttributeName";
-	public static final String SIMULATE_NO_HOST = "simulateNoHost";
-	
+
 	@Override
 	public String getParserName() {
-		return COEVOLUTION_SIMULATOR;
+		return HOST_SHIFT_OPERATOR;
 	}
 
 	@Override
 	public Object parseXMLObject(XMLObject xo) throws XMLParseException {
-
-		final String hostAttributeName = xo.getStringAttribute(HOST_ATTRIBUTE_NAME);
 		
-		final boolean usingNoHost = xo.hasAttribute(SIMULATE_NO_HOST) ?
-				xo.getBooleanAttribute(SIMULATE_NO_HOST) : false;
+		final double weight = xo.getDoubleAttribute(MCMCOperator.WEIGHT);
+		
+		final boolean usingNoHost = xo.hasAttribute(SAMPLE_NO_HOST) ?
+							xo.getBooleanAttribute(SAMPLE_NO_HOST) : false;
 		
 		XMLObject cxo = xo.getChild(HOST_TREE);
 		final Tree hostTree = (Tree) cxo.getChild(Tree.class);
@@ -47,8 +50,7 @@ public class CoevolutionSimulatorParser extends AbstractXMLObjectParser {
 		
 		final CophylogenyLikelihood cophylogenyLikelihood = (CophylogenyLikelihood) xo.getChild(CophylogenyLikelihood.class);
 		
-		new CoevolutionSimulator().simulateCoevolution(hostTree, symbiontTree, cophylogenyLikelihood, hostAttributeName, usingNoHost);
-		return null;
+		return new HostShiftOperator(hostTree, symbiontTree, cophylogenyLikelihood, usingNoHost, weight);
 	}
 
 	@Override
@@ -58,23 +60,25 @@ public class CoevolutionSimulatorParser extends AbstractXMLObjectParser {
 
 	@Override
 	public String getParserDescription() {
-		return "Simulates coevolution on the symbiont starting tree.";
+		return "This basic operator shifts hosts on the symbiont tree while maintaining biological validity.";
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Class getReturnType() {
-		return CoevolutionSimulator.class;
+		return HostShiftOperator.class;
 	}
 
 	private final XMLSyntaxRule[] rules = {
-			AttributeRule.newStringRule(HOST_ATTRIBUTE_NAME),
-			new ElementRule(HOST_TREE, new XMLSyntaxRule[] {
+			AttributeRule.newDoubleRule(MCMCOperator.WEIGHT),
+			AttributeRule.newBooleanRule(SAMPLE_NO_HOST, true),
+			new ElementRule(HOST_TREE, new XMLSyntaxRule[]{
 					new ElementRule(Tree.class)
 			}),
-			new ElementRule(SYMBIONT_TREE, new XMLSyntaxRule[] {
+			new ElementRule(SYMBIONT_TREE, new XMLSyntaxRule[]{
 					new ElementRule(Tree.class)
 			}),
 			new ElementRule(CophylogenyLikelihood.class)
 	};
+	
 }

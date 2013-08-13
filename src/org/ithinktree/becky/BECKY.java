@@ -8,6 +8,12 @@ package org.ithinktree.becky;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.ithinktree.becky.xml.CoevolutionSimulatorParser;
+import org.ithinktree.becky.xml.CophylogenyLikelihoodParser;
+import org.ithinktree.becky.xml.HostShiftOperatorParser;
+import org.ithinktree.becky.xml.NodeRefProviderParser;
+import org.ithinktree.becky.xml.SimpleCophylogenyModelParser;
+
 import dr.app.plugin.Plugin;
 import dr.xml.XMLObjectParser;
 
