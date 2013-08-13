@@ -6,6 +6,7 @@
  */
 package org.ithinktree.becky;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
@@ -113,7 +114,7 @@ public class CoevolutionSimulator {
 			associations.clear();
 			root = simulateCoevolution(hostTree,
 					hostTree.getRoot(),
-					hostTree.getNodeHeight(hostTree.getRoot()) + MathUtils.nextExponential(hostTree.getNodeHeight(hostTree.getRoot()) / hostTree.getExternalNodeCount()),
+					hostTree.getNodeHeight(hostTree.getRoot()) + MathUtils.nextExponential(hostTree.getNodeCount() / hostTree.getNodeHeight(hostTree.getRoot())),
 					rate,
 					model.getDuplicationRate(),
 					model.getHostShiftRate(),
@@ -277,9 +278,21 @@ public class CoevolutionSimulator {
 		}
 		
 		PrintStream stream;
+		File f;
 		try {
 			stream = new PrintStream(new FileOutputStream("host.tre"));
 			new NexusExporter(stream).exportTree(hostTree);
+			stream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
+		f = new File("host.newick");
+		f.deleteOnExit();
+		try {
+			stream = new PrintStream(new FileOutputStream(f));
+			stream.println(Tree.Utils.newick(hostTree));
 			stream.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -305,6 +318,17 @@ public class CoevolutionSimulator {
 			System.exit(1);
 		}
 		
+		f = new File("symbiont.newick");
+		f.deleteOnExit();
+		try {
+			stream = new PrintStream(new FileOutputStream(f));
+			stream.println(Tree.Utils.newick(symbiontTree));
+			stream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
+		
 		try {
 			stream = new PrintStream(new FileOutputStream("associations.map"));
 			for (String key : cs.associations.keySet()) {
@@ -316,9 +340,9 @@ public class CoevolutionSimulator {
 			System.exit(1);
 		}
 		
-		SeqGen.main(new String[]{"host.tre", "host"});
-		SeqGen.main(new String[]{"symbiont.tre", "symbiont"});
-
+		SeqGen.main(new String[]{"host.newick", "host", "0.1"});
+		SeqGen.main(new String[]{"symbiont.newick", "symbiont", "0.1"});
+		
 	}
 	
 	public static void debugHelper(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood) {
