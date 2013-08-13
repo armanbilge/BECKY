@@ -14,8 +14,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.ithinktree.becky.CophylogenyModel.Relationship;
+import org.apache.commons.lang3.ArrayUtils;
+import org.ithinktree.becky.CophylogenyModel.Utils;
+import org.ithinktree.becky.CophylogenyModel.Utils.Relationship;
 
+import dr.app.seqgen.SeqGen;
 import dr.app.tools.NexusExporter;
 import dr.app.util.Arguments;
 import dr.app.util.Arguments.ArgumentException;
@@ -49,7 +52,7 @@ public class CoevolutionSimulator {
 	 * @param symbiontTree
 	 * @param hostAttributeName
 	 */
-	public void simulateCoevolution(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood, String hostAttributeName, boolean usingNoHost) {
+	public void simulateCoevolution(Tree hostTree, MutableTree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood, String hostAttributeName, boolean samplingNoHost) {
 		
 		for (int i = 0; i < symbiontTree.getExternalNodeCount(); i++) {
 			NodeRef node = symbiontTree.getExternalNode(i);
@@ -63,7 +66,7 @@ public class CoevolutionSimulator {
 		
 		int[] postOrderList = new int[symbiontTree.getNodeCount()];
 		Tree.Utils.postOrderTraversalList(symbiontTree, postOrderList);
-		int[] hostNodeIds = MathUtils.shuffled(hostTree.getNodeCount() + (usingNoHost ? 1 : 0));
+		int[] hostNodeIds = MathUtils.shuffled(hostTree.getNodeCount() + (samplingNoHost ? 1 : 0));
 		for (int i = 0; i < postOrderList.length; ++i) {
 			NodeRef node = symbiontTree.getNode(postOrderList[i]);
 			if (!symbiontTree.isExternal(node)) {
@@ -81,13 +84,17 @@ public class CoevolutionSimulator {
 						break;
 					}
 					relationships = EnumSet.noneOf(Relationship.class);
-					int r = hostNodeIds[j++] - (usingNoHost ? 1 : 0);
+					int r = hostNodeIds[j++] - (samplingNoHost ? 1 : 0);
 					hostNode = r == CophylogenyLikelihood.NO_HOST ? null : hostTree.getNode(r);
-					relationships.add(Relationship.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
-					relationships.add(Relationship.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
+					relationships.add(Utils.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
+					relationships.add(Utils.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
 				} while (relationships.contains(Relationship.ANCESTOR) ||
 							(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT)));
 				cophylogenyLikelihood.setStatesForNode(node, hostNode);
+				double maxHeight = hostTree.isRoot(hostNode) ? Double.MAX_VALUE : hostTree.getNodeHeight(hostTree.getParent(hostNode));
+				double minHeight = Math.max(hostTree.getNodeHeight(hostNode), Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(node, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(node, 1))));
+				if (minHeight > maxHeight) i = -1; // Don't know if this can happen, but restarts the simulation
+				symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * maxHeight - minHeight + minHeight);
 			}
 		}
 	}
@@ -106,7 +113,7 @@ public class CoevolutionSimulator {
 			associations.clear();
 			root = simulateCoevolution(hostTree,
 					hostTree.getRoot(),
-					hostTree.getNodeHeight(hostTree.getRoot()),
+					hostTree.getNodeHeight(hostTree.getRoot()) + MathUtils.nextExponential(hostTree.getNodeHeight(hostTree.getRoot()) / hostTree.getExternalNodeCount()),
 					rate,
 					model.getDuplicationRate(),
 					model.getHostShiftRate(),
@@ -166,12 +173,22 @@ public class CoevolutionSimulator {
 				int nodeCount = hostTree.getNodeCount();
 				NodeRef newHost;
 				Relationship r;
-				do {
-					newHost = hostTree.getNode(MathUtils.nextInt(nodeCount));
-					r = Relationship.determineRelationship(hostTree, hostNode, newHost).relationship;
-				} while (hostTree.isRoot(newHost) || (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree.getNodeHeight(hostTree.getParent(newHost)) 
-						&& (r != Relationship.COUSIN || r != Relationship.SISTER)));
-				child1 = simulateCoevolution(hostTree, newHost, eventHeight, rate, duplicationRate, hostShiftRate, lossRate, isRelaxed, stdev);
+				if (!hostTree.isRoot(hostNode)) { // Can't host-shift if at the root!
+					do {
+						newHost = hostTree
+								.getNode(MathUtils.nextInt(nodeCount));
+						r = Utils.determineRelationship(hostTree, hostNode,
+								newHost).relationship;
+					} while (hostTree.isRoot(newHost)
+							|| (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree // TODO Use of >= is debatable
+									.getNodeHeight(hostTree.getParent(newHost))
+									&& (r != Relationship.COUSIN || r != Relationship.SISTER)));
+					child1 = simulateCoevolution(hostTree, newHost,
+							eventHeight, rate, duplicationRate, hostShiftRate,
+							lossRate, isRelaxed, stdev);
+				} else {
+					child1 = null; // Like a host-shift to a totally different tree that we're not following
+				}
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostShiftRate, lossRate, isRelaxed, stdev);
 				break;
 			case 2: return null; // Loss event; null indicates the child lineage was lost
@@ -219,9 +236,6 @@ public class CoevolutionSimulator {
 		
 		Locale.setDefault(Locale.US);
 		Arguments arguments = new Arguments(new Arguments.Option[]{
-				new Arguments.StringOption("h", "filename", "host tree file name"),
-				new Arguments.StringOption("s","filename", "symbiont tree file name"),				
-				new Arguments.StringOption("a", "filename", "associations text file name"),
 				new Arguments.IntegerOption("t", "# taxa in host tree"),
 				new Arguments.RealArrayOption("r", 3, "coevolutionary rates"),
 				new Arguments.RealOption("c", "relaxed clock stdev"),
@@ -245,7 +259,10 @@ public class CoevolutionSimulator {
             }
     		MathUtils.setSeed(seed);
         }
-		System.err.println("Seed used: " + seed);
+		System.out.println("Seed used: " + seed);
+		System.out.println("Rates: " + ArrayUtils.toString(arguments.getRealArrayOption("r")));
+		if (arguments.hasOption("c")) System.out.println(arguments.getRealOption("c"));
+		System.out.println();
 		
 		final MutableTaxonList taxa = new Taxa();
 		final int TAXA = arguments.getIntegerOption("t");
@@ -254,16 +271,14 @@ public class CoevolutionSimulator {
 		final Tree hostTree = new CoalescentSimulator().simulateTree(taxa, new ConstantPopulationModel(new Parameter.Default(100), Units.Type.YEARS));
 		
 		MutableTree mutableTree = (MutableTree) hostTree;
-		final double rootHeight = hostTree.getNodeHeight(hostTree.getRoot());
 		for (int i = 0; i < mutableTree.getNodeCount(); ++i) {
 			NodeRef node = mutableTree.getNode(i);
-			mutableTree.setNodeHeight(node, mutableTree.getNodeHeight(node) / rootHeight);
 			mutableTree.setNodeAttribute(node, "nodeRef", node.getNumber());
 		}
 		
 		PrintStream stream;
 		try {
-			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("h")));
+			stream = new PrintStream(new FileOutputStream("host.tre"));
 			new NexusExporter(stream).exportTree(hostTree);
 			stream.close();
 		} catch (FileNotFoundException e) {
@@ -272,7 +287,7 @@ public class CoevolutionSimulator {
 		}
 		
 		final double[] rates = arguments.getRealArrayOption("r");
-		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[0]), new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), Units.Type.YEARS);
+		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(1), new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), Units.Type.YEARS);
 		final CoevolutionSimulator cs = new CoevolutionSimulator();
 		final Tree symbiontTree;
 		if (arguments.hasOption("c")) {
@@ -282,7 +297,7 @@ public class CoevolutionSimulator {
 		}
 		
 		try {
-			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("s")));
+			stream = new PrintStream("symbiont.tre");
 			new NexusExporter(stream).exportTree(symbiontTree);
 			stream.close();
 		} catch (FileNotFoundException e) {
@@ -291,7 +306,7 @@ public class CoevolutionSimulator {
 		}
 		
 		try {
-			stream = new PrintStream(new FileOutputStream(arguments.getStringOption("a")));
+			stream = new PrintStream(new FileOutputStream("associations.map"));
 			for (String key : cs.associations.keySet()) {
 				stream.println(key + "\t" + cs.associations.get(key));
 			}
@@ -301,6 +316,9 @@ public class CoevolutionSimulator {
 			System.exit(1);
 		}
 		
+		SeqGen.main(new String[]{"host.tre", "host", "10"});
+		SeqGen.main(new String[]{"symbiont.tre", "symbiont", "10"});
+
 	}
 	
 	public static void debugHelper(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood) {
