@@ -10,8 +10,8 @@ package org.ithinktree.becky;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.math.util.MathUtils;
-
+import dr.evolution.tree.BranchRates;
+import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.evolution.util.Units;
@@ -30,6 +30,9 @@ import dr.inference.model.Variable.ChangeType;
 public abstract class CophylogenyModel extends AbstractModel implements Units {
 
 	private Units.Type units;
+	protected double overallRate;
+	protected boolean dirty = true;
+	
 	
 	/**
 	 * 
@@ -38,15 +41,28 @@ public abstract class CophylogenyModel extends AbstractModel implements Units {
 		super(name);
 		setUnits(units);
 	}
-	
-	public double calculateNodeLogLikelihood(NodeRef self, Tree hostTree, NodeRef selfHost, NodeRef child1Host, NodeRef child2Host, double selfBranchTime, double child1BranchTime, double child2BranchTime) {
-		return this.calculateNodeLogLikelihood(hostTree, selfHost, child1Host, child2Host, selfBranchTime, child1BranchTime, child2BranchTime);
+		
+	protected final double likelihoodEventAtTime(double t, double lambda) {
+		return lambda * Math.exp(-overallRate * t);
 	}
-	public abstract double calculateNodeLogLikelihood(Tree hostTree, NodeRef selfHost, NodeRef child1Host, NodeRef child2Host, double selfBranchTime, double child1BranchTime, double child2BranchTime);
+	
+	protected final double likelihoodEventInTime(double t, double lambda) {
+		return Math.exp((lambda - overallRate) * t) - Math.exp(-overallRate * t);
+	}
+	
+	protected final double likelihoodNoEventsInTime(double t) {
+		return Math.exp(overallRate * t);
+	}
+	
+	protected static final double likelihoodNoEventInTime(double t, double lambda) {
+		throw new UnsupportedOperationException();
+//		return 1.0 - ExponentialDistribution.cdf(t, lambda);
+	}
 	
 	protected static final double likelihoodEventsInTime(double t, double lambda, int k) {
-		final double tXlambda = t * lambda;
-		return Math.exp(-tXlambda) * Math.pow(tXlambda, k) / MathUtils.factorial(k);
+		throw new UnsupportedOperationException();
+//		final double tXlambda = t * lambda;
+//		return Math.exp(-tXlambda) * Math.pow(tXlambda, k) / MathUtils.factorial(k);
 	}
 	
 	public void setUnits(Units.Type u) {
@@ -60,19 +76,21 @@ public abstract class CophylogenyModel extends AbstractModel implements Units {
 	protected void handleModelChangedEvent(Model model, Object object, int index) {};
 	
 	@SuppressWarnings("rawtypes")
-	protected void handleVariableChangedEvent(Variable variable, int index,
-			ChangeType type) {}
+	protected void handleVariableChangedEvent(Variable variable, int index, ChangeType type) {dirty = true;}
 	
 	protected void storeState() {};
 	protected void restoreState() {};
 	protected void acceptState() {};
 	
-	public enum Relationship {
-		SELF,
-		DESCENDANT,
-		ANCESTOR,
-		SISTER,
-		COUSIN;
+	public static class Utils {
+	
+		public enum Relationship {
+			SELF,
+			DESCENDANT,
+			ANCESTOR,
+			SISTER,
+			COUSIN;
+		}
 		
 		public static final class NodalRelationship {
 			public final Relationship relationship;
@@ -81,87 +99,124 @@ public abstract class CophylogenyModel extends AbstractModel implements Units {
 			public NodalRelationship(Relationship r, int g) {
 				this(r, g, EMPTY_NODE_REF_ARRAY);
 			}
-			public NodalRelationship(Relationship r, int g, NodeRef[] ll) {
+			
+			public NodalRelationship(final Utils.Relationship r, final int g, final NodeRef[] ll) {
 				relationship = r;
 				generations = g;
 				lostLineages = ll;
 			}
-		}
-		
-		/**
-		 * Determines the reciprocal of a relationship.
-		 * @param r given relationship.
-		 * @return the reciprocal relationship
-		 */
-		public static final NodalRelationship reciprocal(NodalRelationship r) {
-			switch (r.relationship) {
-			case DESCENDANT: return new NodalRelationship(ANCESTOR, r.generations, r.lostLineages);
-			case ANCESTOR: return new NodalRelationship(DESCENDANT, r.generations, r.lostLineages);
-			// SELF, SISTER, or COUSIN should return the same
-			default: return r;
+			
+			/**
+			 * Determines the reciprocal of a relationship.
+			 * @param r given relationship.
+			 * @return the reciprocal relationship
+			 */
+			public final Utils.NodalRelationship reciprocal() {
+				switch (this.relationship) {
+				case DESCENDANT: return new NodalRelationship(Utils.Relationship.ANCESTOR, this.generations, this.lostLineages);
+				case ANCESTOR: return new NodalRelationship(Utils.Relationship.DESCENDANT, this.generations, this.lostLineages);
+				// SELF, SISTER, or COUSIN should return the same
+				default: return this;
+				}
 			}
 		}
-		
-		/**
-		 * Determines the relationship between two given nodes in a given tree.
-		 * Does not 
-		 * @param tree The tree
-		 * @param self 
-		 * @param relation The node 
-		 * @return
-		 */
-		public static final NodalRelationship determineRelationship(Tree tree, NodeRef self, NodeRef relation) {
-			
-			if (self == null || relation == null)
-//				return new NodalRelationship(COUSIN, 0);
-				throw new IllegalArgumentException();
+
+			/**
+			 * Determines the relationship between two given nodes in a given tree.
+			 * Does not 
+			 * @param tree The tree
+			 * @param self 
+			 * @param relation The node 
+			 * @return
+			 */
+			public static final NodalRelationship determineRelationship(final Tree tree, final NodeRef self, final NodeRef relation) {
 				
-			int selfN = self.getNumber();
-			int relationN = relation.getNumber();
+				if (self == null || relation == null)
+//					return new NodalRelationship(COUSIN, 0);
+					throw new IllegalArgumentException();
+					
+				int selfN = self.getNumber();
+				int relationN = relation.getNumber();
+				
+				if (selfN == relationN)
+					return new NodalRelationship(Utils.Relationship.SELF, 0);
+							
+				if (!tree.isRoot(self) && !tree.isRoot(relation) && tree.getParent(self).getNumber() == tree.getParent(relation).getNumber())
+					return new NodalRelationship(Utils.Relationship.SISTER, 0);
+				
+				List<NodeRef> lostLineages = new ArrayList<NodeRef>();
+				
+				NodeRef temp = tree.getParent(relation);
+				// Arguably g should = 1, but confounds proper counting of loss events
+				for (int g = 0; temp != null; ++g, temp = tree.getParent(temp)) {
+					lostLineages.addAll(getSisters(tree, temp));
+					if (selfN == temp.getNumber()) {
+						return new NodalRelationship(Utils.Relationship.DESCENDANT, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
+					}
+				}
+				
+				lostLineages.clear();
+				temp = tree.getParent(self);
+				for (int g = 0; temp != null; ++g, temp = tree.getParent(temp)) {
+					lostLineages.addAll(getSisters(tree, temp));
+					if (relationN == temp.getNumber()) {
+						return new NodalRelationship(Utils.Relationship.ANCESTOR, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
+					}
+				}
+				
+				// Otherwise must be a cousin
+				return new NodalRelationship(Utils.Relationship.COUSIN, 0);
+			}
 			
-			if (selfN == relationN)
-				return new NodalRelationship(SELF, 0);
-						
-			if (!tree.isRoot(self) && !tree.isRoot(relation) && tree.getParent(self).getNumber() == tree.getParent(relation).getNumber())
-				return new NodalRelationship(SISTER, 0);
+			private static final NodeRef[] EMPTY_NODE_REF_ARRAY = new NodeRef[0];
+			private static final List<NodeRef> EMPTY_NODE_LIST = new ArrayList<NodeRef>(0);
+			private static final List<NodeRef> getSisters(Tree t, NodeRef n) {
+				if (t.isRoot(n)) return EMPTY_NODE_LIST;
+				NodeRef p = t.getParent(n);
+				int cc = t.getChildCount(p);
+				List<NodeRef> sisters = new ArrayList<NodeRef>(cc);
+				for (int i = 0; i < cc; ++i) {
+					NodeRef c = t.getChild(p, i);
+					if (c != n) sisters.add(c);
+				}
+				return sisters;
+			}
 			
+		public static final NodeRef[] lostLineagesToTime(final Tree t, NodeRef n, final double d) {
+			
+			if (t.getNodeHeight(n) > d) return EMPTY_NODE_REF_ARRAY;
 			List<NodeRef> lostLineages = new ArrayList<NodeRef>();
-			
-			NodeRef descendant = tree.getParent(relation);
-			// Arguably g should = 1, but confounds proper counting of loss events
-			for (int g = 0; descendant != null; g++, descendant = tree.getParent(descendant)) {
-				lostLineages.addAll(getSisters(tree, descendant));
-				if (selfN == descendant.getNumber()) {
-					return new NodalRelationship(DESCENDANT, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
-				}
+			while (t.getNodeHeight(n) < d && !t.isRoot(n)) {
+				lostLineages.addAll(getSisters(t, n));
+				n = t.getParent(n);
 			}
+//			lostLineages.add(n);
+			return lostLineages.toArray(EMPTY_NODE_REF_ARRAY);
 			
-			lostLineages.clear();
-			NodeRef ancestor = tree.getParent(self);
-			for (int g = 0; ancestor != null; g++, ancestor = tree.getParent(ancestor)) {
-				lostLineages.addAll(getSisters(tree, ancestor));
-				if (relationN == ancestor.getNumber()) {
-					return new NodalRelationship(ANCESTOR, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
-				}
-			}
-			
-			// Otherwise must be a cousin
-			// TODO Any potential to collect generational info, e.g. generations to MRCA?
-			return new NodalRelationship(COUSIN, 0);
 		}
 		
-		private static final NodeRef[] EMPTY_NODE_REF_ARRAY = new NodeRef[0];
-		private static final List<NodeRef> getSisters(Tree t, NodeRef n) {
-			NodeRef p = t.getParent(n);
-			int cc = t.getChildCount(p);
-			List<NodeRef> sisters = new ArrayList<NodeRef>(cc);
-			for (int i = 0; i < cc; ++i) {
-				NodeRef c = t.getChild(p, i);
-				if (c != n) sisters.add(c);
+		public static final boolean isTreeValid(Tree t) {
+			return isTreeValid(t, null, t.getRoot());
+		}
+		
+		private static final boolean isTreeValid(Tree t, NodeRef p, NodeRef n) {
+			
+			boolean valid = p != null ? t.getNodeHeight(n) < t.getNodeHeight(p) : true;
+			if (!valid) return valid;
+			if (!t.isExternal(n)) {
+				for (int i = 0; i < t.getChildCount(n); ++i) {
+					valid = isTreeValid(t, n, t.getChild(n, i));
+					if (!valid) return valid;
+				}
 			}
-			return sisters;
+			return true;
 		}
 		
 	}
 
+	public abstract double calculateNodeLogLikelihood(final MutableTree symbiontTree, final NodeRef self,
+			final NodeRef child1, final NodeRef child2, final Tree hostTree, final NodeRef selfHost,
+			final NodeRef child1Host, final NodeRef child2Host, final BranchRates branchRates);
+
 }
+

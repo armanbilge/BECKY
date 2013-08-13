@@ -7,6 +7,9 @@
 
 package org.ithinktree.becky;
 
+import org.ithinktree.becky.xml.CophylogenyLikelihoodParser;
+
+import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.evolution.tree.TreeTrait;
@@ -31,38 +34,28 @@ import dr.inference.model.Variable.ChangeType;
 @SuppressWarnings("serial")
 public class CophylogenyLikelihood extends AbstractModelLikelihood implements TreeTraitProvider, Units {
 
-	public static final String STATES_KEY = "host.nodeRef";
 	public static final int NO_HOST = -1;
 	
-	private Tree hostTree;
-	private Tree symbiontTree;
-	private CophylogenyModel cophylogenyModel;
-	private BranchRateModel branchRateModel;
-	@SuppressWarnings("unused")
-	private String hostAttributeName;
-	@SuppressWarnings("unused")
-	private String reconstructionTagName;
+	final private Tree hostTree;
+	final private MutableTree symbiontTree;
+	final private CophylogenyModel cophylogenyModel;
+	final private BranchRateModel branchRateModel;
 	
-	private TreeTraitProvider.Helper treeTraits = new Helper();
+	final private TreeTraitProvider.Helper treeTraits = new Helper();
 	
-	/**
-	 * 
-	 */
-	public CophylogenyLikelihood(String name) {
-		super(name);
-	}
-	
-	public CophylogenyLikelihood(Tree hostTree, Tree symbiontTree, CophylogenyModel cophylogenyModel, BranchRateModel branchRateModel, String reconstructionTagName, String hostAttributeName, String id) {
+	public CophylogenyLikelihood(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRateModel branchRateModel, final String reconstructionTagName, final String hostAttributeName, final String id) {
 		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName, hostAttributeName);
 		setId(id);
 	}
 	
-	public CophylogenyLikelihood(String name, Tree hostTree, Tree symbiontTree, CophylogenyModel cophylogenyModel, BranchRateModel branchRateModel, final String reconstructionTagName, String hostAttributeName) {
+	public CophylogenyLikelihood(final String name, final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRateModel branchRateModel, final String reconstructionTagName, final String hostAttributeName) {
 		
 		super(name);
+		setUnits(cophylogenyModel.getUnits());
 		
 		this.hostTree = hostTree;
 		this.symbiontTree = symbiontTree;
+		
 		this.cophylogenyModel = cophylogenyModel;
 		this.branchRateModel = branchRateModel;
 		if (hostTree instanceof TreeModel) {
@@ -77,13 +70,11 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		if (branchRateModel != null) {
 			addModel(branchRateModel);
 		}
-		this.hostAttributeName = hostAttributeName;
-		this.reconstructionTagName = reconstructionTagName;
 		
 		reconstructedStates = new int[symbiontTree.getNodeCount()];
-		storedReconstructedStates = new int[symbiontTree.getNodeCount()];
+		storedReconstructedStates = new int[reconstructedStates.length];
 		
-		treeTraits.addTrait(STATES_KEY, new NR() {
+		treeTraits.addTrait(reconstructionTagName, new NodeRefTrait() {
 
 			@Override
 			public String getTraitName() {
@@ -91,23 +82,26 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			}
 
 			@Override
-			public Intent getIntent() {
-				return Intent.NODE;
-			}
-
-			@Override
-			public NodeRef getTrait(Tree tree, NodeRef node) {
+			public NodeRef getTrait(final Tree tree, final NodeRef node) {
 				return getStatesForNode(node);
 			}
 			
-			public String getTraitString(Tree tree, NodeRef node) {
-				return formatTrait(getStatesForNode(node));
+			public String getTraitString(final Tree tree, final NodeRef node) {
+				return formatTrait(getTrait(tree, node));
 			}
 			
 		});
-		
+
 	}
 	
+	public CophylogenyLikelihood(String name) {
+		super(name);
+		symbiontTree = null;
+		hostTree = null;
+		cophylogenyModel = null;
+		branchRateModel = null;
+	}
+
 	@Override
 	public Model getModel() {
 		return this;
@@ -130,10 +124,9 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 						
 		double logL = 0.0;
 		
-		NodeRef self, child1, child2, parent;
+		NodeRef self, child1, child2;
 		NodeRef selfHost, child1Host, child2Host;
-		double branchRate, selfNodeHeight, selfBranchTime, child1BranchTime, child2BranchTime;
-		for (int i = 0; i < symbiontTree.getInternalNodeCount(); i++) {
+		for (int i = 0; i < symbiontTree.getInternalNodeCount(); ++i) {
 
 			self = symbiontTree.getInternalNode(i);
 						
@@ -144,27 +137,12 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			child1Host = getStatesForNode(child1);
 			child2Host = getStatesForNode(child2);
 			
-			selfNodeHeight = symbiontTree.getNodeHeight(self);
-			if (symbiontTree.isRoot(self)) {
-				selfBranchTime = -1.0;
-			} else {
-				parent = symbiontTree.getParent(self);
-				branchRate = branchRateModel.getBranchRate(symbiontTree, self);
-				selfBranchTime = branchRate * (symbiontTree.getNodeHeight(parent) - selfNodeHeight);
-			}
-			
-			branchRate = branchRateModel.getBranchRate(symbiontTree, child1);
-			child1BranchTime = branchRate * (selfNodeHeight - symbiontTree.getNodeHeight(child1));
+			logL += cophylogenyModel.calculateNodeLogLikelihood(symbiontTree, self, child1, child2, hostTree, selfHost, child1Host, child2Host, branchRateModel);
 				
-			branchRate = branchRateModel.getBranchRate(symbiontTree, child2);
-			child2BranchTime = branchRate * (selfNodeHeight - symbiontTree.getNodeHeight(child2));
-			
-			logL += cophylogenyModel.calculateNodeLogLikelihood(self, hostTree, selfHost, child1Host, child2Host, selfBranchTime, child1BranchTime, child2BranchTime);
-				
-			if (logL == Double.NEGATIVE_INFINITY) break;
+			if (logL == Double.NEGATIVE_INFINITY) return logL;
 			
 		}
-			
+		
 		return logL;
 	}
 
@@ -227,7 +205,6 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	@Override
 	public void setUnits(Type units) {
 		cophylogenyModel.setUnits(units);
-		
 	}
 	
 	public NodeRef getStatesForNode(NodeRef node) {
@@ -242,14 +219,11 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	public void setStatesForNode(NodeRef node, NodeRef state) {
 		
 		likelihoodKnown = false;
-		if (state == null) {
-			reconstructedStates[node.getNumber()] = NO_HOST;
-		} else {
-			reconstructedStates[node.getNumber()] = state.getNumber();
-		}
+		reconstructedStates[node.getNumber()] = state == null ? NO_HOST : state.getNumber();
+
 	}
 	
-	public abstract class NR extends DefaultBehavior implements TreeTrait<NodeRef> {
+	public abstract class NodeRefTrait extends DefaultBehavior implements TreeTrait<NodeRef> {
 		
 		@SuppressWarnings("rawtypes")
 		public Class getTraitClass() {
@@ -260,6 +234,11 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			return formatTrait(getTrait(tree, node));
 		}
 		
+		@Override
+		public Intent getIntent() {
+			return Intent.NODE;
+		}
+		
 		public String formatTrait(NodeRef n) {
 			if (n == null) {
 				return Integer.toString(-1);
@@ -268,7 +247,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		}
 		
 	}
-
+	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public TreeTrait[] getTreeTraits() {
