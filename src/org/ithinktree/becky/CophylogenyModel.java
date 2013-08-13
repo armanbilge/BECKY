@@ -10,6 +10,8 @@ package org.ithinktree.becky;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.math.util.MathUtils;
+
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.evolution.util.Units;
@@ -41,6 +43,11 @@ public abstract class CophylogenyModel extends AbstractModel implements Units {
 		return this.calculateNodeLogLikelihood(hostTree, selfHost, child1Host, child2Host, selfBranchTime, child1BranchTime, child2BranchTime);
 	}
 	public abstract double calculateNodeLogLikelihood(Tree hostTree, NodeRef selfHost, NodeRef child1Host, NodeRef child2Host, double selfBranchTime, double child1BranchTime, double child2BranchTime);
+	
+	protected static final double likelihoodEventsInTime(double t, double lambda, int k) {
+		final double tXlambda = t * lambda;
+		return Math.exp(-tXlambda) * Math.pow(tXlambda, k) / MathUtils.factorial(k);
+	}
 	
 	public void setUnits(Units.Type u) {
 		units = u;
@@ -106,7 +113,8 @@ public abstract class CophylogenyModel extends AbstractModel implements Units {
 		public static final NodalRelationship determineRelationship(Tree tree, NodeRef self, NodeRef relation) {
 			
 			if (self == null || relation == null)
-				return new NodalRelationship(COUSIN, 0);
+//				return new NodalRelationship(COUSIN, 0);
+				throw new IllegalArgumentException();
 				
 			int selfN = self.getNumber();
 			int relationN = relation.getNumber();
