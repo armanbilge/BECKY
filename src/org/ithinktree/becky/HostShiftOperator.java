@@ -8,7 +8,8 @@ package org.ithinktree.becky;
 
 import java.util.EnumSet;
 
-import org.ithinktree.becky.CophylogenyModel.Relationship;
+import org.ithinktree.becky.CophylogenyModel.Utils.Relationship;
+import org.ithinktree.becky.xml.HostShiftOperatorParser;
 
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
@@ -62,30 +63,32 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 	@Override
 	public double doOperation() throws OperatorFailedException {
 		
-		NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(symbiontTree.getInternalNodeCount()));
-		NodeRef child1HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 0));
-		NodeRef child2HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 1));
+		final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(symbiontTree.getInternalNodeCount()));
+		final NodeRef parentHostNode = symbiontTree.isRoot(node) ? null : cophylogenyLikelihood.getStatesForNode(symbiontTree.getParent(node));
+		final NodeRef child1HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 0));
+		final NodeRef child2HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 1));
+		final double nodeHeight = symbiontTree.getNodeHeight(node);
 		NodeRef hostNode;
 		EnumSet<Relationship> relationships;
+		boolean temporallyValid;
 		MathUtils.shuffle(hostNodeIndices);
 		int i = 0;
 		do {
+			if (i >= hostNodeIndices.length) return 0;
 			relationships = EnumSet.noneOf(Relationship.class);
 			hostNode = hostNodeIndices[i] == CophylogenyLikelihood.NO_HOST ? null : hostTree.getNode(hostNodeIndices[i]);
-			if (hostNode != null) {
-				relationships.add(Relationship.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
-				relationships.add(Relationship.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
+			temporallyValid = (hostTree.isRoot(hostNode) ? true : (hostTree.getNodeHeight(hostTree.getParent(hostNode)) > nodeHeight)) && nodeHeight >= hostTree.getNodeHeight(hostNode);
+			if (temporallyValid && hostNode != null) {
+				relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
+				relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
+				if (parentHostNode != null)
+					relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, parentHostNode, hostNode).relationship);
 			}
-			if (++i >= hostNodeIndices.length) break;
+			i++;
 		} while (relationships.contains(Relationship.ANCESTOR) ||
-					(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT)));
+					(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT)) || !temporallyValid);
 		
-		// Check if loop ended with a valid operation
-		if (!(relationships.contains(Relationship.ANCESTOR) ||
-					(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT))))
-			cophylogenyLikelihood.setStatesForNode(node, hostNode);
-//		else
-//			System.err.println("No valid host-shift operations!"); // Actually only at this node
+		cophylogenyLikelihood.setStatesForNode(node, hostNode);
 		
 		return 0;
 	}
