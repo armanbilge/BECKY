@@ -316,8 +316,8 @@ public class CoevolutionSimulator {
 			System.exit(1);
 		}
 		
-		SeqGen.main(new String[]{"host.tre", "host", "10"});
-		SeqGen.main(new String[]{"symbiont.tre", "symbiont", "10"});
+		SeqGen.main(new String[]{"host.tre", "host"});
+		SeqGen.main(new String[]{"symbiont.tre", "symbiont"});
 
 	}
 	
