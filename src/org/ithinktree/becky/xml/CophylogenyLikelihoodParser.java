@@ -34,7 +34,6 @@ public class CophylogenyLikelihoodParser extends AbstractXMLObjectParser {
 	public static final String SYMBIONT_TREE = "symbiontTree";
 	public static final String CLOCK_MODEL = "clockModel";
 	public static final String RECONSTRUCTION_TAG_NAME = "stateTagName";
-	public static final String HOST_ATTRIBUTE_NAME = "hostAttributeName";
 
 	
 	@Override
@@ -47,9 +46,7 @@ public class CophylogenyLikelihoodParser extends AbstractXMLObjectParser {
 	public Object parseXMLObject(XMLObject xo) throws XMLParseException {
 		
 		final String reconstructionTagName = xo.getStringAttribute(RECONSTRUCTION_TAG_NAME);
-		
-		final String hostAttributeName = xo.getStringAttribute(HOST_ATTRIBUTE_NAME);
-		
+				
 		final CophylogenyModel cophylogenyModel = (CophylogenyModel) xo.getChild(CophylogenyModel.class);
 				
 		XMLObject cxo = xo.getChild(HOST_TREE);
@@ -60,7 +57,7 @@ public class CophylogenyLikelihoodParser extends AbstractXMLObjectParser {
 		
 		final BranchRateModel branchRateModel = (BranchRateModel) xo.getChild(BranchRateModel.class);
 		
-		return new CophylogenyLikelihood(hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName, hostAttributeName, xo.getId());
+		return new CophylogenyLikelihood(hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName, xo.getId());
 	}
 
 
@@ -84,7 +81,6 @@ public class CophylogenyLikelihoodParser extends AbstractXMLObjectParser {
 
 	private final XMLSyntaxRule[] rules = {
 			AttributeRule.newStringRule(RECONSTRUCTION_TAG_NAME),
-			AttributeRule.newStringRule(HOST_ATTRIBUTE_NAME),
 			new ElementRule(CophylogenyModel.class),
 			new ElementRule(HOST_TREE, new XMLSyntaxRule[]{
 					new ElementRule(Tree.class)

@@ -43,12 +43,12 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	
 	final private TreeTraitProvider.Helper treeTraits = new Helper();
 	
-	public CophylogenyLikelihood(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRateModel branchRateModel, final String reconstructionTagName, final String hostAttributeName, final String id) {
-		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName, hostAttributeName);
+	public CophylogenyLikelihood(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRateModel branchRateModel, final String reconstructionTagName, final String id) {
+		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName);
 		setId(id);
 	}
 	
-	public CophylogenyLikelihood(final String name, final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRateModel branchRateModel, final String reconstructionTagName, final String hostAttributeName) {
+	public CophylogenyLikelihood(final String name, final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRateModel branchRateModel, final String reconstructionTagName) {
 		
 		super(name);
 		setUnits(cophylogenyModel.getUnits());
