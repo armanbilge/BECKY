@@ -183,7 +183,7 @@ public class CoevolutionSimulator {
 					} while (hostTree.isRoot(newHost)
 							|| (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree // TODO Use of >= is debatable
 									.getNodeHeight(hostTree.getParent(newHost))
-									&& (r != Relationship.COUSIN || r != Relationship.SISTER)));
+									|| (r != Relationship.COUSIN || r != Relationship.SISTER)));
 					child1 = simulateCoevolution(hostTree, newHost,
 							eventHeight, rate, duplicationRate, hostShiftRate,
 							lossRate, isRelaxed, stdev);
