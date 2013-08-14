@@ -51,7 +51,6 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	public CophylogenyLikelihood(final String name, final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRateModel branchRateModel, final String reconstructionTagName) {
 		
 		super(name);
-		setUnits(cophylogenyModel.getUnits());
 		
 		this.hostTree = hostTree;
 		this.symbiontTree = symbiontTree;
