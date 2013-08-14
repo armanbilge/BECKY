@@ -95,7 +95,7 @@ public class CoevolutionSimulator {
 				double maxHeight = hostTree.isRoot(hostNode) ? Double.MAX_VALUE : hostTree.getNodeHeight(hostTree.getParent(hostNode));
 				double minHeight = Math.max(hostTree.getNodeHeight(hostNode), Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(node, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(node, 1))));
 				if (minHeight > maxHeight) i = -1; // Don't know if this can happen, but restarts the simulation
-				symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * maxHeight - minHeight + minHeight);
+				symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * (maxHeight - minHeight) + minHeight);
 			}
 		}
 	}
