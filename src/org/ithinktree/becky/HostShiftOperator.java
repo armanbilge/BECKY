@@ -31,19 +31,15 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 	/**
 	 * 
 	 */
-	public HostShiftOperator(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood, boolean sampleNoHost, double weight) {
+	public HostShiftOperator(final Tree hostTree, final Tree symbiontTree, final CophylogenyLikelihood cophylogenyLikelihood, final boolean sampleNoHost, final double weight) {
 		this.hostTree = hostTree;
 		this.symbiontTree = symbiontTree;
 		this.cophylogenyLikelihood = cophylogenyLikelihood;
 		setWeight(weight);
 		if (sampleNoHost) {
 			hostNodeIndices = new int[hostTree.getNodeCount() + 1];
-			for (int i = 0; i < hostNodeIndices.length; i++) {
+			for (int i = 0; i < hostNodeIndices.length; i++)
 				hostNodeIndices[i] = i - 1; // Introduces a -1, aka CophylogenyLikelihood.NO_HOST
-			}
-			// Note that the MathUtils.shuffled() function will also initialize the array for us.
-			//     I choose not to use it because I want a -1 in my array, as well as because this array
-			//     will be reused, using their function doesn't really save me a step or efficiency.
 			MathUtils.shuffle(hostNodeIndices);
 		} else {
 			hostNodeIndices = MathUtils.shuffled(hostTree.getNodeCount());
