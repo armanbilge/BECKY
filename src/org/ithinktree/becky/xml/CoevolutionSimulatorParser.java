@@ -73,6 +73,7 @@ public class CoevolutionSimulatorParser extends AbstractXMLObjectParser {
 
 	private final XMLSyntaxRule[] rules = {
 			AttributeRule.newStringRule(HOST_ATTRIBUTE_NAME),
+			AttributeRule.newBooleanRule(SIMULATE_NO_HOST, true),
 			new ElementRule(HOST_TREE, new XMLSyntaxRule[] {
 					new ElementRule(Tree.class)
 			}),
