@@ -211,7 +211,6 @@ def create_node_ref_provider():
 def create_cophylogeny_likelihood():
     id = '.'.join([COPHYLOGENY, LIKELIHOOD])
     cl = Element(COPHYLOGENY_LIKELIHOOD, attrib={ID: id,
-                                                  HOST_ATTRIBUTE_NAME: HOST,
                                                   STATE_TAG_NAME:
                                                       '.'.join([HOST,
                                                                 NODE_REF])})
