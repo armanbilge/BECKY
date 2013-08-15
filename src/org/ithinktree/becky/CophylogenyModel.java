@@ -15,8 +15,7 @@ import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.evolution.util.Units;
-import dr.inference.model.AbstractModel;
-import dr.inference.model.Model;
+import dr.evomodel.speciation.SpeciationModel;
 import dr.inference.model.Variable;
 import dr.inference.model.Variable.ChangeType;
 
@@ -27,19 +26,18 @@ import dr.inference.model.Variable.ChangeType;
  *
  */
 @SuppressWarnings("serial")
-public abstract class CophylogenyModel extends AbstractModel implements Units {
+public abstract class CophylogenyModel extends SpeciationModel {
 
-	private Units.Type units;
 	protected double overallRate;
 	protected boolean dirty = true;
+	private boolean storedDirty;
 	
 	
 	/**
 	 * 
 	 */
 	public CophylogenyModel(String name, Units.Type units) {
-		super(name);
-		setUnits(units);
+		super(name, units);
 	}
 		
 	protected final double likelihoodEventAtTime(double t, double lambda) {
@@ -64,23 +62,12 @@ public abstract class CophylogenyModel extends AbstractModel implements Units {
 //		final double tXlambda = t * lambda;
 //		return Math.exp(-tXlambda) * Math.pow(tXlambda, k) / MathUtils.factorial(k);
 	}
-	
-	public void setUnits(Units.Type u) {
-		units = u;
-	}
-	
-	public Units.Type getUnits() {
-		return units;
-	}
-	
-	protected void handleModelChangedEvent(Model model, Object object, int index) {};
-	
+			
 	@SuppressWarnings("rawtypes")
 	protected void handleVariableChangedEvent(Variable variable, int index, ChangeType type) {dirty = true;}
 	
-	protected void storeState() {};
-	protected void restoreState() {};
-	protected void acceptState() {};
+	protected void storeState() {storedDirty = dirty;}
+	protected void restoreState() {dirty = storedDirty;}
 	
 	public static class Utils {
 	
