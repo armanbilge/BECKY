@@ -30,7 +30,6 @@ public abstract class CophylogenyModel extends SpeciationModel {
 
 	protected double overallRate;
 	protected boolean dirty = true;
-	private boolean storedDirty;
 	
 	
 	/**
@@ -49,7 +48,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
 	}
 	
 	protected final double likelihoodNoEventsInTime(double t) {
-		return Math.exp(overallRate * t);
+		return Math.exp(-overallRate * t);
 	}
 	
 	protected static final double likelihoodNoEventInTime(double t, double lambda) {
@@ -65,9 +64,9 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			
 	@SuppressWarnings("rawtypes")
 	protected void handleVariableChangedEvent(Variable variable, int index, ChangeType type) {dirty = true;}
-	
-	protected void storeState() {storedDirty = dirty;}
-	protected void restoreState() {dirty = storedDirty;}
+		
+	protected void storeState() {dirty = true;}
+	protected void restoreState() {dirty = true;}
 	
 	public static class Utils {
 	

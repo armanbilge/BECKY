@@ -37,9 +37,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	public static final int NO_HOST = -1;
 	
 	final private Tree hostTree;
-	final private MutableTree symbiontTree;
-	final private TreeModel symbiontTreeModel;
-	final private boolean symbiontIsTreeModel;
+	final private TreeModel symbiontTree;
 	final private CophylogenyModel cophylogenyModel;
 	final private BranchRateModel branchRateModel;
 	
@@ -55,20 +53,18 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		super(name);
 		
 		this.hostTree = hostTree;
-		this.symbiontTree = symbiontTree;
+		if (symbiontTree instanceof TreeModel) {
+			this.symbiontTree = (TreeModel) symbiontTree;
+			addModel((TreeModel) symbiontTree);
+		} else {
+			throw new RuntimeException("Really could use a treeModel over here!");
+		}
 		
 		this.cophylogenyModel = cophylogenyModel;
 		this.branchRateModel = branchRateModel;
+		
 		if (hostTree instanceof TreeModel) {
 			addModel((TreeModel) hostTree);
-		}
-		if (symbiontTree instanceof TreeModel) {
-			addModel((TreeModel) symbiontTree);
-			symbiontTreeModel = (TreeModel) symbiontTree;
-			symbiontIsTreeModel = true;
-		} else {
-			symbiontTreeModel = null;
-			symbiontIsTreeModel = false;
 		}
 		if (cophylogenyModel != null) {
 			addModel(cophylogenyModel);
@@ -97,7 +93,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			}
 			
 		});
-
+		
 	}
 	
 	public CophylogenyLikelihood(String name) {
@@ -106,8 +102,6 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		hostTree = null;
 		cophylogenyModel = null;
 		branchRateModel = null;
-		symbiontTreeModel = null;
-		symbiontIsTreeModel = true;
 		reconstructedStates = null;
 		storedReconstructedStates = null;
 	}
@@ -159,7 +153,6 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	@Override
 	public void makeDirty() {
 		likelihoodKnown = false;
-		
 	}
 
 	@Override
@@ -171,13 +164,14 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected void handleVariableChangedEvent(Variable variable, int index,
-			ChangeType type) {		
+			ChangeType type) {
+		likelihoodKnown = false;
 	}
 
 	@Override
 	protected void storeState() {
 		
-		if (symbiontIsTreeModel) symbiontTreeModel.storeModelState();
+		symbiontTree.storeModelState();
 		
 		storedLikelihoodKnown = likelihoodKnown;
 		storedLogLikelihood = logLikelihood;
@@ -197,8 +191,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	}
 
 	@Override
-	protected void acceptState() {		
-	} // Nothing to do
+	protected void acceptState() {} // Nothing to do
 
 	
 	private final int[] reconstructedStates;
@@ -232,6 +225,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		
 		likelihoodKnown = false;
 		reconstructedStates[node.getNumber()] = state == null ? NO_HOST : state.getNumber();
+		fireModelChanged();
 
 	}
 	

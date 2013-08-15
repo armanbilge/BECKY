@@ -56,9 +56,9 @@
             <fileset dir="${build}">
                 <include name="org/ithinktree/becky/**"/>
             </fileset>
-            <zipgroupfileset dir="${lib}" includes="beast.jar"/>
+<!--            <zipgroupfileset dir="${lib}" includes="beast.jar"/>
             <zipgroupfileset dir="${lib}" includes="jprime-0.3.2.jar"/>
-            <zipgroupfileset dir="${lib}" includes="junit-4.11.jar"/>
+            <zipgroupfileset dir="${lib}" includes="junit-4.11.jar"/> -->
         </jar>
     </target>
 

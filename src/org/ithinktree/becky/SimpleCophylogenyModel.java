@@ -99,7 +99,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 	
 	protected final double likelihoodHostShiftAndLossInTime(double t) {
 		final double twoXoverallRate = 2 * overallRate;
-		return (hostShiftRate * (1 - Math.exp(-(twoXoverallRate - lossRate) * t))) / (twoXoverallRate - lossRate) - (hostShiftRate * (1 - Math.exp(twoXoverallRate * t))) / (twoXoverallRate);
+		return (hostShiftRate * (1 - Math.exp(-(twoXoverallRate - lossRate) * t))) / (twoXoverallRate - lossRate) - (hostShiftRate * (1 - Math.exp(-twoXoverallRate * t))) / (twoXoverallRate);
 	}
 	
 	/**
@@ -161,8 +161,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 							
 							final double potentialLossLength = (selfHeight - selfHostHeight) + hostChildBranchLength;
 							case1 *= likelihoodLossInTime(potentialLossLength * child1BranchRate) * likelihoodLossInTime(potentialLossLength * child2BranchRate);
-							
-							
+														
 							// Case 2: cospeciation, then host-shift and loss
 							
 							case2 *= likelihoodNoEventsInTime(selfBranchLength * selfBranchRate);
@@ -171,15 +170,15 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 							// UH-OH: Approximating b/c not calculating likelihood losses along host-shift lineages b/c too difficult to integrate over
 							// TODO Stop being lazy: can be done by partitioning integral for every point this likelihood changes using start and end times a and b
 							// Note that the loss calculation below should hypothetically cover this
-							
+														
 							likelihood *= case1 + case2;
 							
 						} else { // Plain old cospeciation
 														
 							// Check if violates tree validity (parent younger than children)
 							if (selfHostHeight < symbiontTree.getNodeHeight(child1) || selfHostHeight < symbiontTree.getNodeHeight(child2))
-								return Double.POSITIVE_INFINITY;
-							symbiontTree.setNodeHeight(self, selfHostHeight);
+								return Double.NEGATIVE_INFINITY;
+//							symbiontTree.setNodeHeight(self, selfHostHeight);
 							
 							likelihood *= likelihoodNoEventsInTime(selfBranchLength * selfBranchRate);
 							
@@ -188,7 +187,6 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 						// Potential losses along both child lineages
 						likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
 						likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate);
-
 						
 					} else if (child1Relationship.relationship == Relationship.SELF
 							&& child2Relationship.relationship == Relationship.SELF) {
