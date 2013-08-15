@@ -27,6 +27,7 @@ parser.add_option('-t', '--symbiont-xml', dest='SYMBIONT_XML')
 ATTR = 'attr'
 BRANCH_RATES = 'branchRates'
 CLOCK = 'clock'
+COALESCENT_LIKELIHOOD = 'coalescentLikelihood'
 COEVOLUTION = 'coevolution'
 COEVOLUTION_SIMULATOR = 'coevolutionSimulator'
 COPHYLOGENY = 'cophylogeny'
@@ -69,6 +70,7 @@ SHAPE = 'shape'
 SIMPLE_COPHYLOGENY_MODEL = 'simpleCophylogenyModel'
 SIMULATE_NO_HOST = 'simulateNoHost'
 SIMULATOR = 'simulator'
+SPECIATION_LIKELIHOOD = 'speciationLikelihood'
 STATE_TAG_NAME = 'stateTagName'
 STRICT_CLOCK_BRANCH_RATES = 'strictClockBranchRates'
 SUBSTITUTIONS = 'substitutions'
@@ -80,6 +82,7 @@ TAXA = 'taxa'
 TAXON = 'taxon'
 TRAIT = 'trait'
 TREE_MODEL = 'treeModel'
+TREE_PRIORS = {COALSESCENT_LIKELIHOOD, SPECIATION_LIKELIHOOD}
 TRUE = 'true'
 UNIFORM_PRIOR = 'uniformPrior'
 UNITS = 'units'
@@ -273,7 +276,8 @@ for operator in symbiont_operators.iterfind('*'):
 symbiont_root.remove(symbiont_operators)
 
 for prior in symbiont_priors.iterfind('*'):
-    host_priors.append(prior)
+    if prior.tag not in SPECIATION_PRIORS:
+        host_priors.append(prior)
 for likelihood in symbiont_likelihoods.iterfind('*'):
     host_likelihoods.append(likelihood)
 symbiont_mcmc.remove(symbiont_mcmc.find(POSTERIOR))
