@@ -38,6 +38,8 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	
 	final private Tree hostTree;
 	final private MutableTree symbiontTree;
+	final private TreeModel symbiontTreeModel;
+	final private boolean symbiontIsTreeModel;
 	final private CophylogenyModel cophylogenyModel;
 	final private BranchRateModel branchRateModel;
 	
@@ -62,6 +64,11 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		}
 		if (symbiontTree instanceof TreeModel) {
 			addModel((TreeModel) symbiontTree);
+			symbiontTreeModel = (TreeModel) symbiontTree;
+			symbiontIsTreeModel = true;
+		} else {
+			symbiontTreeModel = null;
+			symbiontIsTreeModel = false;
 		}
 		if (cophylogenyModel != null) {
 			addModel(cophylogenyModel);
@@ -99,6 +106,10 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		hostTree = null;
 		cophylogenyModel = null;
 		branchRateModel = null;
+		symbiontTreeModel = null;
+		symbiontIsTreeModel = true;
+		reconstructedStates = null;
+		storedReconstructedStates = null;
 	}
 
 	@Override
@@ -166,6 +177,8 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	@Override
 	protected void storeState() {
 		
+		if (symbiontIsTreeModel) symbiontTreeModel.storeModelState();
+		
 		storedLikelihoodKnown = likelihoodKnown;
 		storedLogLikelihood = logLikelihood;
 		
@@ -188,8 +201,8 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	} // Nothing to do
 
 	
-	private int[] reconstructedStates;
-	private int[] storedReconstructedStates;
+	private final int[] reconstructedStates;
+	private final int[] storedReconstructedStates;
 	
 	private double logLikelihood;
 	private double storedLogLikelihood;
