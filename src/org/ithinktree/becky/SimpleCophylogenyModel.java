@@ -7,6 +7,8 @@
 
 package org.ithinktree.becky;
 
+import java.util.Set;
+
 import org.ithinktree.becky.CophylogenyModel.Utils.NodalRelationship;
 import org.ithinktree.becky.CophylogenyModel.Utils.Relationship;
 import org.ithinktree.becky.xml.SimpleCophylogenyModelParser;
@@ -15,6 +17,7 @@ import dr.evolution.tree.BranchRates;
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
+import dr.evolution.util.Taxon;
 import dr.inference.model.Parameter;
 
 /**
@@ -272,6 +275,18 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 		for (NodeRef n : lineages)
 			likelihood *= likelihoodLossInTime(tree.getBranchLength(n) * rate);
 		return likelihood;
+	}
+
+	@Override
+	public double calculateTreeLogLikelihood(Tree arg0) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public double calculateTreeLogLikelihood(Tree arg0, Set<Taxon> arg1) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 //	/**
