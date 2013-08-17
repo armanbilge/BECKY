@@ -78,7 +78,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			COUSIN;
 		}
 		
-		public static final class NodalRelationship {
+		public static class NodalRelationship {
 			public final Relationship relationship;
 			public final int generations; // The number of generations separating the two members of a relationship
 			public final NodeRef[] lostLineages;

@@ -176,11 +176,11 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 						} else { // Plain old cospeciation
 														
 							// Check if violates tree validity (parent younger than children)
-							if (selfHostHeight < symbiontTree.getNodeHeight(child1) || selfHostHeight < symbiontTree.getNodeHeight(child2))
-								return Double.NEGATIVE_INFINITY;
+//							if (selfHostHeight < symbiontTree.getNodeHeight(child1) || selfHostHeight < symbiontTree.getNodeHeight(child2))
+//								return Double.NEGATIVE_INFINITY;
 //							symbiontTree.setNodeHeight(self, selfHostHeight);
 							
-							likelihood *= likelihoodNoEventsInTime(selfBranchLength * selfBranchRate);
+							likelihood *= likelihoodNoEventsInTime(symbiontTree.getBranchLength(self) * selfBranchRate);
 							
 						}
 							

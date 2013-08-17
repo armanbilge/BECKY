@@ -37,12 +37,12 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	public static final int NO_HOST = -1;
 	
 	final private Tree hostTree;
-	final private TreeModel symbiontTree;
+	final private MutableTree symbiontTree;
 	final private CophylogenyModel cophylogenyModel;
 	final private BranchRateModel branchRateModel;
 	
 	final private TreeTraitProvider.Helper treeTraits = new Helper();
-	
+		
 	public CophylogenyLikelihood(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRateModel branchRateModel, final String reconstructionTagName, final String id) {
 		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName);
 		setId(id);
@@ -53,16 +53,15 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		super(name);
 		
 		this.hostTree = hostTree;
-		if (symbiontTree instanceof TreeModel) {
-			this.symbiontTree = (TreeModel) symbiontTree;
-			addModel((TreeModel) symbiontTree);
-		} else {
-			throw new RuntimeException("Really could use a treeModel over here!");
-		}
+		this.symbiontTree = (MutableTree) symbiontTree;
+		
 		
 		this.cophylogenyModel = cophylogenyModel;
 		this.branchRateModel = branchRateModel;
 		
+		if (symbiontTree instanceof TreeModel) {
+			addModel((TreeModel) symbiontTree);
+		}
 		if (hostTree instanceof TreeModel) {
 			addModel((TreeModel) hostTree);
 		}
@@ -142,11 +141,11 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			child2Host = getStatesForNode(child2);
 			
 			logL += cophylogenyModel.calculateNodeLogLikelihood(symbiontTree, self, child1, child2, hostTree, selfHost, child1Host, child2Host, branchRateModel);
-				
+			
 			if (logL == Double.NEGATIVE_INFINITY) return logL;
 			
 		}
-		
+
 		return logL;
 	}
 
@@ -154,25 +153,22 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	public void makeDirty() {
 		likelihoodKnown = false;
 	}
-
+	
 	@Override
 	protected void handleModelChangedEvent(Model model, Object object, int index) {
-		likelihoodKnown = false;
-		
+		makeDirty();
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	protected void handleVariableChangedEvent(Variable variable, int index,
 			ChangeType type) {
-		likelihoodKnown = false;
+		makeDirty();
 	}
 
 	@Override
 	protected void storeState() {
-		
-		symbiontTree.storeModelState();
-		
+				
 		storedLikelihoodKnown = likelihoodKnown;
 		storedLogLikelihood = logLikelihood;
 		

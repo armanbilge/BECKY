@@ -16,8 +16,6 @@ import dr.evolution.tree.TreeTraitProvider;
  *
  */
 public class NodeRefProvider implements TreeTraitProvider {
-
-	public static final String NODE_REF = "nodeRef";
 	
 	Tree tree;
 	TreeTraitProvider.Helper treeTraits = new Helper();
@@ -25,11 +23,11 @@ public class NodeRefProvider implements TreeTraitProvider {
 	/**
 	 * 
 	 */
-	public NodeRefProvider(Tree tree, final String tag) {
+	public NodeRefProvider(final Tree tree, final String tag) {
 		
 		this.tree = tree;
 		
-		treeTraits.addTrait(NODE_REF, new TreeTrait.I() {
+		treeTraits.addTrait(tag, new TreeTrait.I() {
 
 			@Override
 			public String getTraitName() {

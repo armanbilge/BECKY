@@ -70,7 +70,7 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 		MathUtils.shuffle(hostNodeIndices);
 		int i = 0;
 		do {
-			if (i >= hostNodeIndices.length) return 0;
+			if (i >= hostNodeIndices.length) throw new OperatorFailedException("No valid host-shifts possible at selected node"); //return 0;
 			relationships = EnumSet.noneOf(Relationship.class);
 			hostNode = hostNodeIndices[i] == CophylogenyLikelihood.NO_HOST ? null : hostTree.getNode(hostNodeIndices[i]);
 			temporallyValid = (hostTree.isRoot(hostNode) ? true : (hostTree.getNodeHeight(hostTree.getParent(hostNode)) > nodeHeight)) && nodeHeight >= hostTree.getNodeHeight(hostNode);
@@ -81,12 +81,13 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 					relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, parentHostNode, hostNode).relationship);
 			}
 			i++;
-		} while (relationships.contains(Relationship.ANCESTOR) ||
-					(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT)) || !temporallyValid);
+		} while (!temporallyValid || relationships.contains(Relationship.ANCESTOR) ||
+					(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT)));
 		
 		cophylogenyLikelihood.setStatesForNode(node, hostNode);
 		
-		return 0;
+		// TODO Double-check hastings ratio
+		return 1.0; // I think that this is the correct hastings ratio, b/c all nodes have equal opportunity of being selected in both directions
 	}
 
 }
