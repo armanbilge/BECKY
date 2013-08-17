@@ -58,6 +58,8 @@ OFFSET = 'offset'
 OPERATOR_ANALYSIS = 'operatorAnalysis'
 OPERATORS = 'operators'
 PARAMETER = 'parameter'
+PREFIXLESS_ELEMENT_TAGS: {TAXON, OPERATORS, MCMC, POSTERIOR, PRIOR, LIKELIHOOD,
+                          LOG, LOG_TREE}
 PRIOR = 'prior'
 POSTERIOR = 'posterior'
 RATE =  'rate'
@@ -162,15 +164,16 @@ def create_simple_cophylogeny_model():
     scm = Element(SIMPLE_COPHYLOGENY_MODEL,
                   attrib={ID: '.'.join([COPHYLOGENY, MODEL]),
                            UNITS: SUBSTITUTIONS})
-    for eventRate in [DUPLICATION_RATE, HOST_SHIFT_RATE, LOSS_RATE]:
-        id = '.'.join([COPHYLOGENY, eventRate])
-        scm.append(create_nested_element(eventRate,
+    for event_rate in [DUPLICATION_RATE, HOST_SHIFT_RATE, LOSS_RATE]:
+        id = '.'.join([COPHYLOGENY, event_rate])
+        scm.append(create_nested_element(event_rate,
                                          Element(PARAMETER,
                                                  attrib={ID: id,
                                                           VALUE: '1.0',
                                                           LOWER: '0.0'})))
-        operators.append(create_scale_operator(id))
-        priors.append(create_gamma_prior(id))
+        if event_rate is not LOSS_RATE:
+            operators.append(create_scale_operator(id))
+            priors.append(create_gamma_prior(id))
         file_log.append(create_idref(PARAMETER, id))
     return scm
 
@@ -208,7 +211,7 @@ def create_node_ref_provider():
     id = '.'.join([HOST_TAXON, NODE_REF])
     nrp = Element(NODE_REF_PROVIDER, attrib={ID: id, TAG_NAME: NODE_REF})
     nrp.append(create_idref(TREE_MODEL, '.'.join([HOST_TAXON, TREE_MODEL])))
-    host_tree_traits.append(create_tree_trait(NODE_REF, NODE_REF_PROVIDER, id))
+    host_tree_traits.append(create_tree_trait(NODE_REF, NODE_REF, id))
     return nrp
 
 def create_cophylogeny_likelihood():
@@ -225,15 +228,16 @@ def create_cophylogeny_likelihood():
                                    '.'.join([SYMBIONT_TAXON, TREE_MODEL])))
     cl.append(create_idref(STRICT_CLOCK_BRANCH_RATES,
                            '.'.join([COPHYLOGENY, BRANCH_RATES])))
+    file_log.append(create_idref(COPHYLOGENY_LIKELIHOOD, id))
     operators.append(create_host_shift_operator())
     symbiont_tree_traits.append(create_tree_trait('.'.join([HOST, NODE_REF]),
-                                                  COPHYLOGENY_LIKELIHOOD, id))
+                                                  '.'.join([HOST, NODE_REF]),
+                                                  id))
     return cl
 
 def append_id_prefix(element_tree, prefix):
     for element in element_tree.iter():
-        if element.tag not in [TAXON, OPERATORS, MCMC, POSTERIOR, PRIOR,
-                                   LIKELIHOOD]:
+        if element.tag not in PREFIXLESS_ELEMENT_TAGS:
             if ID in element.keys():
                 element.set(ID, prefix + '.' + element.get(ID))
             elif IDREF in element.keys():
@@ -266,6 +270,9 @@ symbiont_mcmc = symbiont_ET.find(MCMC)
 symbiont_priors = symbiont_mcmc.find(POSTERIOR).find(PRIOR)
 symbiont_likelihoods = symbiont_mcmc.find(POSTERIOR).find(LIKELIHOOD)
 screen_log, symbiont_log = symbiont_mcmc.findall(LOG)[:2]
+symbiont_log.remove(symbiont_log.find(POSTERIOR))
+symbiont_log.remove(symbiont_log.find(PRIOR))
+symbiont_log.remove(symbiont_log.find(LIKELIHOOD))
 symbiont_mcmc.remove(screen_log)
 symbiont_tree_logs = list(symbiont_mcmc.iterfind(LOG_TREE))
 
