@@ -21,14 +21,12 @@ public class JPrIMERBTreeWrapperForBEASTTree extends RBTree implements WrappedBE
 
 	@Override
 	public int getLeftChild(int i) {
-		NodeRef n = tree.getChild(tree.getNode(i), 0);
-		return tree.isExternal(n) ? RootedTree.NULL : n.getNumber();
+		return tree.getChild(tree.getNode(i), 0).getNumber();
 	}
 
 	@Override
 	public int getRightChild(int i) {
-		NodeRef n = tree.getChild(tree.getNode(i), 1);
-		return tree.isExternal(n) ? RootedTree.NULL : n.getNumber();
+		return tree.getChild(tree.getNode(i), 1).getNumber();
 	}
 
 	@Override

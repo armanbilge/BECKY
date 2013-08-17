@@ -61,13 +61,14 @@ public class TreeAnnotatorInitializer {
         progressStream.println("Reading trees (bar assumes 10,000 trees)...");
         progressStream.println("0              25             50             75            100");
         progressStream.println("|--------------|--------------|--------------|--------------|");
-		
+		totalTrees = 0;
 		while (hostTreeImporter.hasTree() && symbiontTreeImporter.hasTree()) {
 			MutableTree hostTree = (MutableTree) hostTreeImporter.importNextTree();
 			MutableTree symbiontTree = (MutableTree) symbiontTreeImporter.importNextTree();
 			if (hostTaxonList == null) hostTaxonList = hostTree;
 			ids = new int[hostTree.getNodeCount()];
 			addNewClades(hostTree, hostTree.getRoot());
+			
 			for (int i = 0; i < symbiontTree.getNodeCount(); ++i) {
 				NodeRef n = symbiontTree.getNode(i);
 				symbiontTree.setNodeAttribute(n, HOST_NODE_REF, ids[(Integer) symbiontTree.getNodeAttribute(n, HOST_NODE_REF)]);
@@ -78,13 +79,12 @@ public class TreeAnnotatorInitializer {
 			}
 			hostNexusExporter.writeNexusTree(hostTree, hostTree.getId(), true, hostNexusHeader);
 			symbiontNexusExporter.writeNexusTree(symbiontTree, symbiontTree.getId(), true, symbiontNexusHeader);
-			if (totalTrees > 0 && totalTrees % stepSize == 0) {
+			if (totalTrees++ % stepSize == 0) {
                 progressStream.print("*");
                 progressStream.flush();
             }
-            totalTrees++;
 		}
-		
+		progressStream.println("Read " + totalTrees + " trees.");
 		hostTreesStream.println("End;");
 		symbiontTreesStream.println("End;");
 		progressStream.println();

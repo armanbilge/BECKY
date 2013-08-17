@@ -17,7 +17,7 @@ public class JPrIMENamesMapWrapperForBEASTTree extends NamesMap implements
 	private final Tree tree;
 	
 	public JPrIMENamesMapWrapperForBEASTTree(Tree tree) {
-		super(tree.getId(), null);
+		super(tree.getId(), new String[0]);
 		this.tree = tree;
 	}
 

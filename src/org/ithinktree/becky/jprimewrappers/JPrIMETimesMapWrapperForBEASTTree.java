@@ -11,7 +11,7 @@ public class JPrIMETimesMapWrapperForBEASTTree extends TimesMap implements
 	private final Tree tree;
 	
 	public JPrIMETimesMapWrapperForBEASTTree(Tree tree) {
-		super(tree.getId(), null, null);
+		super(tree.getId(), new double[0], new double[0]);
 		this.tree = tree;
 	}
 

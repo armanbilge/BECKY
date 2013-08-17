@@ -8,6 +8,7 @@ package org.ithinktree.becky;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.ithinktree.becky.jprimewrappers.xml.CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser;
 import org.ithinktree.becky.xml.CoevolutionSimulatorParser;
 import org.ithinktree.becky.xml.CophylogenyLikelihoodParser;
 import org.ithinktree.becky.xml.HostShiftOperatorParser;
@@ -31,6 +32,7 @@ public class BECKY implements Plugin {
 		parsers.add(new HostShiftOperatorParser());
 		parsers.add(new CoevolutionSimulatorParser());
 		parsers.add(new NodeRefProviderParser());
+		parsers.add(new CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser());
 		return parsers;
 	}
 
