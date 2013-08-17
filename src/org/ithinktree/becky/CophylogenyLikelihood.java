@@ -123,7 +123,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		return logLikelihood;
 	}
 
-	private double calculateLogLikelihood() {
+	protected double calculateLogLikelihood() {
 						
 		double logL = 0.0;
 		

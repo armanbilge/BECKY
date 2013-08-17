@@ -5,12 +5,12 @@ package org.ithinktree.becky.jprimewrappers;
 
 import java.util.Map;
 
-import dr.math.distributions.Distribution;
 import se.cbb.jprime.math.Continuous1DPDDependent;
 import se.cbb.jprime.math.PRNG;
 import se.cbb.jprime.math.RealInterval;
 import se.cbb.jprime.mcmc.ChangeInfo;
 import se.cbb.jprime.mcmc.Dependent;
+import dr.math.distributions.Distribution;
 
 /**
  * @author Arman D. Bilge

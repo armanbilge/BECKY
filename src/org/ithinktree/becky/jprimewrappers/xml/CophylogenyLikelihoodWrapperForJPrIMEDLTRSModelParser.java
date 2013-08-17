@@ -30,6 +30,8 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser extends
 	private static final String LOSS_RATE = "lossRate";
 	private static final String NORMALIZE = "normalize";
 	private static final String HOST_ATTRIBUTE_NAME = "hostAttributeName";
+	private static final String MEAN = "mean";
+	private static final String STDEV = "stdev";
 
 	@Override
 	public String getParserName() {
@@ -54,8 +56,10 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser extends
 			new ElementRule(DUPLICATION_RATE, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
 			new ElementRule(HOST_SHIFT_RATE, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
 			new ElementRule(LOSS_RATE, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
+			new ElementRule(MEAN, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
+			new ElementRule(STDEV, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
 			AttributeRule.newBooleanRule(NORMALIZE),
-			AttributeRule.newStringRule(HOST_ATTRIBUTE_NAME)
+			AttributeRule.newStringRule(HOST_ATTRIBUTE_NAME),
 	};
 	
 	@Override
@@ -74,11 +78,13 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser extends
 		final Parameter duplicationRate = (Parameter) xo.getChild(DUPLICATION_RATE).getChild(Parameter.class);
 		final Parameter hostShiftRate = (Parameter) xo.getChild(HOST_SHIFT_RATE).getChild(Parameter.class);
 		final Parameter lossRate = (Parameter) xo.getChild(LOSS_RATE).getChild(Parameter.class);
+		final Parameter mean = (Parameter) xo.getChild(MEAN).getChild(Parameter.class);
+		final Parameter stdev = (Parameter) xo.getChild(STDEV).getChild(Parameter.class);
 		
 		final boolean normalize = xo.getBooleanAttribute(NORMALIZE);
 		final String hostAttributeName = xo.getStringAttribute(HOST_ATTRIBUTE_NAME);
 		
-		return new CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel(xo.getId(), hostTree, guestTree, duplicationRate, hostShiftRate, lossRate, normalize, taxa, hostAttributeName);
+		return new CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel(xo.getId(), hostTree, guestTree, duplicationRate, hostShiftRate, lossRate, normalize, taxa, mean, stdev, hostAttributeName);
 	}
 
 }
