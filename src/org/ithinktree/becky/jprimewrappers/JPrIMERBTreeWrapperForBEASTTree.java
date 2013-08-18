@@ -61,6 +61,7 @@ public class JPrIMERBTreeWrapperForBEASTTree extends RBTree implements WrappedBE
 	@Override
 	public List<Integer> getDescendantLeaves(int i, boolean b) {
 		List<Integer> descendants = new ArrayList<Integer>();
+		if (!b) descendants.add(i);
 		for (NodeRef n : Tree.Utils.getExternalNodes(tree, tree.getNode(i)))
 			descendants.add(n.getNumber());
 		return descendants;
@@ -69,11 +70,17 @@ public class JPrIMERBTreeWrapperForBEASTTree extends RBTree implements WrappedBE
 	@Override
 	public List<Integer> getDescendants(int i, boolean b) {
 		List<Integer> descendants = new ArrayList<Integer>();
-		for (NodeRef n : Tree.Utils.getExternalNodes(tree, tree.getNode(i)))
-			descendants.add(n.getNumber());
+		getDescendants(tree.getNode(i), descendants);
+		if (b) descendants.remove(0);
 		return descendants;
 	}
 
+	private void getDescendants(NodeRef n, List<Integer> descendants) {
+		descendants.add(n.getNumber());
+		if (tree.isExternal(n)) return;
+		for (int i = 0; i < tree.getChildCount(n); ++i) getDescendants(tree.getChild(n, i), descendants);
+	}
+	
 	@Override
 	public int getHeight() {
 		return getHeight(tree.getRoot().getNumber());

@@ -20,7 +20,6 @@ import se.cbb.jprime.topology.RBTreeEpochDiscretiser;
 import dr.evolution.tree.Tree;
 import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
-import dr.inference.distribution.LogNormalDistributionModel;
 import dr.inference.model.Model;
 import dr.inference.model.Parameter;
 
@@ -68,7 +67,8 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 				normalize
 				);
 		
-		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(new LogNormalDistributionModel(mean, stdev, 0.0, true, true));
+//		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(new LogNormalDistributionModel(mean, stdev, 0.0, true, true));
+		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(null){public double getPDF(double x){return 1;}};
 		
 		dltrsModel = new DLTRSModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, substPD);
 	}
@@ -77,12 +77,10 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 	
 	protected double calculateLogLikelihood() {
 		
-		// So that dltProbs updates
-		changeInfos.put(rbTreeEpochDiscretiser, new ChangeInfo(null, ""));
-		
 		if (modelsDirty) {
 			reconciliationHelper.cacheAndUpdate(changeInfos, true);
 			rbTreeEpochDiscretiser.cacheAndUpdate(changeInfos, true);
+			changeInfos.put(rbTreeEpochDiscretiser, new ChangeInfo(null, ""));
 			modelsDirty = false;
 		}
 		
@@ -111,10 +109,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 	
 	@Override
 	protected void storeState() {
-		dltProbs.cacheAndUpdate(changeInfos, true);
-		reconciliationHelper.cacheAndUpdate(changeInfos, true);
-		rbTreeEpochDiscretiser.cacheAndUpdate(changeInfos, true);
-		dltrsModel.cacheAndUpdate(changeInfos, true);
+		getLogLikelihood(); // Automatically caches during update if dirty
 	}
 
 	protected void restoreState() {
@@ -124,5 +119,4 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 		dltrsModel.restoreCache(true);
 	}
 
-	
 }
