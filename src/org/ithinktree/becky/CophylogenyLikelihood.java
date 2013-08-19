@@ -101,8 +101,8 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		hostTree = null;
 		cophylogenyModel = null;
 		branchRateModel = null;
-		reconstructedStates = null;
-		storedReconstructedStates = null;
+		reconstructedStates = new int[0];
+		storedReconstructedStates = new int[0];
 	}
 
 	@Override
@@ -163,7 +163,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	@Override
 	protected void handleVariableChangedEvent(Variable variable, int index,
 			ChangeType type) {
-		makeDirty();
+		// Nothing to do; no variables
 	}
 
 	@Override
@@ -261,5 +261,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	public TreeTrait getTreeTrait(String key) {
 		return treeTraits.getTreeTrait(key);
 	}
+
+	protected boolean isDirty() { return likelihoodKnown; }
 	
 }

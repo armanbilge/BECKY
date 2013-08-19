@@ -73,6 +73,7 @@ public class JPrIMENamesMapWrapperForBEASTTree extends NamesMap implements
 	 */
 	public void set(int x, String val) {
 		// Avoid messing with BEAST internals
+		throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -82,6 +83,7 @@ public class JPrIMENamesMapWrapperForBEASTTree extends NamesMap implements
 	 */
 	public void swapVertices(String u, String v) {
 		// Avoid messing with BEAST internals
+		throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -91,6 +93,7 @@ public class JPrIMENamesMapWrapperForBEASTTree extends NamesMap implements
 	 */
 	public void changeVertex(String val, int x) {
 		// Avoid messing with BEAST internals
+		throw new UnsupportedOperationException();
 	}
 	
 	/**

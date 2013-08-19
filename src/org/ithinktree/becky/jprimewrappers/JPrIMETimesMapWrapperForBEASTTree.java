@@ -73,7 +73,7 @@ public class JPrIMETimesMapWrapperForBEASTTree extends TimesMap implements
 	 */
 	public double[] getVertexTimes() {
 		// Avoid messing with BEAST internals (that is what this is for, after all
-		return null;
+		throw new UnsupportedOperationException();
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class JPrIMETimesMapWrapperForBEASTTree extends TimesMap implements
 	 */
 	public double[] getArcTimes() {
 		// Avoid messing with BEAST internals (that is what this is for, after all)
-		return null;
+		throw new UnsupportedOperationException();
 	}
 	
 	/**

@@ -22,6 +22,8 @@ import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
 import dr.inference.model.Model;
 import dr.inference.model.Parameter;
+import dr.inference.model.Variable;
+import dr.inference.model.Variable.ChangeType;
 
 @SuppressWarnings("serial")
 public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
@@ -45,7 +47,6 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 		addVariable(mean);
 		addVariable(stdev);
 		
-		
 		final RBTree jprimeHostRBTree = new JPrIMERBTreeWrapperForBEASTTree(host);
 		final NamesMap jprimeHostNamesMap = new JPrIMENamesMapWrapperForBEASTTree(host);
 		final RBTree jprimeGuestRBTree = new JPrIMERBTreeWrapperForBEASTTree(guest);
@@ -67,37 +68,45 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 				normalize
 				);
 		
-//		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(new LogNormalDistributionModel(mean, stdev, 0.0, true, true));
+//		final Distribution logNormalDistributionModel = new LogNormalDistributionModel(mean, stdev, 0.0, true, true);
+//		addModel(logNormalDistributionModel);
+//		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(logNormalDistributionModel);
 		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(null){public double getPDF(double x){return 1;}};
 		
 		dltrsModel = new DLTRSModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, substPD);
 	}
 	
-	protected final Map<Dependent,ChangeInfo> changeInfos = new HashMap<Dependent,ChangeInfo>();
+	private final Map<Dependent,ChangeInfo> changeInfos = new HashMap<Dependent,ChangeInfo>();
+	
+	public double getLogLikelihood() {
+		makeDirty(); // Effectively bypasses its own purpose, but unavoidable (crazy bug)
+		return super.getLogLikelihood();
+	}
 	
 	protected double calculateLogLikelihood() {
 		
-		if (modelsDirty) {
-			reconciliationHelper.cacheAndUpdate(changeInfos, true);
+		if (modelDirty) {
 			rbTreeEpochDiscretiser.cacheAndUpdate(changeInfos, true);
-			changeInfos.put(rbTreeEpochDiscretiser, new ChangeInfo(null, ""));
-			modelsDirty = false;
+			reconciliationHelper.cacheAndUpdate(changeInfos, true);
 		}
-		
 		dltProbs.cacheAndUpdate(changeInfos, true);
 		dltrsModel.cacheAndUpdate(changeInfos, true);
 		changeInfos.clear();
 		return dltrsModel.getDataProbability().getLogValue();
 	}
 
-	private boolean modelsDirty = true;
 
+	private boolean modelDirty = true;
 	@Override
 	protected void handleModelChangedEvent(Model model, Object object, int index) {
+		modelDirty = true;
 		super.handleModelChangedEvent(model, object, index);
-		modelsDirty = true;
 	}
 
+	protected void handleVariableChangedEvent(@SuppressWarnings("rawtypes") Variable variable, int index, ChangeType type) {
+		makeDirty();
+	}
+	
 //	@SuppressWarnings("rawtypes")
 //	@Override
 //	protected void handleVariableChangedEvent(Variable variable, int index,
@@ -106,17 +115,22 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 //		variablesDirty = true;
 //	}
 
+	public void makeDirty() {
+		super.makeDirty();
+	}
 	
-	@Override
-	protected void storeState() {
-		getLogLikelihood(); // Automatically caches during update if dirty
-	}
-
-	protected void restoreState() {
-		dltProbs.restoreCache(true);
-		reconciliationHelper.restoreCache(true);
-		rbTreeEpochDiscretiser.restoreCache(true);
-		dltrsModel.restoreCache(true);
-	}
+//	@Override
+//	protected void storeState() {
+////		getLogLikelihood(); // Automatically caches during update if dirty
+//		super.storeState();
+//	}
+//
+//	protected void restoreState() {
+//		super.restoreState();
+////		dltProbs.restoreCache(true);
+////		reconciliationHelper.restoreCache(true);
+////		rbTreeEpochDiscretiser.restoreCache(true);
+////		dltrsModel.restoreCache(true);
+//	}
 
 }
