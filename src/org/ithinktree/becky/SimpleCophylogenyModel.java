@@ -377,12 +377,12 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 //							return Double.NEGATIVE_INFINITY;
 //					}
 					
-					if (Math.log(likelihood) == Double.NEGATIVE_INFINITY || Math.log(likelihood) == Double.POSITIVE_INFINITY || Double.isNaN(Math.log(likelihood))) {
-						System.out.println(Math.log(likelihood));
-						System.out.println(child1Relationship.relationship.toString());
-						System.out.println(child2Relationship.relationship.toString());
-						System.exit(1);
-					}
+//					if (Math.log(likelihood) == Double.NEGATIVE_INFINITY || Math.log(likelihood) == Double.POSITIVE_INFINITY || Double.isNaN(Math.log(likelihood))) {
+//						System.out.println(Math.log(likelihood));
+//						System.out.println(child1Relationship.relationship.toString());
+//						System.out.println(child2Relationship.relationship.toString());
+//						System.exit(1);
+//					}
 					
 					return Math.log(likelihood);
 	}
