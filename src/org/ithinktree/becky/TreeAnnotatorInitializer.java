@@ -84,6 +84,7 @@ public class TreeAnnotatorInitializer {
                 progressStream.flush();
             }
 		}
+		progressStream.println();
 		progressStream.println("Read " + totalTrees + " trees.");
 		hostTreesStream.println("End;");
 		symbiontTreesStream.println("End;");
