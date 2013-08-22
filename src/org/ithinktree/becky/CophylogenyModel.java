@@ -133,6 +133,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				
 				List<NodeRef> lostLineages = new ArrayList<NodeRef>();
 				
+				lostLineages.addAll(getSisters(tree, relation));
 				NodeRef temp = tree.getParent(relation);
 				// Arguably g should = 1, but confounds proper counting of loss events
 				for (int g = 0; temp != null; ++g, temp = tree.getParent(temp)) {
@@ -143,6 +144,8 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				}
 				
 				lostLineages.clear();
+				
+				lostLineages.addAll(getSisters(tree, self));
 				temp = tree.getParent(self);
 				for (int g = 0; temp != null; ++g, temp = tree.getParent(temp)) {
 					if (relationN == temp.getNumber()) {
