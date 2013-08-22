@@ -150,24 +150,34 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 				subHeight = nextSubHeight;
 				if (j >= 0) nextSubHeight = Math.min(start - tree.getNodeHeight(tree.getParent(newHostLineages[j])), nextHeight);
 				else nextSubHeight = nextHeight;
-				if (likelihoodHostShiftAndLossInTime(subHeight, nextSubHeight, t, rate) <= 0) throw new RuntimeException(subHeight + " " + nextSubHeight + " " + t + " " + rate);
+//				if (likelihoodHostShiftAndLossInTime(subHeight, nextSubHeight, t, rate) <= 0) { // Probably normal behavior for ==0, but I am not actually sure
+//					System.out.println(start);
+//					System.out.println(hostShiftStop);
+//					System.out.println(lossStop);
+//					System.out.println(rate);
+//					System.out.println(tree);
+//					System.out.println(Arrays.toString(originalLineages));
+//					System.out.println(Arrays.toString(newHostLineages));
+//					System.out.println(likelihood);
+//					System.exit(1);
+//				}
 				likelihood += likelihoodHostShiftAndLossInTime(subHeight, nextSubHeight, t, rate) *
 						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(originalLineages, i+1, originalLineages.length), rate) *
 						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(newHostLineages, 0, j+1), rate);
 			}
 		}
 		
-		if (likelihood <= 0 || Double.isNaN(likelihood)) {
-			System.out.println(start);
-			System.out.println(hostShiftStop);
-			System.out.println(lossStop);
-			System.out.println(rate);
-			System.out.println(tree);
-			System.out.println(Arrays.toString(originalLineages));
-			System.out.println(Arrays.toString(newHostLineages));
-			System.out.println(likelihood);
-			System.exit(1);
-		}
+//		if (likelihood <= 0 || Double.isNaN(likelihood)) {
+//			System.out.println(start);
+//			System.out.println(hostShiftStop);
+//			System.out.println(lossStop);
+//			System.out.println(rate);
+//			System.out.println(tree);
+//			System.out.println(Arrays.toString(originalLineages));
+//			System.out.println(Arrays.toString(newHostLineages));
+//			System.out.println(likelihood);
+//			System.exit(1);
+//		}
 		
 		return likelihood;
 	}
@@ -246,7 +256,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 							final NodeRef[] child2NewHostLineages = child2Relationship.lostLineages; // Utils.lostLineagesToTime(hostTree, child2Host, selfHeight);
 							
 							case2 *= likelihoodNoEventsInTime(selfBranchLength * selfBranchRate);
-							System.out.println("over here");
+
 							// Sum over two subcases: child1 lineage made host-shift/loss or child2 made host-shift/loss
 							case2 *= likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate) *
 										likelihoodHostShiftAndLossInTime(selfHeight, child2Height, hostChildHeight, child2BranchRate, hostTree, child2OriginalHostLineages, child2NewHostLineages) +
@@ -310,7 +320,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 						double case1 = likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
 						// Case 2: Child1 lineage host-shifted first
 						double case2 = likelihoodLossesAlongLineages(hostTree, child2NewHostLineages, child2BranchRate);
-						System.out.println("actually over here");
+
 						case1 *= likelihoodHostShiftAndLossInTime(selfHeight, child2Height, selfHostHeight, child2BranchRate, hostTree, noLineages, child2NewHostLineages);
 						case2 *= likelihoodHostShiftAndLossInTime(selfHeight, child1Height, selfHostHeight, child1BranchRate, hostTree, noLineages, child1NewHostLineages);
 						
