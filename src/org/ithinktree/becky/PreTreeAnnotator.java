@@ -90,7 +90,6 @@ public class PreTreeAnnotator {
 		progressStream.println("Read " + totalTrees + " trees.");
 		hostTreesStream.println("End;");
 		symbiontTreesStream.println("End;");
-		progressStream.println();
 		progressStream.println("Done.");
 		
 		hostFileReader.close();
