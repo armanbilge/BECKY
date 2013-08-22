@@ -43,7 +43,7 @@ public class TreeAnnotatorInitializer {
 		final FileReader symbiontFileReader = new FileReader(symbiontTreesFile);
 		
 		final TreeImporter hostTreeImporter = new NexusImporter(hostFileReader);
-		final TreeImporter symbiontTreeImporter = new NexusImporter(hostFileReader);
+		final TreeImporter symbiontTreeImporter = new NexusImporter(symbiontFileReader);
 		
 		final PrintStream hostTreesStream = new PrintStream(new FileOutputStream(hostTreesOutputFile));
 		final PrintStream symbiontTreesStream = new PrintStream(new FileOutputStream(symbiontTreesOutputFile));
