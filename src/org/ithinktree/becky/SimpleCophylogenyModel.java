@@ -7,6 +7,7 @@
 
 package org.ithinktree.becky;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import org.ithinktree.becky.CophylogenyModel.Utils.NodalRelationship;
@@ -81,11 +82,11 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 		return hostShiftRateParameter.getParameterValue(0);
 	}
 	
-	protected final double likelihoodHostShiftAtTime(double t) {
-		return super.likelihoodEventAtTime(t, hostShiftRate);
+	protected final double likelihoodHostShiftAtTime(final double t) {
+		return likelihoodEventAtTime(t, hostShiftRate);
 	}
 	
-	protected final double likelihoodHostShiftInTime(double t) {
+	protected final double likelihoodHostShiftInTime(final double t) {
 		return likelihoodEventInTime(t, getHostShiftRate());
 	}
 
@@ -93,13 +94,60 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 		return lossRateParameter.getParameterValue(0);
 	}
 	
-	protected final double likelihoodLossInTime(double t) {
+	protected final double likelihoodLossInTime(final double t) {
 		return likelihoodEventInTime(t, getLossRate());
 	}
 	
-	protected final double likelihoodHostShiftAndLossInTime(double t) {
-		final double twoXoverallRate = 2 * overallRate;
-		return (hostShiftRate * (1 - Math.exp(-(twoXoverallRate - lossRate) * t))) / (twoXoverallRate - lossRate) - (hostShiftRate * (1 - Math.exp(-twoXoverallRate * t))) / (twoXoverallRate);
+	protected final double likelihoodHostShiftAndLossInTime(final double a, final double b, final double t, final double rate) {
+		final double hostShiftRate = this.hostShiftRate * rate;
+		final double lossRate = this.lossRate * rate;
+		final double overallRate = this.overallRate * rate;
+		return hostShiftRate * lossRate / overallRate * ((Math.exp(-overallRate * a) - Math.exp(-overallRate * b)) / overallRate - Math.exp(-overallRate * t));
+	}
+
+	protected final double likelihoodLossesAlongLineages(final Tree tree, final NodeRef[] lineages, double rate) {
+		double likelihood = 1.0;
+		for (NodeRef n : lineages)
+			likelihood *= likelihoodLossInTime(tree.getBranchLength(n) * rate);
+		return likelihood;
+	}
+	
+	/**
+	 * Discretizes a branch along which a host-shift and loss happened to properly determine the likelihood of these events.
+	 * 
+	 * @param start the earliest the host-shift could have happened
+	 * @param hostShiftStop the latest the host-shift could have happened
+	 * @param lossStop the total time-span for the host-shift and loss
+	 * @param rate the rate on the relevant branch
+	 * @param tree the host tree
+	 * @param originalLineages lineages lost on original host lineage
+	 * @param newHostLineages lineages lost on new host lineage
+	 * @return
+	 */
+	protected final double likelihoodHostShiftAndLossInTime(final double start, final double hostShiftStop, final double lossStop, final double rate, final Tree tree, final NodeRef[] originalLineages, final NodeRef[] newHostLineages) {
+		
+		final double t = lossStop - start;
+		final double stop = Math.max(hostShiftStop, lossStop);
+		double likelihood = 0;
+		double height;
+		double subHeight;
+		double nextHeight = 0.0;
+		double nextSubHeight;
+		for (int i = originalLineages.length - 1; nextHeight < stop && i >= 0; --i) {
+			height = nextHeight;
+			if (i >= 0) nextHeight = Math.min(start - tree.getNodeHeight(tree.getParent(originalLineages[i])), hostShiftStop);
+			else nextHeight = hostShiftStop;
+			nextSubHeight = height;
+			for (int j = newHostLineages.length - 1; nextSubHeight < nextHeight && j >= 0; --j) {
+				subHeight = nextSubHeight;
+				if (j >= 0) nextSubHeight = Math.min(start - tree.getNodeHeight(tree.getParent(newHostLineages[j])), nextHeight);
+				else nextSubHeight = nextHeight;
+				likelihood += likelihoodHostShiftAndLossInTime(subHeight, nextSubHeight, t, rate) *
+						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(originalLineages, i+1, originalLineages.length), rate) *
+						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(newHostLineages, 0, j+1), rate);
+			}
+		}
+		return likelihood;
 	}
 	
 	/**
@@ -147,9 +195,11 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 						final Utils.NodalRelationship nr2 = Utils.determineRelationship(hostTree, hostChild, child2Host);
 						if (nr1.relationship == nr2.relationship || (nr1.relationship == Relationship.SISTER && nr2.relationship == Relationship.COUSIN) || (nr2.relationship == Relationship.SISTER && nr1.relationship == Relationship.COUSIN)) {
 							
+							// Determine along which child lineage the loss(es) happened
 							if (nr1.relationship != Relationship.DESCENDANT)
 								hostChild = hostTree.getChild(selfHost, 1);
 							final double hostChildBranchLength = hostTree.getBranchLength(hostChild);
+							final double hostChildHeight = hostTree.getNodeHeight(hostChild);
 								
 							double case1 = 1.0;
 							double case2 = 1.0;
@@ -164,13 +214,22 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 														
 							// Case 2: cospeciation, then host-shift and loss
 							
+							final double child1Height = symbiontTree.getNodeHeight(child1);
+							final double child2Height = symbiontTree.getNodeHeight(child2);
+							
+							final NodeRef[] child1OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
+							final NodeRef[] child2OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
+							final NodeRef[] child1NewHostLineages = Utils.lostLineagesToTime(hostTree, child1Host, selfHeight);
+							final NodeRef[] child2NewHostLineages = Utils.lostLineagesToTime(hostTree, child2Host, selfHeight);
+							
 							case2 *= likelihoodNoEventsInTime(selfBranchLength * selfBranchRate);
-							case2 *= likelihoodHostShiftAndLossInTime(hostChildBranchLength * child1BranchRate) +
-										likelihoodHostShiftAndLossInTime(hostChildBranchLength * child2BranchRate);
-							// UH-OH: Approximating b/c not calculating likelihood losses along host-shift lineages b/c too difficult to integrate over
-							// TODO Stop being lazy: can be done by partitioning integral for every point this likelihood changes using start and end times a and b
-							// Note that the loss calculation below should hypothetically cover this
-														
+							
+							// Sum over two subcases: child1 lineage made host-shift/loss or child2 made host-shift/loss
+							case2 *= likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate) *
+										likelihoodHostShiftAndLossInTime(selfHeight, child2Height, hostChildHeight, child2BranchRate, hostTree, child2OriginalHostLineages, child2NewHostLineages) +
+										likelihoodLossesAlongLineages(hostTree, child2NewHostLineages, child2BranchRate) +
+										likelihoodHostShiftAndLossInTime(selfHeight, child1Height, hostChildHeight, child1BranchRate, hostTree, child1OriginalHostLineages, child1NewHostLineages);
+
 							likelihood *= case1 + case2;
 							
 						} else { // Plain old cospeciation
@@ -182,11 +241,10 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 							
 							likelihood *= likelihoodNoEventsInTime(symbiontTree.getBranchLength(self) * selfBranchRate);
 							
+							// Potential losses along both child lineages
+							likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
+							likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate);							
 						}
-							
-						// Potential losses along both child lineages
-						likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
-						likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate);
 						
 					} else if (child1Relationship.relationship == Relationship.SELF
 							&& child2Relationship.relationship == Relationship.SELF) {
@@ -213,27 +271,48 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 						
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
 						
+						final double child1Height = symbiontTree.getNodeHeight(child1);
 						final double child1BranchRate = branchRates.getBranchRate(symbiontTree, child1);
+						final double child2Height = symbiontTree.getNodeHeight(child2);
 						final double child2BranchRate = branchRates.getBranchRate(symbiontTree, child2);
 						
-						likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child1Host, selfHeight), child1BranchRate) +
-								likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child2Host, selfHeight), child2BranchRate);
+						final NodeRef[] noLineages = new NodeRef[0];
+						final NodeRef[] child1NewHostLineages = Utils.lostLineagesToTime(hostTree, child1Host, selfHeight);
+						final NodeRef[] child2NewHostLineages = Utils.lostLineagesToTime(hostTree, child2Host, selfHeight);
 						
-						// Determine the latest time that the host shift could have happened
-						final double a = hostTree.getNodeHeight(child2Host);
-						final double b = symbiontTree.getNodeHeight(child1);
-						final double c = symbiontTree.getNodeHeight(child2);
-						final double d = Math.max(a, b);
-						double e = Math.max(a, c);
-						if (d == e) { // Host speciates first
-							likelihood *= 2 * likelihoodHostShiftAndLossInTime((selfHeight - a) * selfBranchRate);
-						} else { // Host-shifting lineage speciates first
-							boolean isChild1 = Math.max(b, c) == b;
-							likelihood *= likelihoodHostShiftAndLossInTime((selfHeight - (isChild1 ? b : c)) * (isChild1 ? child1BranchRate : child2BranchRate));
-							e = Math.max(a, (isChild1 ? c : b));
-							likelihood *= likelihoodHostShiftAndLossInTime((selfHeight - e) * (e == a ? selfBranchRate : (isChild1 ? child2BranchRate : child1BranchRate)));
-						}
-						// Note that again I am being lazy about considering losses after the host shift; too difficult to integrate that over time
+						// We definitely know the time of the first host-shift
+						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
+						
+						// Case 1: Child1 lineage host-shifted first
+						double case1 = likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
+						// Case 2: Child2 lineage host-shifted first
+						double case2 = likelihoodLossesAlongLineages(hostTree, child2NewHostLineages, child2BranchRate);
+						
+						case1 *= likelihoodHostShiftAndLossInTime(selfHeight, child2Height, selfHostHeight, child2BranchRate, hostTree, noLineages, child2NewHostLineages);
+						case2 *= likelihoodHostShiftAndLossInTime(selfHeight, child1Height, selfHostHeight, child1BranchRate, hostTree, noLineages, child1NewHostLineages);
+						
+//						// Determine the latest time that the second host shift could have happened
+//						final double a = hostTree.getNodeHeight(selfHost);
+//						final double b = symbiontTree.getNodeHeight(child1);
+//						final double c = symbiontTree.getNodeHeight(child2);
+//						final double d = Math.max(a, b);
+//						double e = Math.max(a, c);
+//						if (d == e) { // Host speciates first
+//							case1 *= likelihoodHostShiftAndLossInTime(selfHeight, a, a, child1BranchRate, hostTree, noLineages, child1NewHostLineages);
+//							case2 *= likelihoodHostShiftAndLossInTime(selfHeight, a, a, child2BranchRate, hostTree, noLineages, child2NewHostLineages);
+//						} else { // Host-shifting lineage speciates first
+//							boolean isChild1 = Math.max(b, c) == b;
+//							if (isChild1)
+//								case1 *= likelihoodHostShiftAndLossInTime(selfHeight, a, a, child1BranchRate, hostTree, noLineages, child1NewHostLineages);
+//							else
+//								case2 *= likelihoodHostShiftAndLossInTime(selfHeight, a, a, child2BranchRate, hostTree, noLineages, child2NewHostLineages);
+//							
+//							e = Math.max(a, (isChild1 ? c : b));
+//							likelihood *= likelihoodHostShiftAndLossInTime((selfHeight - e) * (e == a ? selfBranchRate : (isChild1 ? child2BranchRate : child1BranchRate)));
+//						}
+//						// Note that again I am being lazy about considering losses after the host shift; too difficult to integrate that over time
+						
+						likelihood *= case1 + case2;
 						
 					} else if (child1Relationship.relationship == Relationship.DESCENDANT
 							&& (child2Relationship.relationship == Relationship.COUSIN || child2Relationship.relationship == Relationship.SISTER)) {
@@ -268,111 +347,14 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 					return Math.log(likelihood);
 	}
 	
-	protected double likelihoodLossesAlongLineages(final Tree tree, final NodeRef[] lineages, double rate) {
-		double likelihood = 1.0;
-		for (NodeRef n : lineages)
-			likelihood *= likelihoodLossInTime(tree.getBranchLength(n) * rate);
-		return likelihood;
-	}
-
 	@Override
 	public double calculateTreeLogLikelihood(Tree arg0) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public double calculateTreeLogLikelihood(Tree arg0, Set<Taxon> arg1) {
-		// TODO Auto-generated method stub
-		return 0;
+		throw new UnsupportedOperationException();
 	}
-	
-//	/**
-//	 * Calculates the log likelihood of a series of cophylogenetic events occurring over a period of time.
-//	 * <p/>
-//	 * Probability of n events with rate \lambda over t time calculated as follows (poisson process):<p/>
-//	 * P(n | \lambda, t) = (\lambda * t) ^ n * e ^ (-\lambda * t) / n! 
-//	 * 
-//	 * @param nDuplications # of duplication events
-//	 * @param nHostShifts # of host shift events
-//	 * @param nLosses # of loss events
-//	 * @param branchTime branch length/time
-//	 * @return log likelihood of 
-//	 */
-//	private double calculateEventLogLikelihood(int nDuplications, int nHostShifts, int nLosses, double branchTime) {
-//		
-//		double logL = 0.0;
-//		double lambdaxt;
-//		
-//		// Probably to deal with root?
-//		if (branchTime < 0) return logL;
-//		
-//		if (nDuplications > 0) {
-//			lambdaxt = getDuplicationRate() * branchTime;
-//			logL += Math.log(Math.pow(lambdaxt, nDuplications));
-//			logL -= lambdaxt;
-//			logL -= MathUtils.factorialLog(nDuplications);
-//		}
-//		
-//		if (nHostShifts > 0) {
-//			lambdaxt = getHostShiftRate() * branchTime;
-//			logL += Math.log(Math.pow(lambdaxt, nHostShifts));
-//			logL -= lambdaxt;
-//			logL -= MathUtils.factorialLog(nHostShifts);
-//		}
-//		
-//		if (nLosses > 0) {
-//			lambdaxt = getLossRate() * branchTime;
-//			logL += Math.log(Math.pow(lambdaxt, nLosses));
-//			logL -= lambdaxt;
-//			logL -= MathUtils.factorialLog(nLosses);
-//		}
-//				
-//		return logL;
-//		
-//	}
-
-//	/**
-//	 * Calculates the log likelihood of a series of cophylogenetic events occurring over a period of time.
-//	 * <p/>
-//	 * Probability of n events with rate \lambda over t time calculated as follows:<p/>
-//	 * P(n | \lambda, t) = (\lambda * t) ^ n * e ^ (-\lambda * t) / n! 
-//	 * <p/>
-//	 * This implementation should be more efficient, but cannot handle more than one each of duplication and host-shift events.
-//	 * 
-//	 * @param involvesDuplication involves duplication event
-//	 * @param involvesHostShift involves host-shift event
-//	 * @param nLosses # of loss events
-//	 * @param branchTime branch length/time
-//	 * @return log likelihood of events in time
-//	 */
-//	private double calculateEventLogLikelihood(boolean involvesDuplication, boolean involvesHostShift, int nLosses, double branchTime) {
-//		
-//		double logL = 0.0;
-//		double lambdaxt; // Holds lambda * t
-//		
-//		if (branchTime < 0) return logL; // To deal with root branch
-//		
-//		if (involvesDuplication) {
-//			lambdaxt = getDuplicationRate() * branchTime;
-//			logL += Math.log(lambdaxt) - lambdaxt;
-//		}
-//		
-//		if (involvesHostShift) {
-//			lambdaxt = getHostShiftRate() * branchTime;
-//			logL += Math.log(lambdaxt) - lambdaxt;
-//		}
-//		
-//		if (nLosses > 0) {
-//			lambdaxt = getLossRate() * branchTime;
-//			logL += Math.log(Math.pow(lambdaxt, nLosses));
-//			logL -= lambdaxt;
-//			logL -= MathUtils.factorialLog(nLosses);
-//		}
-//				
-//		return logL;
-//		
-//	}
-
 	
 }
