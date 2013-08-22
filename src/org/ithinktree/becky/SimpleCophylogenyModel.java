@@ -239,14 +239,14 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 							final double child1Height = symbiontTree.getNodeHeight(child1);
 							final double child2Height = symbiontTree.getNodeHeight(child2);
 							
-							// All possible lineages along which losses may have ocurred
+							// All possible lineages along which losses may have occurred
 							final NodeRef[] child1OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
 							final NodeRef[] child2OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
 							final NodeRef[] child1NewHostLineages = child1Relationship.lostLineages; // Utils.lostLineagesToTime(hostTree, child1Host, selfHeight);
 							final NodeRef[] child2NewHostLineages = child2Relationship.lostLineages; // Utils.lostLineagesToTime(hostTree, child2Host, selfHeight);
 							
 							case2 *= likelihoodNoEventsInTime(selfBranchLength * selfBranchRate);
-							
+							System.out.println("over here");
 							// Sum over two subcases: child1 lineage made host-shift/loss or child2 made host-shift/loss
 							case2 *= likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate) *
 										likelihoodHostShiftAndLossInTime(selfHeight, child2Height, hostChildHeight, child2BranchRate, hostTree, child2OriginalHostLineages, child2NewHostLineages) +
@@ -290,7 +290,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 					} else if ((child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER)
 							&& (child2Relationship.relationship == Relationship.COUSIN || child2Relationship.relationship == Relationship.SISTER)) {
 
-						// Double host shift event with a loss: no symbionts left on this host lineage
+						// Double host-shift event with a loss: no symbionts left on this host lineage
 						
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
 						
@@ -310,7 +310,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 						double case1 = likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
 						// Case 2: Child1 lineage host-shifted first
 						double case2 = likelihoodLossesAlongLineages(hostTree, child2NewHostLineages, child2BranchRate);
-						
+						System.out.println("actually over here");
 						case1 *= likelihoodHostShiftAndLossInTime(selfHeight, child2Height, selfHostHeight, child2BranchRate, hostTree, noLineages, child2NewHostLineages);
 						case2 *= likelihoodHostShiftAndLossInTime(selfHeight, child1Height, selfHostHeight, child1BranchRate, hostTree, noLineages, child1NewHostLineages);
 						
@@ -350,7 +350,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 
 						// Child1 host-shift and child2 losses 
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
-						likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child1, selfHeight), branchRates.getBranchRate(symbiontTree, child1));
+						likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child1Host, selfHeight), branchRates.getBranchRate(symbiontTree, child1));
 						likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, branchRates.getBranchRate(symbiontTree, child2));
 
 					} else { // Everything else is impossible
