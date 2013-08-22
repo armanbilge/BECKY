@@ -217,10 +217,11 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 							final double child1Height = symbiontTree.getNodeHeight(child1);
 							final double child2Height = symbiontTree.getNodeHeight(child2);
 							
+							// All possible lineages along which losses may have ocurred
 							final NodeRef[] child1OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
 							final NodeRef[] child2OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
-							final NodeRef[] child1NewHostLineages = Utils.lostLineagesToTime(hostTree, child1Host, selfHeight);
-							final NodeRef[] child2NewHostLineages = Utils.lostLineagesToTime(hostTree, child2Host, selfHeight);
+							final NodeRef[] child1NewHostLineages = child1Relationship.lostLineages; // Utils.lostLineagesToTime(hostTree, child1Host, selfHeight);
+							final NodeRef[] child2NewHostLineages = child2Relationship.lostLineages; // Utils.lostLineagesToTime(hostTree, child2Host, selfHeight);
 							
 							case2 *= likelihoodNoEventsInTime(selfBranchLength * selfBranchRate);
 							
@@ -343,6 +344,11 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 //						if (selfHeight < symbiontTree.getNodeHeight(symbiontTree.getChild(self, i)))
 //							return Double.NEGATIVE_INFINITY;
 //					}
+					
+					if (Math.log(likelihood) == Double.NEGATIVE_INFINITY) {
+						System.out.println(child1Relationship.relationship.toString());
+						System.out.println(child2Relationship.relationship.toString());
+					}
 					
 					return Math.log(likelihood);
 	}
