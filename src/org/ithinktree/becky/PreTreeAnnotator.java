@@ -30,14 +30,14 @@ import dr.evolution.util.TaxonList;
  * @author Arman D. Bilge
  *
  */
-public class TreeAnnotatorInitializer {
+public class PreTreeAnnotator {
 
 	/**
 	 * @throws IOException 
 	 * @throws ImportException 
 	 * 
 	 */
-	public TreeAnnotatorInitializer(final String hostTreesFile, final String symbiontTreesFile, final String hostTreesOutputFile, final String symbiontTreesOutputFile) throws IOException, ImportException {
+	public PreTreeAnnotator(final String hostTreesFile, final String symbiontTreesFile, final String hostTreesOutputFile, final String symbiontTreesOutputFile) throws IOException, ImportException {
 		
 		final FileReader hostFileReader = new FileReader(hostTreesFile);
 		final FileReader symbiontFileReader = new FileReader(symbiontTreesFile);
@@ -75,7 +75,9 @@ public class TreeAnnotatorInitializer {
 			}
 			if (hostNexusHeader == null) {
 				hostNexusHeader = hostNexusExporter.writeNexusHeader(hostTree);
+				hostTreesStream.println("\t\t;");
 				symbiontNexusHeader = symbiontNexusExporter.writeNexusHeader(symbiontTree);
+				symbiontTreesStream.println("\t\t;");
 			}
 			hostNexusExporter.writeNexusTree(hostTree, hostTree.getId(), true, hostNexusHeader);
 			symbiontNexusExporter.writeNexusTree(symbiontTree, symbiontTree.getId(), true, symbiontNexusHeader);
@@ -147,7 +149,7 @@ public class TreeAnnotatorInitializer {
 		}
 
 		try {
-			new TreeAnnotatorInitializer(arguments.getStringOption("h"), arguments.getStringOption("s"), arguments.getStringOption("i"), arguments.getStringOption("t"));
+			new PreTreeAnnotator(arguments.getStringOption("h"), arguments.getStringOption("s"), arguments.getStringOption("i"), arguments.getStringOption("t"));
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 			arguments.printUsage("annotationinitializer", "");
