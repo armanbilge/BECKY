@@ -98,11 +98,19 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 		return likelihoodEventInTime(t, getLossRate());
 	}
 	
+	/**
+	 * Evaluates an integral
+	 * @param a
+	 * @param b
+	 * @param t
+	 * @param rate
+	 * @return
+	 */
 	protected final double likelihoodHostShiftAndLossInTime(final double a, final double b, final double t, final double rate) {
 		final double hostShiftRate = this.hostShiftRate * rate;
 		final double lossRate = this.lossRate * rate;
 		final double overallRate = this.overallRate * rate;
-		return hostShiftRate * lossRate / overallRate * ((Math.exp(-overallRate * a) - Math.exp(-overallRate * b)) / overallRate - Math.exp(-overallRate * t));
+		return hostShiftRate * lossRate / overallRate * ((Math.exp(-overallRate * a) - Math.exp(-overallRate * b)) / overallRate - Math.exp(-overallRate * t) * (b - a));
 	}
 
 	protected final double likelihoodLossesAlongLineages(final Tree tree, final NodeRef[] lineages, double rate) {
@@ -142,11 +150,25 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 				subHeight = nextSubHeight;
 				if (j >= 0) nextSubHeight = Math.min(start - tree.getNodeHeight(tree.getParent(newHostLineages[j])), nextHeight);
 				else nextSubHeight = nextHeight;
+				if (likelihoodHostShiftAndLossInTime(subHeight, nextSubHeight, t, rate) <= 0) throw new RuntimeException(subHeight + " " + nextSubHeight + " " + t + " " + rate);
 				likelihood += likelihoodHostShiftAndLossInTime(subHeight, nextSubHeight, t, rate) *
 						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(originalLineages, i+1, originalLineages.length), rate) *
 						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(newHostLineages, 0, j+1), rate);
 			}
 		}
+		
+		if (likelihood <= 0 || Double.isNaN(likelihood)) {
+			System.out.println(start);
+			System.out.println(hostShiftStop);
+			System.out.println(lossStop);
+			System.out.println(rate);
+			System.out.println(tree);
+			System.out.println(Arrays.toString(originalLineages));
+			System.out.println(Arrays.toString(newHostLineages));
+			System.out.println(likelihood);
+			System.exit(1);
+		}
+		
 		return likelihood;
 	}
 	
@@ -345,9 +367,11 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 //							return Double.NEGATIVE_INFINITY;
 //					}
 					
-					if (Math.log(likelihood) == Double.NEGATIVE_INFINITY) {
+					if (Math.log(likelihood) == Double.NEGATIVE_INFINITY || Math.log(likelihood) == Double.POSITIVE_INFINITY || Double.isNaN(Math.log(likelihood))) {
+						System.out.println(Math.log(likelihood));
 						System.out.println(child1Relationship.relationship.toString());
 						System.out.println(child2Relationship.relationship.toString());
+						System.exit(1);
 					}
 					
 					return Math.log(likelihood);
