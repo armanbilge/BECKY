@@ -80,7 +80,8 @@ public abstract class CophylogenyModel extends SpeciationModel {
 		
 		public static class NodalRelationship {
 			public final Relationship relationship;
-			public final int generations; // The number of generations separating the two members of a relationship
+			/** The number of generations separating the two members of a relationship */
+			public final int generations;
 			public final NodeRef[] lostLineages;
 			public NodalRelationship(Relationship r, int g) {
 				this(r, g, EMPTY_NODE_REF_ARRAY);
@@ -168,18 +169,25 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				return sisters;
 			}
 			
-		public static final NodeRef[] lostLineagesToTime(final Tree t, NodeRef n, final double d) {
+		
+			/**
+			 * Returns the lost lineages up to d, inclusive.
+			 * @param t tree
+			 * @param n base of the lineage we are following
+			 * @param d inclusive upper limit
+			 * @return
+			 */
+			public static final NodeRef[] lostLineagesToTime(final Tree t, NodeRef n, final double d) {
+				
+				List<NodeRef> lostLineages = new ArrayList<NodeRef>();
+				while (!t.isRoot(n) && t.getNodeHeight(t.getParent(n)) <= d) {
+					lostLineages.addAll(getSisters(t, n));
+					n = t.getParent(n);
+				}
+	//			lostLineages.add(n);
+				return lostLineages.toArray(EMPTY_NODE_REF_ARRAY);
 			
-			if (t.getNodeHeight(n) > d) return EMPTY_NODE_REF_ARRAY;
-			List<NodeRef> lostLineages = new ArrayList<NodeRef>();
-			while (t.getNodeHeight(n) < d && !t.isRoot(n)) {
-				lostLineages.addAll(getSisters(t, n));
-				n = t.getParent(n);
 			}
-//			lostLineages.add(n);
-			return lostLineages.toArray(EMPTY_NODE_REF_ARRAY);
-			
-		}
 		
 		public static final boolean isTreeValid(Tree t) {
 			return isTreeValid(t, null, t.getRoot());
