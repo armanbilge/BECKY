@@ -300,7 +300,7 @@ public class CoevolutionSimulator {
 		}
 		
 		final double[] rates = arguments.getRealArrayOption("r");
-		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(1), new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), Units.Type.YEARS);
+		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), new Parameter.Default(1), Units.Type.YEARS);
 		final CoevolutionSimulator cs = new CoevolutionSimulator();
 		final Tree symbiontTree;
 		if (arguments.hasOption("c")) {
