@@ -17,8 +17,9 @@ import dr.evolution.tree.TreeTraitProvider;
  */
 public class NodeRefProvider implements TreeTraitProvider {
 	
-	Tree tree;
-	TreeTraitProvider.Helper treeTraits = new Helper();
+	@SuppressWarnings("unused")
+	private final Tree tree;
+	private final TreeTraitProvider.Helper treeTraits = new Helper();
 	
 	/**
 	 * 
