@@ -136,19 +136,19 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				NodeRef temp = tree.getParent(relation);
 				// Arguably g should = 1, but confounds proper counting of loss events
 				for (int g = 0; temp != null; ++g, temp = tree.getParent(temp)) {
-					lostLineages.addAll(getSisters(tree, temp));
 					if (selfN == temp.getNumber()) {
 						return new NodalRelationship(Utils.Relationship.DESCENDANT, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
 					}
+					lostLineages.addAll(getSisters(tree, temp));
 				}
 				
 				lostLineages.clear();
 				temp = tree.getParent(self);
 				for (int g = 0; temp != null; ++g, temp = tree.getParent(temp)) {
-					lostLineages.addAll(getSisters(tree, temp));
 					if (relationN == temp.getNumber()) {
 						return new NodalRelationship(Utils.Relationship.ANCESTOR, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
 					}
+					lostLineages.addAll(getSisters(tree, temp));
 				}
 				
 				// Otherwise must be a cousin
