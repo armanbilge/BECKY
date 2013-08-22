@@ -117,7 +117,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 	 * 
 	 * @param start the earliest the host-shift could have happened
 	 * @param hostShiftStop the latest the host-shift could have happened
-	 * @param lossStop the total time-span for the host-shift and loss
+	 * @param lossStop the latest the loss could have happened
 	 * @param rate the rate on the relevant branch
 	 * @param tree the host tree
 	 * @param originalLineages lineages lost on original host lineage
@@ -126,19 +126,19 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 	 */
 	protected final double likelihoodHostShiftAndLossInTime(final double start, final double hostShiftStop, final double lossStop, final double rate, final Tree tree, final NodeRef[] originalLineages, final NodeRef[] newHostLineages) {
 		
-		final double t = lossStop - start;
-		final double stop = Math.max(hostShiftStop, lossStop);
+		final double t = start - lossStop;
+		final double stop = start - Math.max(hostShiftStop, lossStop);
 		double likelihood = 0;
 		double height;
 		double subHeight;
 		double nextHeight = 0.0;
 		double nextSubHeight;
-		for (int i = originalLineages.length - 1; nextHeight < stop && i >= 0; --i) {
+		for (int i = originalLineages.length - 1; nextHeight < stop; --i) {
 			height = nextHeight;
-			if (i >= 0) nextHeight = Math.min(start - tree.getNodeHeight(tree.getParent(originalLineages[i])), hostShiftStop);
-			else nextHeight = hostShiftStop;
+			if (i >= 0) nextHeight = Math.min(start - tree.getNodeHeight(tree.getParent(originalLineages[i])), stop);
+			else nextHeight = stop;
 			nextSubHeight = height;
-			for (int j = newHostLineages.length - 1; nextSubHeight < nextHeight && j >= 0; --j) {
+			for (int j = newHostLineages.length - 1; nextSubHeight < nextHeight; --j) {
 				subHeight = nextSubHeight;
 				if (j >= 0) nextSubHeight = Math.min(start - tree.getNodeHeight(tree.getParent(newHostLineages[j])), nextHeight);
 				else nextSubHeight = nextHeight;
@@ -284,9 +284,9 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 						// We definitely know the time of the first host-shift
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
 						
-						// Case 1: Child1 lineage host-shifted first
+						// Case 1: Child2 lineage host-shifted first
 						double case1 = likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
-						// Case 2: Child2 lineage host-shifted first
+						// Case 2: Child1 lineage host-shifted first
 						double case2 = likelihoodLossesAlongLineages(hostTree, child2NewHostLineages, child2BranchRate);
 						
 						case1 *= likelihoodHostShiftAndLossInTime(selfHeight, child2Height, selfHostHeight, child2BranchRate, hostTree, noLineages, child2NewHostLineages);
