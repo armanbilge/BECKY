@@ -58,8 +58,6 @@ OFFSET = 'offset'
 OPERATOR_ANALYSIS = 'operatorAnalysis'
 OPERATORS = 'operators'
 PARAMETER = 'parameter'
-PREFIXLESS_ELEMENT_TAGS = {TAXON, OPERATORS, MCMC, POSTERIOR, PRIOR, LIKELIHOOD,
-                           LOG, LOG_TREE}
 PRIOR = 'prior'
 POSTERIOR = 'posterior'
 RATE =  'rate'
@@ -84,13 +82,16 @@ TAXA = 'taxa'
 TAXON = 'taxon'
 TRAIT = 'trait'
 TREE_MODEL = 'treeModel'
-TREE_PRIORS = {COALSESCENT_LIKELIHOOD, SPECIATION_LIKELIHOOD}
 TRUE = 'true'
 UNIFORM_PRIOR = 'uniformPrior'
 UNITS = 'units'
 UPPER = 'upper'
 VALUE = 'value'
 WEIGHT = 'weight'
+
+PREFIXLESS_ELEMENT_TAGS = {TAXON, OPERATORS, MCMC, POSTERIOR, PRIOR, LIKELIHOOD,
+                           LOG, LOG_TREE}
+TREE_PRIORS = {COALSESCENT_LIKELIHOOD, SPECIATION_LIKELIHOOD}
 
 BEGIN_COPHYLOGENY_MODEL_XML = \
     lambda: Comment(text=' BEGIN COPHYLOGENY MODEL XML ')
