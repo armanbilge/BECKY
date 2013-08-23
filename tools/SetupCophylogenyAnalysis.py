@@ -30,6 +30,7 @@ CLOCK = 'clock'
 COALESCENT_LIKELIHOOD = 'coalescentLikelihood'
 COEVOLUTION = 'coevolution'
 COEVOLUTION_SIMULATOR = 'coevolutionSimulator'
+CONSTANT = 'constant'
 COPHYLOGENY = 'cophylogeny'
 COPHYLOGENY_LIKELIHOOD = 'cophylogenyLikelihood'
 DUPLICATION_RATE = 'duplicationRate'
@@ -59,6 +60,7 @@ OPERATOR_ANALYSIS = 'operatorAnalysis'
 OPERATORS = 'operators'
 PARAMETER = 'parameter'
 PRIOR = 'prior'
+POP_SIZE = 'popSize'
 POSTERIOR = 'posterior'
 RATE =  'rate'
 REPORT = 'report'
@@ -280,11 +282,15 @@ symbiont_tree_logs = list(symbiont_mcmc.iterfind(LOG_TREE))
 symbiont_root.remove(symbiont_root.find(REPORT))
 
 for operator in symbiont_operators.iterfind('*'):
-    host_operators.append(operator)
+    if operator.find(PARAMETER) is not None and \
+        '.'.join([CONSTANT, POP_SIZE]) not in operator.find(PARAMETER).get(IDREF):
+        host_operators.append(operator)
 symbiont_root.remove(symbiont_operators)
 
 for prior in symbiont_priors.iterfind('*'):
-    if prior.tag not in TREE_PRIORS:
+    if prior.tag not in TREE_PRIORS and \
+        prior.find(PARAMETER) is not None and \
+        '.'.join([CONSTANT, POP_SIZE]) not in prior.find(PARAMETER).get(IDREF):
         host_priors.append(prior)
 for likelihood in symbiont_likelihoods.iterfind('*'):
     host_likelihoods.append(likelihood)
