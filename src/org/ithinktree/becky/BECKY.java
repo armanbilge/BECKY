@@ -13,6 +13,7 @@ import org.ithinktree.becky.xml.CoevolutionSimulatorParser;
 import org.ithinktree.becky.xml.CophylogenyLikelihoodParser;
 import org.ithinktree.becky.xml.HostShiftOperatorParser;
 import org.ithinktree.becky.xml.NodeRefProviderParser;
+import org.ithinktree.becky.xml.PreAnnotatorParser;
 import org.ithinktree.becky.xml.SimpleCophylogenyModelParser;
 
 import dr.app.plugin.Plugin;
@@ -33,6 +34,7 @@ public class BECKY implements Plugin {
 		parsers.add(new CoevolutionSimulatorParser());
 		parsers.add(new NodeRefProviderParser());
 		parsers.add(new CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser());
+		parsers.add(new PreAnnotatorParser());
 		return parsers;
 	}
 

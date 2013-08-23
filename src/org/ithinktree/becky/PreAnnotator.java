@@ -51,13 +51,13 @@ public class PreAnnotator {
 		final NexusExporter hostNexusExporter = new NexusExporter(hostTreesStream);
 		final NexusExporter symbiontNexusExporter = new NexusExporter(symbiontTreesStream);
 		
-		Map<String, Integer> hostNexusHeader = null;
-		Map<String, Integer> symbiontNexusHeader = null;
+		Map<String,Integer> hostNexusHeader = null;
+		Map<String,Integer> symbiontNexusHeader = null;
 		
 		int totalTrees = 10000;
         final int stepSize = totalTrees / 60;
         
-        PrintStream progressStream = System.err;
+        PrintStream progressStream = System.out;
         progressStream.println("Reading trees (bar assumes 10,000 trees)...");
         progressStream.println("0              25             50             75            100");
         progressStream.println("|--------------|--------------|--------------|--------------|");
