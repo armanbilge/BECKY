@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dr.evolution.io.Importer.ImportException;
-import dr.evolution.io.NewickImporter;
+import dr.evolution.io.NexusImporter;
 import dr.evolution.io.TreeImporter;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
@@ -35,16 +35,16 @@ public class Coevaluate {
 	public Coevaluate(final String host, final String hostSimulated, final String symbiont, final String symbiontSimulated) throws IOException, ImportException {
 		
 		FileReader fr = new FileReader(host);
-		TreeImporter ti = new NewickImporter(fr);
+		TreeImporter ti = new NexusImporter(fr);
 		Tree tr = ti.importNextTree();
 		fr.close();
 		taxa = tr;
-		
+
 		final Map<BitSet,Integer> cladeToNodeRef = new HashMap<BitSet,Integer>(tr.getNodeCount());
 		treeToBitSet(tr, null, cladeToNodeRef, "nodeRef");
 		
 		fr = new FileReader(hostSimulated);
-		ti = new NewickImporter(fr);
+		ti = new NexusImporter(fr);
 		tr = ti.importNextTree();
 		fr.close();
 		Map<Integer,BitSet> temp = new HashMap<Integer,BitSet>(tr.getNodeCount());
@@ -56,7 +56,7 @@ public class Coevaluate {
 			nodeRefToNodeRef[i] = cladeToNodeRef.get(temp.get(i));
 		
 		fr = new FileReader(symbiont);
-		ti = new NewickImporter(fr);
+		ti = new NexusImporter(fr);
 		final Tree symbiontTree = ti.importNextTree();
 		fr.close();
 		taxa = symbiontTree;
@@ -65,7 +65,7 @@ public class Coevaluate {
 		treeToBitSet(symbiontTree, null, symbiontMap, "host.nodeRef");
 		
 		fr = new FileReader(symbiontSimulated);
-		ti = new NewickImporter(fr);
+		ti = new NexusImporter(fr);
 		final Tree symbiontSimulatedTree = ti.importNextTree();
 		fr.close();
 		
@@ -93,7 +93,7 @@ public class Coevaluate {
 			for (int i = 0; i < t.getChildCount(n); ++i)
 				b.or(treeToBitSet(t, t.getChild(n, i), m1, m2, s));
 		}
-		Integer i = Integer.parseInt((String) t.getNodeAttribute(n, s));
+		Integer i = (Integer) t.getNodeAttribute(n, s);
 		if (m1 != null) m1.put(i, b);
 		if (m2 != null) m2.put(b, i);
 		return b;
