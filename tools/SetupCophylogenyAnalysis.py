@@ -58,8 +58,8 @@ OFFSET = 'offset'
 OPERATOR_ANALYSIS = 'operatorAnalysis'
 OPERATORS = 'operators'
 PARAMETER = 'parameter'
-PREFIXLESS_ELEMENT_TAGS: {TAXON, OPERATORS, MCMC, POSTERIOR, PRIOR, LIKELIHOOD,
-                          LOG, LOG_TREE}
+PREFIXLESS_ELEMENT_TAGS = {TAXON, OPERATORS, MCMC, POSTERIOR, PRIOR, LIKELIHOOD,
+                           LOG, LOG_TREE}
 PRIOR = 'prior'
 POSTERIOR = 'posterior'
 RATE =  'rate'
