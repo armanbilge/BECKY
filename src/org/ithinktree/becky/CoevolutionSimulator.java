@@ -345,26 +345,26 @@ public class CoevolutionSimulator {
 		
 	}
 	
-	public static void debugHelper(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood) {
-				
-		System.err.println("host tree:");
-		for (int i = 0; i < hostTree.getNodeCount(); i++) {
-			NodeRef node = hostTree.getNode(i);
-			if (!hostTree.isRoot(node)) {System.err.print(hostTree.getParent(node).getNumber() + ", ");} else {System.err.print(-1 + ", ");}
-		}
-		System.err.println();
-		System.err.println("symbiont tree:");
-		for (int i = 0; i < symbiontTree.getNodeCount(); i++) {
-			NodeRef node = symbiontTree.getNode(i);
-			if (!symbiontTree.isRoot(node)) System.err.print(symbiontTree.getParent(node).getNumber() + ", ");
-		}
-		System.err.println();
-		System.err.println("associations:");
-		for (int i = 0; i < symbiontTree.getNodeCount(); i++) {
-			NodeRef node = symbiontTree.getNode(i);
-			System.err.print(cophylogenyLikelihood.getStatesForNode(node).getNumber() + ", ");
-		}
-		System.err.println();
-	}
+//	public static void debugHelper(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood) {
+//				
+//		System.err.println("host tree:");
+//		for (int i = 0; i < hostTree.getNodeCount(); i++) {
+//			NodeRef node = hostTree.getNode(i);
+//			if (!hostTree.isRoot(node)) {System.err.print(hostTree.getParent(node).getNumber() + ", ");} else {System.err.print(-1 + ", ");}
+//		}
+//		System.err.println();
+//		System.err.println("symbiont tree:");
+//		for (int i = 0; i < symbiontTree.getNodeCount(); i++) {
+//			NodeRef node = symbiontTree.getNode(i);
+//			if (!symbiontTree.isRoot(node)) System.err.print(symbiontTree.getParent(node).getNumber() + ", ");
+//		}
+//		System.err.println();
+//		System.err.println("associations:");
+//		for (int i = 0; i < symbiontTree.getNodeCount(); i++) {
+//			NodeRef node = symbiontTree.getNode(i);
+//			System.err.print(cophylogenyLikelihood.getStatesForNode(node).getNumber() + ", ");
+//		}
+//		System.err.println();
+//	}
 	
 }
