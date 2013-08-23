@@ -129,7 +129,7 @@ def create_host_attribute(idref):
     return ha
 
 def create_tree_trait(name, tag, idref):
-    tt = Element(TRAIT, attrib={NAME: name, TAG: tag})
+    tt = Element(TRAIT, attrib={NAME: name, TAG: name})
     tt.append(create_idref(tag, idref))
     return tt
 
@@ -212,7 +212,7 @@ def create_node_ref_provider():
     id = '.'.join([HOST_TAXON, NODE_REF])
     nrp = Element(NODE_REF_PROVIDER, attrib={ID: id, TAG_NAME: NODE_REF})
     nrp.append(create_idref(TREE_MODEL, '.'.join([HOST_TAXON, TREE_MODEL])))
-    host_tree_traits.append(create_tree_trait(NODE_REF, NODE_REF, id))
+    host_tree_traits.append(create_tree_trait(NODE_REF, NODE_REF_PROVIDER, id))
     return nrp
 
 def create_cophylogeny_likelihood():
@@ -232,7 +232,7 @@ def create_cophylogeny_likelihood():
     file_log.append(create_idref(COPHYLOGENY_LIKELIHOOD, id))
     operators.append(create_host_shift_operator())
     symbiont_tree_traits.append(create_tree_trait('.'.join([HOST, NODE_REF]),
-                                                  '.'.join([HOST, NODE_REF]),
+                                                  COPHYLOGENY_LIKELIHOOD),
                                                   id))
     return cl
 
