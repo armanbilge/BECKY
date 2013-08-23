@@ -232,7 +232,7 @@ def create_cophylogeny_likelihood():
     file_log.append(create_idref(COPHYLOGENY_LIKELIHOOD, id))
     operators.append(create_host_shift_operator())
     symbiont_tree_traits.append(create_tree_trait('.'.join([HOST, NODE_REF]),
-                                                  COPHYLOGENY_LIKELIHOOD),
+                                                  COPHYLOGENY_LIKELIHOOD,
                                                   id))
     return cl
 
