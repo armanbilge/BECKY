@@ -282,15 +282,15 @@ symbiont_tree_logs = list(symbiont_mcmc.iterfind(LOG_TREE))
 symbiont_root.remove(symbiont_root.find(REPORT))
 
 for operator in symbiont_operators.iterfind('*'):
-    if operator.find(PARAMETER) is not None and \
-        '.'.join([CONSTANT, POP_SIZE]) not in operator.find(PARAMETER).get(IDREF):
+    if not (operator.find(PARAMETER) is not None and \
+        '.'.join([CONSTANT, POP_SIZE]) in operator.find(PARAMETER).get(IDREF)):
         host_operators.append(operator)
 symbiont_root.remove(symbiont_operators)
 
 for prior in symbiont_priors.iterfind('*'):
-    if prior.tag not in TREE_PRIORS and \
-        prior.find(PARAMETER) is not None and \
-        '.'.join([CONSTANT, POP_SIZE]) not in prior.find(PARAMETER).get(IDREF):
+    if prior.tag not in TREE_PRIORS and not \
+        (prior.find(PARAMETER) is not None and \
+        '.'.join([CONSTANT, POP_SIZE]) in prior.find(PARAMETER).get(IDREF)):
         host_priors.append(prior)
 for likelihood in symbiont_likelihoods.iterfind('*'):
     host_likelihoods.append(likelihood)
