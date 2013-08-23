@@ -1,5 +1,5 @@
 /**
- * TreeAnnotatorInitializer.java
+ * PreAnnotator.java
  * 
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
@@ -30,14 +30,14 @@ import dr.evolution.util.TaxonList;
  * @author Arman D. Bilge
  *
  */
-public class PreTreeAnnotator {
+public class PreAnnotator {
 
 	/**
 	 * @throws IOException 
 	 * @throws ImportException 
 	 * 
 	 */
-	public PreTreeAnnotator(final String hostTreesFile, final String symbiontTreesFile, final String hostTreesOutputFile, final String symbiontTreesOutputFile) throws IOException, ImportException {
+	public PreAnnotator(final String hostTreesFile, final String symbiontTreesFile, final String hostTreesOutputFile, final String symbiontTreesOutputFile) throws IOException, ImportException {
 		
 		final FileReader hostFileReader = new FileReader(hostTreesFile);
 		final FileReader symbiontFileReader = new FileReader(symbiontTreesFile);
@@ -148,7 +148,7 @@ public class PreTreeAnnotator {
 		}
 
 		try {
-			new PreTreeAnnotator(arguments.getStringOption("h"), arguments.getStringOption("s"), arguments.getStringOption("i"), arguments.getStringOption("t"));
+			new PreAnnotator(arguments.getStringOption("h"), arguments.getStringOption("s"), arguments.getStringOption("i"), arguments.getStringOption("t"));
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 			arguments.printUsage("annotationinitializer", "");
