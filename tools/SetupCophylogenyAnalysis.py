@@ -284,7 +284,7 @@ for operator in symbiont_operators.iterfind('*'):
 symbiont_root.remove(symbiont_operators)
 
 for prior in symbiont_priors.iterfind('*'):
-    if prior.tag not in SPECIATION_PRIORS:
+    if prior.tag not in TREE_PRIORS:
         host_priors.append(prior)
 for likelihood in symbiont_likelihoods.iterfind('*'):
     host_likelihoods.append(likelihood)
