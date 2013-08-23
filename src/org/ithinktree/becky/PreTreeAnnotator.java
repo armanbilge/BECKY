@@ -107,7 +107,7 @@ public class PreTreeAnnotator {
 	
 	private BitSet addNewClades(final MutableTree tree, final NodeRef node) {
 
-		final BitSet bitSet = new BitSet();
+		final BitSet bitSet = new BitSet(tree.getTaxonCount());
 		if (tree.isExternal(node)) {
 			bitSet.set(hostTaxonList.getTaxonIndex(tree.getNodeTaxon(node).getId()));
 		} else {
