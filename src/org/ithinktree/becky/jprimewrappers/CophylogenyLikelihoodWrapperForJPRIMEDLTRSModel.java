@@ -20,6 +20,7 @@ import se.cbb.jprime.topology.RBTreeEpochDiscretiser;
 import dr.evolution.tree.Tree;
 import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
+import dr.inference.distribution.NormalDistributionModel;
 import dr.inference.model.Model;
 import dr.inference.model.Parameter;
 import dr.inference.model.Variable;
@@ -68,10 +69,11 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 				normalize
 				);
 		
-//		final Distribution logNormalDistributionModel = new LogNormalDistributionModel(mean, stdev, 0.0, true, true);
-//		addModel(logNormalDistributionModel);
-//		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(logNormalDistributionModel);
-		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(null){public double getPDF(double x){return 1;}};
+		final NormalDistributionModel distributionModel = new NormalDistributionModel(mean, stdev);
+//		final LogNormalDistributionModel distributionModel = new LogNormalDistributionModel(mean, stdev, 0.0, true, true){public double pdf(double x) {System.out.println("WELL HERE YOU HAVE IT: " + x); return super.pdf(x);}};
+		addModel(distributionModel);
+		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel);
+//		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(null){public double getPDF(double x){return 1;}};
 		
 		dltrsModel = new DLTRSModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, substPD);
 	}
@@ -114,10 +116,6 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 //		super.handleVariableChangedEvent(variable, index, type);
 //		variablesDirty = true;
 //	}
-
-	public void makeDirty() {
-		super.makeDirty();
-	}
 	
 //	@Override
 //	protected void storeState() {
