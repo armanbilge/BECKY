@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -171,19 +172,22 @@ public class CoevolutionSimulator {
 				break;
 			case 1:
 				// Host-shift event
-				int nodeCount = hostTree.getNodeCount();
 				NodeRef newHost;
-				Relationship r;
 				if (!hostTree.isRoot(hostNode)) { // Can't host-shift if at the root!
-					do {
-						newHost = hostTree
-								.getNode(MathUtils.nextInt(nodeCount));
-						r = Utils.determineRelationship(hostTree, hostNode,
-								newHost).relationship;
-					} while (hostTree.isRoot(newHost)
-							|| (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree // TODO Use of >= is debatable
-									.getNodeHeight(hostTree.getParent(newHost))
-									|| (r != Relationship.COUSIN || r != Relationship.SISTER)));
+//					int nodeCount = hostTree.getNodeCount();
+//					Relationship r;
+//					do {
+//						newHost = hostTree
+//								.getNode(MathUtils.nextInt(nodeCount));
+//						r = Utils.determineRelationship(hostTree, hostNode,
+//								newHost).relationship;
+//					} while (hostTree.isRoot(newHost)
+//							|| (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree // TODO Use of >= is debatable
+//									.getNodeHeight(hostTree.getParent(newHost))
+//									|| (r != Relationship.COUSIN || r != Relationship.SISTER)));
+					List<NodeRef> potentialNewHosts = Utils.contemporaneousLineages(hostTree, eventHeight);
+					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
+					newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
 					child1 = simulateCoevolution(hostTree, newHost,
 							eventHeight, rate, duplicationRate, hostShiftRate,
 							lossRate, isRelaxed, stdev);

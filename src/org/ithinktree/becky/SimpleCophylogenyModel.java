@@ -163,7 +163,8 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 //				}
 				likelihood += likelihoodHostShiftAndLossInTime(subHeight, nextSubHeight, t, rate) *
 						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(originalLineages, i+1, originalLineages.length), rate) *
-						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(newHostLineages, 0, j+1), rate);
+						likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(newHostLineages, 0, j+1), rate)
+						/ (Utils.contemporaneousLineageCount(tree, nextSubHeight) - 1);
 			}
 		}
 		
@@ -289,12 +290,14 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 
 						// Child2 host-shift event
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
+						likelihood /= (Utils.contemporaneousLineageCount(hostTree, selfHeight) - 1);
 						likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child2Host, selfHeight), branchRates.getBranchRate(symbiontTree, child2));
 					
 					} else if (child2Relationship.relationship == Relationship.SELF && (child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER)) {
 						
 						// Child1 host-shift event
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
+						likelihood /= (Utils.contemporaneousLineageCount(hostTree, selfHeight) - 1);
 						likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child1Host, selfHeight), branchRates.getBranchRate(symbiontTree, child1));
 						
 					} else if ((child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER)
@@ -315,6 +318,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 						
 						// We definitely know the time of the first host-shift
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
+						likelihood /= (Utils.contemporaneousLineageCount(hostTree, selfHeight) - 1);
 						
 						// Case 1: Child2 lineage host-shifted first
 						double case1 = likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
@@ -352,6 +356,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 
 						// Child2 host-shift and child1 losses
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
+						likelihood /= (Utils.contemporaneousLineageCount(hostTree, selfHeight) - 1);
 						likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child2Host, selfHeight), branchRates.getBranchRate(symbiontTree, child2));
 						likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, branchRates.getBranchRate(symbiontTree, child1));
 
@@ -360,6 +365,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 
 						// Child1 host-shift and child2 losses 
 						likelihood *= likelihoodHostShiftAtTime(selfBranchLength * selfBranchRate);
+						likelihood /= (Utils.contemporaneousLineageCount(hostTree, selfHeight) - 1);
 						likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child1Host, selfHeight), branchRates.getBranchRate(symbiontTree, child1));
 						likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, branchRates.getBranchRate(symbiontTree, child2));
 

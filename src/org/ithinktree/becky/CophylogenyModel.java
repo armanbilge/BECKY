@@ -209,6 +209,37 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			return true;
 		}
 		
+		public static final int contemporaneousLineageCount(final Tree tree, final double height) {
+			return contemporaneousLineageCount(tree, tree.getRoot(), height);
+		}
+	
+		private static final int contemporaneousLineageCount(final Tree tree, final NodeRef node, final double height) {
+			if (height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) < height))) {
+				return 1;
+			} else {
+				int count = 0;
+				for (int i = 0; i < tree.getChildCount(node); ++i)
+					count += contemporaneousLineageCount(tree, tree.getChild(node, i), height);
+				return count;
+			}
+		}
+		
+		public static final List<NodeRef> contemporaneousLineages(final Tree tree, final double height) {
+			List<NodeRef> lineages = new ArrayList<NodeRef>(tree.getExternalNodeCount());
+			contemporaneousLineages(tree, tree.getRoot(), height, lineages);
+			return lineages;
+		}
+	
+		private static final void contemporaneousLineages(final Tree tree, final NodeRef node, final double height, List<NodeRef> lineages) {
+			if (height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) < height))) {
+				lineages.add(node);
+			} else {
+				for (int i = 0; i < tree.getChildCount(node); ++i)
+					contemporaneousLineages(tree, tree.getChild(node, i), height, lineages);
+			}
+		}
+
+		
 	}
 
 	public abstract double calculateNodeLogLikelihood(final MutableTree symbiontTree, final NodeRef self,
