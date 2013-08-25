@@ -6,9 +6,8 @@
  */
 package org.ithinktree.becky;
 
-import java.util.EnumSet;
+import java.util.List;
 
-import org.ithinktree.becky.CophylogenyModel.Utils.Relationship;
 import org.ithinktree.becky.xml.HostShiftOperatorParser;
 
 import dr.evolution.tree.NodeRef;
@@ -26,7 +25,8 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 	private final Tree hostTree;
 	private final Tree symbiontTree;
 	private final CophylogenyLikelihood cophylogenyLikelihood;
-	private final int[] hostNodeIndices;
+	private final boolean sampleNoHost;
+//	private final int[] hostNodeIndices;
 	
 	/**
 	 * 
@@ -35,15 +35,16 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 		this.hostTree = hostTree;
 		this.symbiontTree = symbiontTree;
 		this.cophylogenyLikelihood = cophylogenyLikelihood;
+		this.sampleNoHost = sampleNoHost;
 		setWeight(weight);
-		if (sampleNoHost) {
-			hostNodeIndices = new int[hostTree.getNodeCount() + 1];
-			for (int i = 0; i < hostNodeIndices.length; i++)
-				hostNodeIndices[i] = i - 1; // Introduces a -1, aka CophylogenyLikelihood.NO_HOST
-			MathUtils.shuffle(hostNodeIndices);
-		} else {
-			hostNodeIndices = MathUtils.shuffled(hostTree.getNodeCount());
-		}
+//		if (sampleNoHost) {
+//			hostNodeIndices = new int[hostTree.getNodeCount() + 1];
+//			for (int i = 0; i < hostNodeIndices.length; i++)
+//				hostNodeIndices[i] = i - 1; // Introduces a -1, aka CophylogenyLikelihood.NO_HOST
+//			MathUtils.shuffle(hostNodeIndices);
+//		} else {
+//			hostNodeIndices = MathUtils.shuffled(hostTree.getNodeCount());
+//		}
 	}
 
 	@Override
@@ -60,30 +61,34 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 	public double doOperation() throws OperatorFailedException {
 		
 		final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(symbiontTree.getInternalNodeCount()));
-		final NodeRef parentHostNode = symbiontTree.isRoot(node) ? null : cophylogenyLikelihood.getStatesForNode(symbiontTree.getParent(node));
-		final NodeRef child1HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 0));
-		final NodeRef child2HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 1));
-		final double nodeHeight = symbiontTree.getNodeHeight(node);
-		NodeRef hostNode;
-		EnumSet<Relationship> relationships;
-		boolean temporallyValid;
-		MathUtils.shuffle(hostNodeIndices);
-		int i = 0;
-		do {
-			if (i >= hostNodeIndices.length) throw new OperatorFailedException("No valid host-shifts possible at selected node"); //return 0;
-			relationships = EnumSet.noneOf(Relationship.class);
-			hostNode = hostNodeIndices[i] == CophylogenyLikelihood.NO_HOST ? null : hostTree.getNode(hostNodeIndices[i]);
-			temporallyValid = (hostTree.isRoot(hostNode) ? true : (hostTree.getNodeHeight(hostTree.getParent(hostNode)) > nodeHeight)) && nodeHeight >= hostTree.getNodeHeight(hostNode);
-			if (temporallyValid && hostNode != null) {
-				relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
-				relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
-				if (parentHostNode != null)
-					relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, parentHostNode, hostNode).relationship);
-			}
-			i++;
-		} while (!temporallyValid || relationships.contains(Relationship.ANCESTOR) ||
-					(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT)));
+//		final NodeRef parentHostNode = symbiontTree.isRoot(node) ? null : cophylogenyLikelihood.getStatesForNode(symbiontTree.getParent(node));
+//		final NodeRef child1HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 0));
+//		final NodeRef child2HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 1));
+//		final double nodeHeight = symbiontTree.getNodeHeight(node);
+//		NodeRef hostNode;
+//		EnumSet<Relationship> relationships;
+//		boolean temporallyValid;
+//		MathUtils.shuffle(hostNodeIndices);
+//		int i = 0;
+//		do {
+//			if (i >= hostNodeIndices.length) throw new OperatorFailedException("No valid host-shifts possible at selected node"); //return 0;
+//			relationships = EnumSet.noneOf(Relationship.class);
+//			hostNode = hostNodeIndices[i] == CophylogenyLikelihood.NO_HOST ? null : hostTree.getNode(hostNodeIndices[i]);
+//			temporallyValid = (hostTree.isRoot(hostNode) ? true : (hostTree.getNodeHeight(hostTree.getParent(hostNode)) > nodeHeight)) && nodeHeight >= hostTree.getNodeHeight(hostNode);
+//			if (temporallyValid && hostNode != null) {
+//				relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
+//				relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
+//				if (parentHostNode != null)
+//					relationships.add(CophylogenyModel.Utils.determineRelationship(hostTree, parentHostNode, hostNode).relationship);
+//			}
+//			i++;
+//		} while (!temporallyValid || relationships.contains(Relationship.ANCESTOR) ||
+//					(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT)));
 		
+		final List<NodeRef> hostNodes = CophylogenyModel.Utils.contemporaneousLineages(hostTree, symbiontTree.getNodeHeight(node));
+		final int i = sampleNoHost ? MathUtils.nextInt(hostNodes.size() + 1) - 1 : MathUtils.nextInt(hostNodes.size());
+		final NodeRef hostNode = i < 0 ? null : hostNodes.get(i);
+		if ((hostNode != null && hostNode.equals(cophylogenyLikelihood.getStatesForNode(node))) || cophylogenyLikelihood.getStatesForNode(node) == null) throw new OperatorFailedException("No change of state");
 		cophylogenyLikelihood.setStatesForNode(node, hostNode);
 		
 		// TODO Double-check hastings ratio
