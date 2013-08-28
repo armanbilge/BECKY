@@ -70,10 +70,8 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 				);
 		
 		final NormalDistributionModel distributionModel = new NormalDistributionModel(mean, stdev);
-//		final LogNormalDistributionModel distributionModel = new LogNormalDistributionModel(mean, stdev, 0.0, true, true){public double pdf(double x) {System.out.println("WELL HERE YOU HAVE IT: " + x); return super.pdf(x);}};
 		addModel(distributionModel);
 		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel);
-//		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(null){public double getPDF(double x){return 1;}};
 		
 		dltrsModel = new DLTRSModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, substPD);
 	}
@@ -108,27 +106,4 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 	protected void handleVariableChangedEvent(@SuppressWarnings("rawtypes") Variable variable, int index, ChangeType type) {
 		makeDirty();
 	}
-	
-//	@SuppressWarnings("rawtypes")
-//	@Override
-//	protected void handleVariableChangedEvent(Variable variable, int index,
-//			ChangeType type) {
-//		super.handleVariableChangedEvent(variable, index, type);
-//		variablesDirty = true;
-//	}
-	
-//	@Override
-//	protected void storeState() {
-////		getLogLikelihood(); // Automatically caches during update if dirty
-//		super.storeState();
-//	}
-//
-//	protected void restoreState() {
-//		super.restoreState();
-////		dltProbs.restoreCache(true);
-////		reconciliationHelper.restoreCache(true);
-////		rbTreeEpochDiscretiser.restoreCache(true);
-////		dltrsModel.restoreCache(true);
-//	}
-
 }
