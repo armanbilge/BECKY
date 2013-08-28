@@ -5,6 +5,8 @@ A plugin for [BEAST1](http://beast.bio.ed.ac.uk/) that enables inference of coph
 
 [**DOWNLOAD**](https://github.com/coevolution/BECKY/releases)
 
+[![Build Status](https://travis-ci.org/armanbilge/AncestralSequenceRescue.png?branch=master)](https://travis-ci.org/phylocomputing/BECKY)
+
 ## Installation and Usage
 
 To install BECKY, simply create a `plugins/` folder in the same location as your BEAST XML file and place `org.ithinktree.becky.BECKY.jar` in it.
