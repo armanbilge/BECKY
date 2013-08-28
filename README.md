@@ -5,7 +5,7 @@ A plugin for [BEAST1](http://beast.bio.ed.ac.uk/) that enables inference of coph
 
 [**DOWNLOAD**](https://github.com/coevolution/BECKY/releases)
 
-[![Build Status](https://travis-ci.org/armanbilge/AncestralSequenceRescue.png?branch=master)](https://travis-ci.org/phylocomputing/BECKY)
+[![Build Status](https://travis-ci.org/phylocomputing/BECKY.png?branch=master)](https://travis-ci.org/phylocomputing/BECKY)
 
 ## Installation and Usage
 
