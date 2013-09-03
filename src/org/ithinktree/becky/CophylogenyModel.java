@@ -125,8 +125,8 @@ public abstract class CophylogenyModel extends SpeciationModel {
 //					return new NodalRelationship(COUSIN, 0);
 					throw new IllegalArgumentException();
 					
-				int selfN = self.getNumber();
-				int relationN = relation.getNumber();
+				final int selfN = self.getNumber();
+				final int relationN = relation.getNumber();
 				
 				if (selfN == relationN)
 					return new NodalRelationship(Utils.Relationship.SELF, 0);
@@ -138,8 +138,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				
 				lostLineages.addAll(getSisters(tree, relation));
 				NodeRef temp = tree.getParent(relation);
-				// Arguably g should = 1, but confounds proper counting of loss events
-				for (int g = 0; temp != null; ++g, temp = tree.getParent(temp)) {
+				for (int g = 1; temp != null; ++g, temp = tree.getParent(temp)) {
 					if (selfN == temp.getNumber()) {
 						return new NodalRelationship(Utils.Relationship.DESCENDANT, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
 					}
@@ -150,11 +149,12 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				
 				lostLineages.addAll(getSisters(tree, self));
 				temp = tree.getParent(self);
-				for (int g = 0; temp != null; ++g, temp = tree.getParent(temp)) {
+				for (int g = 1; temp != null; ++g, temp = tree.getParent(temp)) {
 					if (relationN == temp.getNumber()) {
 						return new NodalRelationship(Utils.Relationship.ANCESTOR, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
 					}
-					lostLineages.addAll(getSisters(tree, temp));
+                lostLineages.addAll(getSisters(tree, temp));
+
 				}
 				
 				// Otherwise must be a cousin

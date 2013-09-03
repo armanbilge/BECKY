@@ -51,8 +51,9 @@ public class CophylogenyModelUtilsTest {
 	    List<NodeRef> determineRelationshipLostLineages = Arrays.asList(CophylogenyModel.Utils.determineRelationship(tree, TestUtils.DE, TestUtils.BCDE).lostLineages);
 	    List<NodeRef> lostLineagesToTime = Arrays.asList(CophylogenyModel.Utils.lostLineagesToTime(tree, TestUtils.DE, tree.getNodeHeight(TestUtils.BCDE)));
 	    
-	    NodeRef[] knownLostLineages = new NodeRef[]{TestUtils.C};
-	    Assert.assertTrue(knownLostLineages.length == determineRelationshipLostLineages.size() && knownLostLineages.length == lostLineagesToTime.size());
+	    NodeRef[] knownLostLineages = new NodeRef[]{TestUtils.B, TestUtils.C};
+	    Assert.assertTrue(knownLostLineages.length == determineRelationshipLostLineages.size());
+	    Assert.assertTrue(knownLostLineages.length == lostLineagesToTime.size());
 	    for (NodeRef n : knownLostLineages) {
 	        Assert.assertTrue(determineRelationshipLostLineages.contains(n));
 	        Assert.assertTrue(lostLineagesToTime.contains(n));
