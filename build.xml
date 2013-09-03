@@ -27,6 +27,10 @@
             description="Clean and Build all and distribute jar">
     </target>
 
+    <target name="test" depends="clean,compile-all,junit"
+            description="Clean and Build all run-time stuff with unit test">
+    </target>
+
     <!-- compile Java source code -->
     <target name="compile-all" depends="init">
         <mkdir dir="${build}"/>
@@ -37,9 +41,8 @@
                fork="true"
                memoryinitialsize="256m"
                memorymaximumsize="1024m">
-            <include name="org/ithinktree/becky/*.java"/>
-            <include name="org/ithinktree/becky/jprimewrappers/*.java"/>
-            <include name="org/ithinktree/becky/test/*.java"/>
+            <include name="org/ithinktree/becky/**"/>
+            <include name="test/org/ithinktree/becky/**"/>
         </javac>
         <echo message="Successfully compiled."/>
     </target>
@@ -57,9 +60,23 @@
                 <include name="org/ithinktree/becky/**"/>
             </fileset>
            <zipgroupfileset dir="${lib}" includes="beast.jar"/>
-            <zipgroupfileset dir="${lib}" includes="jprime-0.3.3.jar"/>
-<!--            <zipgroupfileset dir="${lib}" includes="junit-4.11.jar"/> -->
+           <zipgroupfileset dir="${lib}" includes="jprime-0.3.3.jar"/>
         </jar>
+    </target>
+
+    <target name="junit" depends="compile-all">
+        <junit showoutput="yes" fork="true" printsummary="yes" haltonfailure="yes" dir="${build}/..">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="${build}"/>
+            </classpath>
+            <formatter type="plain" usefile="false" />
+            <batchtest>
+                <fileset dir="${build}">
+                    <include name="test/org/ithinktree/becky/**/*Test.class"/>
+                </fileset>
+            </batchtest>
+        </junit>
     </target>
 
 </project>
