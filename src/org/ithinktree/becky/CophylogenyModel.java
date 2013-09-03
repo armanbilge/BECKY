@@ -9,11 +9,13 @@ package org.ithinktree.becky;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import dr.evolution.tree.BranchRates;
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
+import dr.evolution.util.Taxon;
 import dr.evolution.util.Units;
 import dr.evomodel.speciation.SpeciationModel;
 import dr.inference.model.Variable;
@@ -30,15 +32,16 @@ public abstract class CophylogenyModel extends SpeciationModel {
 
 	protected double overallRate;
 	protected boolean dirty = true;
-	
-	
+
 	/**
 	 * 
 	 */
 	public CophylogenyModel(String name, Units.Type units) {
 		super(name, units);
 	}
-		
+	
+	protected abstract void updateVariables();
+	
 	protected final double likelihoodEventAtTime(double t, double lambda) {
 		return lambda * Math.exp(-overallRate * t);
 	}
@@ -209,42 +212,54 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			return true;
 		}
 		
-		public static final int contemporaneousLineageCount(final Tree tree, final double height) {
-			return contemporaneousLineageCount(tree, tree.getRoot(), height);
+		public static final int getContemporaneousLineageCount(final Tree tree, final double height) {
+			return getContemporaneousLineageCount(tree, tree.getRoot(), height);
 		}
 	
-		private static final int contemporaneousLineageCount(final Tree tree, final NodeRef node, final double height) {
-			if (height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) < height))) {
+		private static final int getContemporaneousLineageCount(final Tree tree, final NodeRef node, final double height) {
+			if (height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) > height))) {
 				return 1;
 			} else {
 				int count = 0;
 				for (int i = 0; i < tree.getChildCount(node); ++i)
-					count += contemporaneousLineageCount(tree, tree.getChild(node, i), height);
+					count += getContemporaneousLineageCount(tree, tree.getChild(node, i), height);
 				return count;
 			}
 		}
 		
-		public static final List<NodeRef> contemporaneousLineages(final Tree tree, final double height) {
+		public static final List<NodeRef> getContemporaneousLineages(final Tree tree, final double height) {
 			List<NodeRef> lineages = new ArrayList<NodeRef>(tree.getExternalNodeCount());
-			contemporaneousLineages(tree, tree.getRoot(), height, lineages);
+			getContemporaneousLineages(tree, tree.getRoot(), height, lineages);
 			return lineages;
 		}
 	
-		private static final void contemporaneousLineages(final Tree tree, final NodeRef node, final double height, List<NodeRef> lineages) {
-			if (height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) < height))) {
+		private static final void getContemporaneousLineages(final Tree tree, final NodeRef node, final double height, List<NodeRef> lineages) {
+			if (height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) > height))) {
 				lineages.add(node);
 			} else {
 				for (int i = 0; i < tree.getChildCount(node); ++i)
-					contemporaneousLineages(tree, tree.getChild(node, i), height, lineages);
+					getContemporaneousLineages(tree, tree.getChild(node, i), height, lineages);
 			}
 		}
-
 		
 	}
 
 	public abstract double calculateNodeLogLikelihood(final MutableTree symbiontTree, final NodeRef self,
 			final NodeRef child1, final NodeRef child2, final Tree hostTree, final NodeRef selfHost,
 			final NodeRef child1Host, final NodeRef child2Host, final BranchRates branchRates);
+	
+	public abstract void initialize(final Tree tree);
+	
+	@Override
+	public double calculateTreeLogLikelihood(Tree arg0) {
+		throw new UnsupportedOperationException();
+	}
 
+	@Override
+	public double calculateTreeLogLikelihood(Tree arg0, Set<Taxon> arg1) {
+		throw new UnsupportedOperationException();
+	}
+
+	
 }
 

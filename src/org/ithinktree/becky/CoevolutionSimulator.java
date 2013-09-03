@@ -190,7 +190,7 @@ public class CoevolutionSimulator {
 //							|| (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree // TODO Use of >= is debatable
 //									.getNodeHeight(hostTree.getParent(newHost))
 //									|| (r != Relationship.COUSIN || r != Relationship.SISTER)));
-					List<NodeRef> potentialNewHosts = Utils.contemporaneousLineages(hostTree, eventHeight);
+					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
 					newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
 					logLikelihood += Math.log(1 / potentialNewHosts.size());
@@ -239,7 +239,7 @@ public class CoevolutionSimulator {
 		final double time = MathUtils.nextExponential(lambda);
 		final double U = 1 - MathUtils.nextDouble();
 		int i;
-		for (i = 0; p[i] < U && i < p.length; ++i);
+		for (i = 0; i < p.length && p[i] < U; ++i);
 		logLikelihood += Math.log(lambdas[i] * Math.exp(lambda));
 		return new EventIndexAndTime(i, time);
 	}
