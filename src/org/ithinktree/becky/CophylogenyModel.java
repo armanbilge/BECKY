@@ -40,6 +40,10 @@ public abstract class CophylogenyModel extends SpeciationModel {
 		super(name, units);
 	}
 	
+	public final double getOverallRate() {
+	    return overallRate;
+	}
+	
 	protected abstract void updateVariables();
 	
 	protected final double likelihoodEventAtTime(double t, double lambda) {
@@ -56,13 +60,10 @@ public abstract class CophylogenyModel extends SpeciationModel {
 	
 	protected static final double likelihoodNoEventInTime(double t, double lambda) {
 		throw new UnsupportedOperationException();
-//		return 1.0 - ExponentialDistribution.cdf(t, lambda);
 	}
 	
 	protected static final double likelihoodEventsInTime(double t, double lambda, int k) {
 		throw new UnsupportedOperationException();
-//		final double tXlambda = t * lambda;
-//		return Math.exp(-tXlambda) * Math.pow(tXlambda, k) / MathUtils.factorial(k);
 	}
 			
 	@SuppressWarnings("rawtypes")
