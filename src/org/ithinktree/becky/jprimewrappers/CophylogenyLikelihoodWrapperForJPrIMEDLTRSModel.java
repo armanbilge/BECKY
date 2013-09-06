@@ -20,6 +20,7 @@ import se.cbb.jprime.topology.RBTreeEpochDiscretiser;
 import dr.evolution.tree.Tree;
 import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
+import dr.inference.distribution.GammaDistributionModel;
 import dr.inference.distribution.NormalDistributionModel;
 import dr.inference.model.Model;
 import dr.inference.model.Parameter;
@@ -69,7 +70,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 				normalize
 				);
 		
-		final NormalDistributionModel distributionModel = new NormalDistributionModel(mean, stdev);
+		final GammaDistributionModel distributionModel = new GammaDistributionModel(mean, stdev);
 		addModel(distributionModel);
 		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel);
 		
