@@ -9,7 +9,6 @@ import org.ithinktree.becky.CophylogenyLikelihood;
 import se.cbb.jprime.apps.dltrs.DLTRSModel;
 import se.cbb.jprime.apps.dltrs.EpochDLTProbs;
 import se.cbb.jprime.apps.dltrs.ReconciliationHelper;
-import se.cbb.jprime.math.Continuous1DPDDependent;
 import se.cbb.jprime.mcmc.ChangeInfo;
 import se.cbb.jprime.mcmc.Dependent;
 import se.cbb.jprime.topology.GuestHostMap;
@@ -20,11 +19,12 @@ import se.cbb.jprime.topology.RBTreeEpochDiscretiser;
 import dr.evolution.tree.Tree;
 import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
-import dr.inference.distribution.GammaDistributionModel;
 import dr.inference.model.Model;
 import dr.inference.model.Parameter;
 import dr.inference.model.Variable;
 import dr.inference.model.Variable.ChangeType;
+import dr.math.UnivariateFunction;
+import dr.math.distributions.Distribution;
 
 @SuppressWarnings("serial")
 public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
@@ -36,7 +36,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 	private final EpochDLTProbs dltProbs;
 
 	public CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel(final String name, final Tree host, final Tree guest,
-			final Parameter duplicationRate, final Parameter lossRate, final Parameter transferRate, final boolean normalize, final Taxa guestTaxa, final Parameter mean, final Parameter stdev, final String hostAttributeName) {
+			final Parameter duplicationRate, final Parameter lossRate, final Parameter transferRate, final boolean normalize, final Taxa guestTaxa, final String hostAttributeName) {
 		
 		super(name);
 		
@@ -45,8 +45,6 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 		addVariable(duplicationRate);
 		addVariable(lossRate);
 		addVariable(transferRate);
-		addVariable(mean);
-		addVariable(stdev);
 		
 		final RBTree jprimeHostRBTree = new JPrIMERBTreeWrapperForBEASTTree(host);
 		final NamesMap jprimeHostNamesMap = new JPrIMENamesMapWrapperForBEASTTree(host);
@@ -69,11 +67,30 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 				normalize
 				);
 		
-		final GammaDistributionModel distributionModel = new GammaDistributionModel(mean, stdev);
-		addModel(distributionModel);
-		final Continuous1DPDDependent substPD = new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel);
-		
-		dltrsModel = new DLTRSModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, substPD);
+		final Distribution distributionModel = new Distribution(){
+            public double cdf(double arg0) {
+                return 1.0;
+            }
+            public UnivariateFunction getProbabilityDensityFunction() {
+                throw new UnsupportedOperationException();
+            }
+            public double logPdf(double arg0) {
+                return 0.0;
+            }
+            public double mean() {
+                return 1;
+            }
+            public double pdf(double arg0) {
+                return 1.0;
+            }
+            public double quantile(double arg0) {
+                throw new UnsupportedOperationException();
+            }
+            public double variance() {
+                throw new UnsupportedOperationException();
+            }};
+            		
+		dltrsModel = new DLTRSModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel));
 	}
 	
 	private final Map<Dependent,ChangeInfo> changeInfos = new HashMap<Dependent,ChangeInfo>();
