@@ -49,12 +49,12 @@ public class TestUtils {
 		
 	}
 	
-	public static Tree treeFromNewick(final String newick, boolean testUltrametricity) {
+	public static final Tree treeFromNewick(final String newick, boolean testUltrametricity) {
 		final Tree tree;
 		try {
 			tree = new NewickImporter(newick).importNextTree();
 		} catch (Exception e) {
-			Assert.fail("Fatal problem with internally defined tree: " + e.getMessage());
+			Assert.fail("Fatal problem with internally defined tree: " + e.toString());
 			return null;
 		}
 		Assert.assertTrue("FATAL: Tree is not binary.", Tree.Utils.isBinary(tree));
@@ -62,6 +62,5 @@ public class TestUtils {
 			Assert.assertTrue("FATAL: Tree is not ultrametric.", Tree.Utils.isUltrametric(tree));
 		return tree;
 	}
-
 	
 }

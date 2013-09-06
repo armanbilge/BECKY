@@ -7,6 +7,7 @@ package test.org.ithinktree.becky;
 
 import java.lang.reflect.Method;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.ithinktree.becky.CophylogenyLikelihood;
 import org.ithinktree.becky.SimpleCophylogenyModel;
 import org.junit.Assert;
@@ -102,12 +103,11 @@ public class SimpleCophylogenyModelTest {
 	@Test
 	public void testLikelihoodHostShiftEventAndLossInTimeIntegration() {
 				
-		// Protected method so using reflection
 		Method m;
 		try {
 			m = model.getClass().getDeclaredMethod("likelihoodHostShiftEventAndLossInTime", double.class, double.class, double.class, double.class, double.class, double.class);
 		} catch (Exception e) {
-			Assert.fail("Fatal reflection error retrieving method: " + e.getMessage());
+			Assert.fail("Fatal reflection error retrieving method: " + e.toString());
 			return;
 		}
 		m.setAccessible(true);
@@ -115,11 +115,38 @@ public class SimpleCophylogenyModelTest {
 		try {
 			likelihood = (Double) m.invoke(model, 0.1, 0.2, 0.27, 0.23, 1.5, 1.0);
 		} catch (Exception e) {
-			Assert.fail("Fatal reflection error invoking method: " + e.getMessage());
+			Assert.fail("Fatal reflection error invoking method: " + e.toString());
 			return;
 		}
 		
 		Assert.assertEquals(0.0023401643365404423, likelihood, 1E-19);
+	}
+	
+	@Test
+	public void testLikelihoodLineageLoss() {
+	    
+	    final Tree tree = TestUtils.treeFromNewick("((A:1.0,B:1.0):2.0,C:3.0);", true);
+	    final double overallRate = model.getOverallRate();
+	    final double lossRate = model.getLossRate();
+	    final double actualLikelihood = 0.0 + Math.exp(0.0 * overallRate) * (1 - Math.exp(3 * lossRate)) * ((1 - Math.exp(2 * lossRate) + Math.exp(2 * overallRate) * (1 - Math.exp(1 * lossRate) * (1 - Math.exp(1 * lossRate)))));
+	    
+	    Method m;
+        try {
+            m = model.getClass().getDeclaredMethod("likelihoodLineageLoss", Tree.class, NodeRef.class, double.class);
+        } catch (Exception e) {
+            Assert.fail("Fatal reflection error retrieving method: " + e.toString());
+            return;
+        }
+        m.setAccessible(true);
+        double likelihood;
+        try {
+            likelihood = (Double) m.invoke(model, tree, tree.getRoot(), 1.0);
+        } catch (Exception e) {
+            Assert.fail("Fatal reflection error invoking method: " + ExceptionUtils.getStackTrace(e));
+            return;
+        }
+	    
+	    Assert.assertEquals(actualLikelihood, likelihood, MachineAccuracy.EPSILON);
 	}
 	
 }
