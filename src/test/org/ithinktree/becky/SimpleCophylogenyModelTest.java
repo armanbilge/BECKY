@@ -125,10 +125,12 @@ public class SimpleCophylogenyModelTest {
 	@Test
 	public void testLikelihoodLineageLoss() {
 	    
-	    final Tree tree = TestUtils.treeFromNewick("((A:1.0,B:1.0):2.0,C:3.0);", true);
+//	    final Tree tree = TestUtils.treeFromNewick("((A:1.0,B:1.0):2.0,C:3.0);", true);
+	    final Tree tree = TestUtils.DEFAULT_TREE;
 	    final double overallRate = model.getOverallRate();
 	    final double lossRate = model.getLossRate();
-	    final double actualLikelihood = 0.0 + Math.exp(0.0 * overallRate) * (1 - Math.exp(3 * lossRate)) * ((1 - Math.exp(2 * lossRate) + Math.exp(2 * overallRate) * (1 - Math.exp(1 * lossRate) * (1 - Math.exp(1 * lossRate)))));
+//	    final double actualLikelihood = 0.0 + Math.exp(0.0 * overallRate) * (1 - Math.exp(3 * lossRate)) * ((1 - Math.exp(2 * lossRate) + Math.exp(2 * overallRate) * (1 - Math.exp(1 * lossRate) * (1 - Math.exp(1 * lossRate)))));
+	    final double actualLikelihood = 1 - Math.exp(-0.5 * lossRate) + Math.exp(-0.5 * overallRate) * (1 - Math.exp(-1.0 * lossRate)) * (1 - Math.exp(-1.0 * lossRate));
 	    
 	    Method m;
         try {
@@ -140,7 +142,7 @@ public class SimpleCophylogenyModelTest {
         m.setAccessible(true);
         double likelihood;
         try {
-            likelihood = (Double) m.invoke(model, tree, tree.getRoot(), 1.0);
+            likelihood = (Double) m.invoke(model, tree, TestUtils.DE, 1.0);
         } catch (Exception e) {
             Assert.fail("Fatal reflection error invoking method: " + ExceptionUtils.getStackTrace(e));
             return;
