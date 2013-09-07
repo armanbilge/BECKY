@@ -12,6 +12,7 @@ import org.ithinktree.becky.CophylogenyLikelihood;
 import org.ithinktree.becky.SimpleCophylogenyModel;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -123,6 +124,7 @@ public class SimpleCophylogenyModelTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testLikelihoodLineageLoss() {
 	    
 //	    final Tree tree = TestUtils.treeFromNewick("((A:1.0,B:1.0):2.0,C:3.0);", true);

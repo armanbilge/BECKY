@@ -245,8 +245,8 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                 else nextSubHeight = nextHeight;
                 likelihood += likelihoodHostShiftEventAndLossInTime(subHeight, nextSubHeight, e, l, eventRate, rate, tree, lostLineage) *
                         likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(originalLineages, i+1, originalLineages.length), rate) *
-                        likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(newHostLineages, 0, j+1), rate)
-                        / (Utils.getContemporaneousLineageCount(tree, nextSubHeight) - 1);
+                        likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(newHostLineages, 0, j+1), rate) /
+                        (Utils.getContemporaneousLineageCount(tree, nextSubHeight) - 1);
             }
         }
                 
@@ -270,7 +270,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
     public double calculateNodeLogLikelihood(final MutableTree symbiontTree, final NodeRef self,
             final NodeRef child1, final NodeRef child2, final Tree hostTree, final NodeRef selfHost,
             final NodeRef child1Host, final NodeRef child2Host, final BranchRates branchRates) {
-        
+                
                     if (dirty) updateVariables();
         
                     double likelihood = 1.0;
@@ -317,11 +317,11 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                                     * likelihoodLineageLoss(hostTree, hostChild, child1BranchRate, true) * likelihoodLineageLoss(hostTree, hostChild, child2BranchRate, true);
                             sum = 0.0;
                             for (Event e : reconstructedEvents[child1.getNumber()])
-                                sum += likelihoodEvent(e.event, child1BranchRate) * e.partialLikelihood;
+                                sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child1) * child1BranchRate) * e.partialLikelihood;
                             case1 *= sum;
                             sum = 0.0;
                             for (Event e : reconstructedEvents[child2.getNumber()])
-                                sum += likelihoodEvent(e.event, child2BranchRate) * e.partialLikelihood;
+                                sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2) * child2BranchRate) * e.partialLikelihood;
                             case1 *= sum;
                             
                             events[0] = new Event(EventType.DUPLICATION, case1);
@@ -347,7 +347,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
         
                             sum2 = 0.0;
                             for (Event e : reconstructedEvents[child2.getNumber()])
-                                sum2 += likelihoodEvent(e.event, child2BranchRate) * e.partialLikelihood;
+                                sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2) * child2BranchRate) * e.partialLikelihood;
 
                             case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
                             
@@ -357,7 +357,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
  
                             sum2 = 0.0;
                             for (Event e : reconstructedEvents[child1.getNumber()])
-                                sum2 += likelihoodEvent(e.event, child1BranchRate) * e.partialLikelihood;
+                                sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child1) * child1BranchRate) * e.partialLikelihood;
 
                             case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child2BranchRate);
                                                         
@@ -368,7 +368,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             calculatedChild2 = true;
                             
                         } else { // Plain old cospeciation
-                                                        
+
                             // Check if violates tree validity (parent younger than children)
 //                          if (selfHostHeight < symbiontTree.getNodeHeight(child1) || selfHostHeight < symbiontTree.getNodeHeight(child2))
 //                              return Double.NEGATIVE_INFINITY;
@@ -464,17 +464,17 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                     if (!calculatedChild1) {
                         sum = 0.0;
                         for (Event e : reconstructedEvents[child1.getNumber()])
-                            sum += likelihoodEvent(e.event, child1BranchRate) * e.partialLikelihood;
+                            sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child1) * child1BranchRate) * e.partialLikelihood;
                         likelihood *= sum;
                     }
                     
                     if (!calculatedChild2) {
                         sum = 0.0;
                         for (Event e : reconstructedEvents[child2.getNumber()])
-                            sum += likelihoodEvent(e.event, child2BranchRate) * e.partialLikelihood;
+                            sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2) * child2BranchRate) * e.partialLikelihood;
                         likelihood *= sum;
                     }
-                    
+
                     return Math.log(likelihood);
     }
 

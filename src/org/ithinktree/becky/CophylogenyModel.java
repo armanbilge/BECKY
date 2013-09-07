@@ -137,7 +137,6 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				
 				List<NodeRef> lostLineages = new ArrayList<NodeRef>();
 				
-				lostLineages.addAll(getSisters(tree, relation));
 				NodeRef temp = tree.getParent(relation);
 				for (int g = 1; temp != null; ++g, temp = tree.getParent(temp)) {
 					if (selfN == temp.getNumber()) {
@@ -148,7 +147,6 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				
 				lostLineages.clear();
 				
-				lostLineages.addAll(getSisters(tree, self));
 				temp = tree.getParent(self);
 				for (int g = 1; temp != null; ++g, temp = tree.getParent(temp)) {
 					if (relationN == temp.getNumber()) {
