@@ -27,7 +27,6 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 	private final CophylogenyLikelihood cophylogenyLikelihood;
 	private final int internalNodeCount;
 	private final boolean sampleNoHost;
-//	private final int[] hostNodeIndices;
 	
 	/**
 	 * 
@@ -62,7 +61,6 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 				|| cophylogenyLikelihood.getStatesForNode(node) == null) throw new OperatorFailedException("No change of state");
 		cophylogenyLikelihood.setStatesForNode(node, hostNode);
 		
-		// TODO Double-check hastings ratio
 		return 1.0; // I think that this is the correct hastings ratio, b/c all nodes have equal opportunity of being selected in both directions
 	}
 
