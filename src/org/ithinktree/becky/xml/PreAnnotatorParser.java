@@ -5,7 +5,7 @@ package org.ithinktree.becky.xml;
 
 import java.io.IOException;
 
-import org.ithinktree.becky.PreAnnotator;
+import org.ithinktree.becky.tools.PreAnnotator;
 
 import dr.evolution.io.Importer.ImportException;
 import dr.xml.AbstractXMLObjectParser;

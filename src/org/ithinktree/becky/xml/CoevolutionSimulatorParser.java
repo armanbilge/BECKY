@@ -6,8 +6,8 @@
  */
 package org.ithinktree.becky.xml;
 
-import org.ithinktree.becky.CoevolutionSimulator;
 import org.ithinktree.becky.CophylogenyLikelihood;
+import org.ithinktree.becky.tools.CoevolutionSimulator;
 
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.Tree;
