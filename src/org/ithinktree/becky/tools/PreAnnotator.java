@@ -4,7 +4,7 @@
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
  */
-package org.ithinktree.becky;
+package org.ithinktree.becky.tools;
 
 import java.io.FileOutputStream;
 import java.io.FileReader;

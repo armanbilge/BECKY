@@ -4,7 +4,7 @@
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
  */
-package org.ithinktree.becky;
+package org.ithinktree.becky.tools;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,8 +17,10 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.ithinktree.becky.CophylogenyLikelihood;
 import org.ithinktree.becky.CophylogenyModel.Utils;
 import org.ithinktree.becky.CophylogenyModel.Utils.Relationship;
+import org.ithinktree.becky.SimpleCophylogenyModel;
 
 import dr.app.seqgen.SeqGen;
 import dr.app.tools.NexusExporter;
