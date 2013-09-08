@@ -46,26 +46,19 @@ public abstract class CophylogenyModel extends SpeciationModel {
 	
 	protected abstract void updateVariables();
 	
-	protected final double likelihoodEventAtTime(double t, double lambda) {
-		return lambda * Math.exp(-overallRate * t);
+	protected final double likelihoodEventAtTime(final double t, final double lambda, final double rate) {
+		return lambda * rate * Math.exp(-overallRate * rate * t);
 	}
 	
-	protected final double likelihoodEventInTime(double t, double lambda) {
-		return Math.exp((lambda - overallRate) * t) - Math.exp(-overallRate * t);
+	protected final double likelihoodEventInTime(final double t, final double lambda, final double rate) {
+	    final double adjustedOverallRate = rate * overallRate;
+		return lambda * rate * (1 - Math.exp(-adjustedOverallRate * t)) / adjustedOverallRate;
 	}
 	
-	protected final double likelihoodNoEventsInTime(double t) {
-		return Math.exp(-overallRate * t);
+	protected final double likelihoodNoEventsInTime(final double t, final double rate) {
+		return Math.exp(-overallRate * rate * t);
 	}
 	
-	protected static final double likelihoodNoEventInTime(double t, double lambda) {
-		throw new UnsupportedOperationException();
-	}
-	
-	protected static final double likelihoodEventsInTime(double t, double lambda, int k) {
-		throw new UnsupportedOperationException();
-	}
-			
 	@SuppressWarnings("rawtypes")
 	protected void handleVariableChangedEvent(Variable variable, int index, ChangeType type) {dirty = true;}
 		
