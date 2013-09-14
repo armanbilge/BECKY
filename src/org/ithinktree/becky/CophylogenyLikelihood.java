@@ -140,7 +140,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 				
 				logL += cophylogenyModel.calculateNodeLogLikelihood(symbiontTree, self, child1, child2, hostTree, selfHost, child1Host, child2Host, branchRates);
 			}
-		} while (!symbiontTree.isRoot(self));
+		} while (!symbiontTree.isRoot(self) && logL != Double.NEGATIVE_INFINITY);
 
 		return logL;
 	}
@@ -258,6 +258,6 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		return treeTraits.getTreeTrait(key);
 	}
 
-	protected boolean isDirty() { return likelihoodKnown; }
+	protected boolean isDirty() { return !likelihoodKnown; }
 	
 }

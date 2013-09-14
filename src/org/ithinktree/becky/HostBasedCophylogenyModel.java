@@ -23,7 +23,6 @@ public class HostBasedCophylogenyModel extends SimpleCophylogenyModel {
 			Type units) {
 		super(duplicationRateParameter, hostShiftRateParameter,
 				lossRateParameter, units);
-		// TODO Auto-generated constructor stub
 	}
 
 }

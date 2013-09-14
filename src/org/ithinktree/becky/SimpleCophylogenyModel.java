@@ -327,6 +327,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             events[0] = new Event(EventType.DUPLICATION, case1);
                             
                             // Case 2: cospeciation, then host-shift and loss
+                            // TODO Make more rigorous
                             
                             final double child1Height = symbiontTree.getNodeHeight(child1);
                             final double child2Height = symbiontTree.getNodeHeight(child2);
@@ -334,8 +335,8 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             // All possible lineages along which losses may have occurred
                             final NodeRef[] child1OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
                             final NodeRef[] child2OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
-                            final NodeRef[] child1NewHostLineages = child1Relationship.lostLineages; // Utils.lostLineagesToTime(hostTree, child1Host, selfHeight);
-                            final NodeRef[] child2NewHostLineages = child2Relationship.lostLineages; // Utils.lostLineagesToTime(hostTree, child2Host, selfHeight);
+                            final NodeRef[] child1NewHostLineages = child1Relationship.lostLineages;
+                            final NodeRef[] child2NewHostLineages = child2Relationship.lostLineages;
                             
                             // Sum over two subcases: child1 lineage made host-shift/loss or child2 made host-shift/loss
                             double case2 = 0.0;
@@ -460,7 +461,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                     } else { // Everything else is impossible
                         return Double.NEGATIVE_INFINITY;
                     }
-                                                            
+
                     if (!calculatedChild1) {
                         sum = 0.0;
                         for (Event e : reconstructedEvents[child1.getNumber()])
