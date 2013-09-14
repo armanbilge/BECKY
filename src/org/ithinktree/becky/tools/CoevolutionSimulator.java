@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -18,8 +17,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.ithinktree.becky.CophylogenyLikelihood;
+import org.ithinktree.becky.CophylogenyModel;
 import org.ithinktree.becky.CophylogenyModel.Utils;
-import org.ithinktree.becky.CophylogenyModel.Utils.Relationship;
 import org.ithinktree.becky.SimpleCophylogenyModel;
 
 import dr.app.seqgen.SeqGen;
@@ -58,49 +57,23 @@ public class CoevolutionSimulator {
 	 */
 	public void simulateCoevolution(Tree hostTree, MutableTree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood, String hostAttributeName, boolean samplingNoHost) {
 		
-		for (int i = 0; i < symbiontTree.getExternalNodeCount(); i++) {
-			NodeRef node = symbiontTree.getExternalNode(i);
-			Taxon hostTaxon = (Taxon) symbiontTree.getNodeTaxon(node).getAttribute(hostAttributeName);
+		for (int i = 0; i < symbiontTree.getExternalNodeCount(); ++i) {
+			final NodeRef node = symbiontTree.getExternalNode(i);
+			final Taxon hostTaxon = (Taxon) symbiontTree.getNodeTaxon(node).getAttribute(hostAttributeName);
 			NodeRef hostNode = null;
 			if (hostTaxon != null) {
 				hostNode = hostTree.getExternalNode(hostTree.getTaxonIndex(hostTaxon.getId()));
 			}
 			cophylogenyLikelihood.setStatesForNode(node, hostNode);
 		}
-		
-		int[] postOrderList = new int[symbiontTree.getNodeCount()];
-		Tree.Utils.postOrderTraversalList(symbiontTree, postOrderList);
-		int[] hostNodeIds = MathUtils.shuffled(hostTree.getNodeCount() + (samplingNoHost ? 1 : 0));
-		for (int i = 0; i < postOrderList.length; ++i) {
-			NodeRef node = symbiontTree.getNode(postOrderList[i]);
-			if (!symbiontTree.isExternal(node)) {
-				
-				NodeRef child1HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 0));
-				NodeRef child2HostNode = cophylogenyLikelihood.getStatesForNode(symbiontTree.getChild(node, 1));
 
-				NodeRef hostNode = null;
-				EnumSet<Relationship> relationships;
-				MathUtils.shuffle(hostNodeIds);
-				int j = 0;
-				do {
-					if (j >= hostNodeIds.length) {
-						i = -1; // Force the simulation to start over
-						break;
-					}
-					relationships = EnumSet.noneOf(Relationship.class);
-					int r = hostNodeIds[j++] - (samplingNoHost ? 1 : 0);
-					hostNode = r == CophylogenyLikelihood.NO_HOST ? null : hostTree.getNode(r);
-					relationships.add(Utils.determineRelationship(hostTree, hostNode, child1HostNode).relationship);
-					relationships.add(Utils.determineRelationship(hostTree, hostNode, child2HostNode).relationship);
-				} while (relationships.contains(Relationship.ANCESTOR) ||
-							(relationships.contains(Relationship.SELF) && relationships.contains(Relationship.DESCENDANT)));
-				cophylogenyLikelihood.setStatesForNode(node, hostNode);
-				double maxHeight = hostTree.isRoot(hostNode) ? Double.MAX_VALUE : hostTree.getNodeHeight(hostTree.getParent(hostNode));
-				double minHeight = Math.max(hostTree.getNodeHeight(hostNode), Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(node, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(node, 1))));
-				if (minHeight > maxHeight) i = -1; // Don't know if this can happen, but restarts the simulation
-				symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * (maxHeight - minHeight) + minHeight);
-			}
+		for (int i = 0; i < symbiontTree.getInternalNodeCount(); ++i) {
+		    final NodeRef node = symbiontTree.getInternalNode(i);
+		    final List<NodeRef> contemporaneous = CophylogenyModel.Utils.getContemporaneousLineages(hostTree, symbiontTree.getNodeHeight(node));
+		    if (samplingNoHost) contemporaneous.add(null);
+		    cophylogenyLikelihood.setStatesForNode(node, contemporaneous.get(MathUtils.nextInt(contemporaneous.size())));
 		}
+		
 	}
 	
 	private double logLikelihood;
@@ -181,17 +154,6 @@ public class CoevolutionSimulator {
 				// Host-shift event
 				NodeRef newHost;
 				if (!hostTree.isRoot(hostNode)) { // Can't host-shift if at the root!
-//					int nodeCount = hostTree.getNodeCount();
-//					Relationship r;
-//					do {
-//						newHost = hostTree
-//								.getNode(MathUtils.nextInt(nodeCount));
-//						r = Utils.determineRelationship(hostTree, hostNode,
-//								newHost).relationship;
-//					} while (hostTree.isRoot(newHost)
-//							|| (hostTree.getNodeHeight(newHost) >= eventHeight || eventHeight > hostTree // TODO Use of >= is debatable
-//									.getNodeHeight(hostTree.getParent(newHost))
-//									|| (r != Relationship.COUSIN || r != Relationship.SISTER)));
 					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
 					newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
