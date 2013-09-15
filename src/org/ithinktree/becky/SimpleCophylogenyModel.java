@@ -249,8 +249,16 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         (Utils.getContemporaneousLineageCount(tree, nextSubHeight) - 1);
             }
         }
-                
-        return likelihood;
+        
+        final double lostLineageHeight = tree.getNodeHeight(lostLineage);
+        if (lostLineageHeight > hostShiftStop && !tree.isExternal(lostLineage)) {
+            final NodeRef c1 = tree.getChild(lostLineage, 0);
+            final NodeRef c2 = tree.getChild(lostLineage, 1);
+            return likelihood + likelihoodNoEventsInTime(tree.getBranchLength(lostLineage), rate) * (likelihoodHostShiftEventAndLossInTime(lostLineageHeight, hostShiftStop, eventStop, tree.getNodeHeight(c1), eventRate, rate, tree, c1, originalLineages, newHostLineages) * likelihoodLineageLoss(tree, c2, rate, false) + likelihoodHostShiftEventAndLossInTime(lostLineageHeight, hostShiftStop, eventStop, tree.getNodeHeight(c2), eventRate, rate, tree, c2, originalLineages, newHostLineages) * likelihoodLineageLoss(tree, c1, rate, false));
+        } else {
+            return likelihood;
+        }
+        
     }
     
     /**
@@ -287,8 +295,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                     boolean calculatedChild2 = false;
                     
                     // Check if symbiont coexisted temporally with its host
-                    if ((!hostTree.isRoot(selfHost) && selfHeight >= hostTree.getNodeHeight(hostTree.getParent(selfHost))) ||
-                            selfHeight < selfHostHeight)
+                    if (selfHeight < selfHostHeight || (!hostTree.isRoot(selfHost) && selfHeight >= hostTree.getNodeHeight(hostTree.getParent(selfHost))))
                         return Double.NEGATIVE_INFINITY;
                                         
                     if (child1Relationship.relationship == Relationship.DESCENDANT
@@ -298,7 +305,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         final Utils.NodalRelationship nr1 = Utils.determineRelationship(hostTree, hostChild, child1Host);
                         final Utils.NodalRelationship nr2 = Utils.determineRelationship(hostTree, hostChild, child2Host);
                         if (nr1.relationship == nr2.relationship || (nr1.relationship == Relationship.SISTER && nr2.relationship == Relationship.COUSIN) || (nr2.relationship == Relationship.SISTER && nr1.relationship == Relationship.COUSIN)) {
-                            
+
                             // Determine along which child lineage the loss(es) happened
                             if (nr1.relationship != Relationship.DESCENDANT)
                                 hostChild = hostTree.getChild(selfHost, 1);
@@ -327,7 +334,6 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             events[0] = new Event(EventType.DUPLICATION, case1);
                             
                             // Case 2: cospeciation, then host-shift and loss
-                            // TODO Make more rigorous
                             
                             final double child1Height = symbiontTree.getNodeHeight(child1);
                             final double child2Height = symbiontTree.getNodeHeight(child2);
@@ -475,7 +481,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2), child2BranchRate) * e.partialLikelihood;
                         likelihood *= sum;
                     }
-
+                    
                     return Math.log(likelihood);
     }
 
