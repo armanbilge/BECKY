@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.ithinktree.becky.CophylogenyModel;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -46,6 +47,7 @@ public class CophylogenyModelUtilsTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testLostLineages() {
 	    
 	    List<NodeRef> determineRelationshipLostLineages = Arrays.asList(CophylogenyModel.Utils.determineRelationship(tree, TestUtils.DE, TestUtils.BCDE).lostLineages);
