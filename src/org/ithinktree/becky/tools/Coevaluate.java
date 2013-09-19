@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import cern.colt.Arrays;
 import dr.evolution.io.Importer.ImportException;
 import dr.evolution.io.NexusImporter;
 import dr.evolution.io.TreeImporter;
@@ -76,6 +78,11 @@ public class Coevaluate {
 		for (BitSet bs : symbiontMap.keySet()) {
 			if (symbiontMap.get(bs) == nodeRefToNodeRef[symbiontSimulatedMap.get(bs)])
 				correct++;
+			else {
+			    System.out.print("Incorrect host for clade: ");
+			    for (int i = 0; i < taxa.getTaxonCount(); ++i) if (bs.get(i)) System.out.print(taxa.getTaxonId(i) + ",");
+			    System.out.println("\b ");
+			}
 		}
 		
 		System.out.println("Percent correct: " + correct / (double) tr.getNodeCount() * 100 + "%");
