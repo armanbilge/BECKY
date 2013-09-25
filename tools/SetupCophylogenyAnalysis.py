@@ -146,7 +146,7 @@ def create_uniform_prior(idref, lower='0.0', upper='1.0E100'):
     up.append(create_idref(PARAMETER, idref))
     return up
 
-def create_gamma_prior(idref, shape='0.05', scale='20.0', offset='0.0'):
+def create_gamma_prior(idref, shape='3.0', scale='0.5', offset='0.0'):
     gp = Element(GAMMA_PRIOR,
                  attrib={SHAPE: shape, SCALE: scale, OFFSET: offset})
     gp.append(create_idref(PARAMETER, idref))
