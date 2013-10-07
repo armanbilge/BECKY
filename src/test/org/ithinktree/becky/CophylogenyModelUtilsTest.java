@@ -63,4 +63,9 @@ public class CophylogenyModelUtilsTest {
 	    
 	}
 	
+	@Test
+	public void testGetLineagesInTimeRange() {
+	    Assert.assertTrue(CophylogenyModel.Utils.getLineagesInTimeRange(tree, tree.getNodeHeight(tree.getRoot()), 0).size() == tree.getNodeCount());
+	}
+	
 }
