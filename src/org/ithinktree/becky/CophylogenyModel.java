@@ -242,7 +242,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
     
         private static final void getLineagesInTimeRange(final Tree tree, final NodeRef node, final double startHeight, final double stopHeight, List<NodeRef> lineages) {
             // requires that startHeight > stopHeight
-            if (startHeight > tree.getNodeHeight(node)) {
+            if (startHeight >= tree.getNodeHeight(node)) {
                 if (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) > stopHeight)) {
                     lineages.add(node);
                 } else {

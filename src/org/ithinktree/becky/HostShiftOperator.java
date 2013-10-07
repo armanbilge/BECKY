@@ -64,10 +64,13 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 				|| cophylogenyLikelihood.getStatesForNode(node) == null) throw new OperatorFailedException("No change of state");
 		if (!CophylogenyModel.Utils.isContemporaneous(hostTree, hostNode, symbiontTree.getNodeHeight(node))) {
 		    final double min = Math.max(nodeChildHeight, hostTree.getNodeHeight(hostNode));
-		    symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * (Math.min(nodeParentHeight, hostTree.isRoot(hostNode) ? Double.POSITIVE_INFINITY : hostTree.getNodeHeight(hostTree.getParent(hostNode))) - min) + min);
+		    double max = Math.min(nodeParentHeight, hostTree.isRoot(hostNode) ? Double.POSITIVE_INFINITY : hostTree.getNodeHeight(hostTree.getParent(hostNode)));
+		    if (Double.isInfinite(max)) max = hostTree.getNodeHeight(hostNode);
+		    symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * (max - min) + min);
 		}
 		cophylogenyLikelihood.setStatesForNode(node, hostNode);
 		
+		// TODO Likely to no longer be the correct hastings ratio
 		return 1.0; // I think that this is the correct hastings ratio, b/c all nodes have equal opportunity of being selected in both directions
 	}
 
