@@ -226,14 +226,38 @@ public abstract class CophylogenyModel extends SpeciationModel {
 		}
 	
 		private static final void getContemporaneousLineages(final Tree tree, final NodeRef node, final double height, List<NodeRef> lineages) {
-			if (height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) > height))) {
+			if (isContemporaneous(tree, node, height)) {
 				lineages.add(node);
 			} else {
 				for (int i = 0; i < tree.getChildCount(node); ++i)
 					getContemporaneousLineages(tree, tree.getChild(node, i), height, lineages);
 			}
 		}
-		
+
+        public static final List<NodeRef> getLineagesInTimeRange(final Tree tree, final double startHeight, final double stopHeight) {
+            List<NodeRef> lineages = new ArrayList<NodeRef>(tree.getExternalNodeCount());
+            getLineagesInTimeRange(tree, tree.getRoot(), startHeight, stopHeight, lineages);
+            return lineages;
+        }
+    
+        private static final void getLineagesInTimeRange(final Tree tree, final NodeRef node, final double startHeight, final double stopHeight, List<NodeRef> lineages) {
+            // requires that startHeight > stopHeight
+            if (startHeight > tree.getNodeHeight(node)) {
+                if (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) > stopHeight)) {
+                    lineages.add(node);
+                } else {
+                    return;
+                }
+            }
+            for (int i = 0; i < tree.getChildCount(node); ++i)
+                getLineagesInTimeRange(tree, tree.getChild(node, i), startHeight, stopHeight, lineages);
+
+        }
+
+        public static final boolean isContemporaneous(final Tree tree, final NodeRef node, final double height) {
+            return height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) > height));
+        }
+        
 	}
 
 	public abstract double calculateNodeLogLikelihood(final MutableTree symbiontTree, final NodeRef self,

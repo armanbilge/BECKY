@@ -295,7 +295,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                     boolean calculatedChild2 = false;
                     
                     // Check if symbiont coexisted temporally with its host
-                    if (selfHeight < selfHostHeight || (!hostTree.isRoot(selfHost) && selfHeight >= hostTree.getNodeHeight(hostTree.getParent(selfHost))))
+                    if (!CophylogenyModel.Utils.isContemporaneous(hostTree, selfHost, selfHeight))
                         return Double.NEGATIVE_INFINITY;
                                         
                     if (child1Relationship.relationship == Relationship.DESCENDANT

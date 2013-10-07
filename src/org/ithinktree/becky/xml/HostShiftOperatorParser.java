@@ -9,6 +9,7 @@ package org.ithinktree.becky.xml;
 import org.ithinktree.becky.CophylogenyLikelihood;
 import org.ithinktree.becky.HostShiftOperator;
 
+import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.Tree;
 import dr.inference.operators.MCMCOperator;
 import dr.xml.AbstractXMLObjectParser;
@@ -46,7 +47,7 @@ public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 		final Tree hostTree = (Tree) cxo.getChild(Tree.class);
 		
 		cxo = xo.getChild(SYMBIONT_TREE);
-		final Tree symbiontTree = (Tree) cxo.getChild(Tree.class);
+		final MutableTree symbiontTree = (MutableTree) cxo.getChild(MutableTree.class);
 		
 		final CophylogenyLikelihood cophylogenyLikelihood = (CophylogenyLikelihood) xo.getChild(CophylogenyLikelihood.class);
 		
@@ -76,7 +77,7 @@ public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 					new ElementRule(Tree.class)
 			}),
 			new ElementRule(SYMBIONT_TREE, new XMLSyntaxRule[]{
-					new ElementRule(Tree.class)
+					new ElementRule(MutableTree.class)
 			}),
 			new ElementRule(CophylogenyLikelihood.class)
 	};

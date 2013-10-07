@@ -11,9 +11,7 @@ import java.io.IOException;
 import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import cern.colt.Arrays;
 import dr.evolution.io.Importer.ImportException;
 import dr.evolution.io.NexusImporter;
 import dr.evolution.io.TreeImporter;
