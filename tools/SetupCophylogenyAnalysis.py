@@ -297,8 +297,10 @@ for likelihood in symbiont_likelihoods.iterfind('*'):
 symbiont_mcmc.remove(symbiont_mcmc.find(POSTERIOR))
 symbiont_mcmc.remove(symbiont_mcmc.find(OPERATORS))
 
-for parameter in symbiont_log.iterfind('*'):
-    host_log.append(parameter)
+for loggable in symbiont_log.iterfind('*'):
+    if loggable.tag not in TREE_PRIORS and not \
+        '.'.join([CONSTANT, POP_SIZE]) in loggable.get(IDREF):
+        host_log.append(loggable)
 symbiont_mcmc.remove(symbiont_log)
 
 for element in symbiont_mcmc.iterfind('*'):
