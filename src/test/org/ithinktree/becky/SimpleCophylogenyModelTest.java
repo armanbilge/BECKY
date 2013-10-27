@@ -34,7 +34,7 @@ import dr.math.MachineAccuracy;
 public class SimpleCophylogenyModelTest {
 
 	private Parameter duplicationRate;
-	private Parameter hostShiftRate;
+	private Parameter hostSwitchRate;
 	private Parameter lossRate;
 	private BranchRates branchRates;
 	private SimpleCophylogenyModel model;
@@ -44,9 +44,9 @@ public class SimpleCophylogenyModelTest {
 	public void before() {
 		
 		duplicationRate = new Parameter.Default(1.5);
-		hostShiftRate = new Parameter.Default(0.5);
+		hostSwitchRate = new Parameter.Default(0.5);
 		lossRate = new Parameter.Default(1.0);
-		model = new SimpleCophylogenyModel(duplicationRate, hostShiftRate, lossRate, Units.Type.YEARS);
+		model = new SimpleCophylogenyModel(duplicationRate, hostSwitchRate, lossRate, Units.Type.YEARS);
 		
 		// Force internal variables to update
 		try {
@@ -101,11 +101,11 @@ public class SimpleCophylogenyModelTest {
 	
 	@Test
 	@Ignore
-	public void testLikelihoodHostShiftEventAndLossInTimeIntegration() {
+	public void testLikelihoodHostSwitchEventAndLossInTimeIntegration() {
 				
 		Method m;
 		try {
-			m = model.getClass().getDeclaredMethod("likelihoodHostShiftEventAndLossInTime", double.class, double.class, double.class, double.class, double.class, double.class);
+			m = model.getClass().getDeclaredMethod("likelihoodHostSwitchEventAndLossInTime", double.class, double.class, double.class, double.class, double.class, double.class);
 		} catch (Exception e) {
 			Assert.fail("Fatal reflection error retrieving method: " + e.toString());
 			return;

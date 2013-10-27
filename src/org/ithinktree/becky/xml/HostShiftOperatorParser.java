@@ -1,5 +1,5 @@
 /**
- * HostShiftOperator.java
+ * HostSwitchOperator.java
  * 
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
@@ -7,7 +7,7 @@
 package org.ithinktree.becky.xml;
 
 import org.ithinktree.becky.CophylogenyLikelihood;
-import org.ithinktree.becky.HostShiftOperator;
+import org.ithinktree.becky.HostSwitchOperator;
 
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.Tree;
@@ -23,16 +23,16 @@ import dr.xml.XMLSyntaxRule;
  * @author Arman D. Bilge
  *
  */
-public class HostShiftOperatorParser extends AbstractXMLObjectParser {
+public class HostSwitchOperatorParser extends AbstractXMLObjectParser {
 	
-	public static final String HOST_SHIFT_OPERATOR = "hostShiftOperator";
+	public static final String HOST_SWITCH_OPERATOR = "hostSwitchOperator";
 	public static final String SAMPLE_NO_HOST = "sampleNoHost";
 	public static final String HOST_TREE = "hostTree";
 	public static final String SYMBIONT_TREE = "symbiontTree";
 
 	@Override
 	public String getParserName() {
-		return HOST_SHIFT_OPERATOR;
+		return HOST_SWITCH_OPERATOR;
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 		
 		final CophylogenyLikelihood cophylogenyLikelihood = (CophylogenyLikelihood) xo.getChild(CophylogenyLikelihood.class);
 		
-		return new HostShiftOperator(hostTree, symbiontTree, cophylogenyLikelihood, usingNoHost, weight);
+		return new HostSwitchOperator(hostTree, symbiontTree, cophylogenyLikelihood, usingNoHost, weight);
 	}
 
 	@Override
@@ -61,13 +61,13 @@ public class HostShiftOperatorParser extends AbstractXMLObjectParser {
 
 	@Override
 	public String getParserDescription() {
-		return "This basic operator shifts hosts on the symbiont tree while maintaining biological validity.";
+		return "This basic operator switchs hosts on the symbiont tree while maintaining biological validity.";
 	}
 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public Class getReturnType() {
-		return HostShiftOperator.class;
+		return HostSwitchOperator.class;
 	}
 
 	private final XMLSyntaxRule[] rules = {

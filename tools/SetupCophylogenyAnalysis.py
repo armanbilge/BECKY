@@ -39,8 +39,8 @@ FILE_NAME = 'fileName'
 GAMMA_PRIOR = 'gammaPrior'
 HOST = 'host'
 HOST_ATTRIBUTE_NAME = 'hostAttributeName'
-HOST_SHIFT_OPERATOR = 'hostShiftOperator'
-HOST_SHIFT_RATE = 'hostShiftRate'
+HOST_SWITCH_OPERATOR = 'hostSwitchOperator'
+HOST_SWITCH_RATE = 'hostSwitchRate'
 HOST_TAXON = options.HOST_TAXON
 HOST_TREE = 'hostTree'
 ID = 'id'
@@ -152,8 +152,8 @@ def create_gamma_prior(idref, shape='3.0', scale='0.5', offset='0.0'):
     gp.append(create_idref(PARAMETER, idref))
     return gp
 
-def create_host_shift_operator():
-    hso = Element(HOST_SHIFT_OPERATOR,
+def create_host_switch_operator():
+    hso = Element(HOST_SWITCH_OPERATOR,
                   attrib={SAMPLE_NO_HOST: FALSE, WEIGHT: '60'})
     hso.append(create_nested_idref(HOST_TREE, TREE_MODEL,
                                    '.'.join([HOST_TAXON, TREE_MODEL])))
@@ -167,7 +167,7 @@ def create_simple_cophylogeny_model():
     scm = Element(SIMPLE_COPHYLOGENY_MODEL,
                   attrib={ID: '.'.join([COPHYLOGENY, MODEL]),
                            UNITS: SUBSTITUTIONS})
-    for event_rate in [DUPLICATION_RATE, HOST_SHIFT_RATE, LOSS_RATE]:
+    for event_rate in [DUPLICATION_RATE, HOST_SWITCH_RATE, LOSS_RATE]:
         id = '.'.join([COPHYLOGENY, event_rate])
         scm.append(create_nested_element(event_rate,
                                          Element(PARAMETER,
@@ -232,7 +232,7 @@ def create_cophylogeny_likelihood():
     cl.append(create_idref(STRICT_CLOCK_BRANCH_RATES,
                            '.'.join([COPHYLOGENY, BRANCH_RATES])))
     file_log.append(create_idref(COPHYLOGENY_LIKELIHOOD, id))
-    operators.append(create_host_shift_operator())
+    operators.append(create_host_switch_operator())
     symbiont_tree_traits.append(create_tree_trait('.'.join([HOST, NODE_REF]),
                                                   COPHYLOGENY_LIKELIHOOD,
                                                   id))

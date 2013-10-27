@@ -22,7 +22,7 @@ public class SimpleCophylogenyModelParser extends AbstractXMLObjectParser {
 
 	public static final String SIMPLE_COPHYLOGENY_MODEL = "simpleCophylogenyModel";
 	public static final String DUPLICATION_RATE = "duplicationRate";
-	public static final String HOST_SHIFT_RATE = "hostShiftRate";
+	public static final String HOST_SWITCH_RATE = "hostSwitchRate";
 	public static final String LOSS_RATE = "lossRate";
 
 	@Override
@@ -38,7 +38,7 @@ public class SimpleCophylogenyModelParser extends AbstractXMLObjectParser {
 		XMLObject cxo = xo.getChild(DUPLICATION_RATE);
 		Parameter drParameter = (Parameter) cxo.getChild(Parameter.class);
 		
-		cxo = xo.getChild(HOST_SHIFT_RATE);
+		cxo = xo.getChild(HOST_SWITCH_RATE);
 		Parameter hsrParameter = (Parameter) cxo.getChild(Parameter.class);
 		
 		cxo = xo.getChild(LOSS_RATE);
@@ -67,7 +67,7 @@ public class SimpleCophylogenyModelParser extends AbstractXMLObjectParser {
 			new ElementRule(DUPLICATION_RATE, new XMLSyntaxRule[]{
 					new ElementRule(Parameter.class)
 			}),
-			new ElementRule(HOST_SHIFT_RATE, new XMLSyntaxRule[]{
+			new ElementRule(HOST_SWITCH_RATE, new XMLSyntaxRule[]{
 					new ElementRule(Parameter.class)
 			}),
 			new ElementRule(LOSS_RATE, new XMLSyntaxRule[]{

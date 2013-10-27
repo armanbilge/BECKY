@@ -1,5 +1,5 @@
 /**
- * HostShiftOperator.java
+ * HostSwitchOperator.java
  * 
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
@@ -8,7 +8,7 @@ package org.ithinktree.becky;
 
 import java.util.List;
 
-import org.ithinktree.becky.xml.HostShiftOperatorParser;
+import org.ithinktree.becky.xml.HostSwitchOperatorParser;
 
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
@@ -21,7 +21,7 @@ import dr.math.MathUtils;
  * @author Arman D. Bilge
  *
  */
-public class HostShiftOperator extends SimpleMCMCOperator {
+public class HostSwitchOperator extends SimpleMCMCOperator {
 	
 	private final Tree hostTree;
 	private final MutableTree symbiontTree;
@@ -32,7 +32,7 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 	/**
 	 * 
 	 */
-	public HostShiftOperator(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyLikelihood cophylogenyLikelihood, final boolean sampleNoHost, final double weight) {
+	public HostSwitchOperator(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyLikelihood cophylogenyLikelihood, final boolean sampleNoHost, final double weight) {
 		this.hostTree = hostTree;
 		this.symbiontTree = symbiontTree;
 		this.cophylogenyLikelihood = cophylogenyLikelihood;
@@ -48,7 +48,7 @@ public class HostShiftOperator extends SimpleMCMCOperator {
 
 	@Override
 	public String getOperatorName() {
-		return HostShiftOperatorParser.HOST_SHIFT_OPERATOR + "(" + symbiontTree.getId() + ")";
+		return HostSwitchOperatorParser.HOST_SWITCH_OPERATOR + "(" + symbiontTree.getId() + ")";
 	}
 
 	@Override

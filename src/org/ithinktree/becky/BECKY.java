@@ -12,7 +12,7 @@ import org.ithinktree.becky.jprimewrappers.xml.CophylogenyLikelihoodWrapperForJP
 import org.ithinktree.becky.xml.CoevolutionSimulatorParser;
 import org.ithinktree.becky.xml.CophylogenyLikelihoodParser;
 import org.ithinktree.becky.xml.CospeciationOperatorParser;
-import org.ithinktree.becky.xml.HostShiftOperatorParser;
+import org.ithinktree.becky.xml.HostSwitchOperatorParser;
 import org.ithinktree.becky.xml.NodeRefProviderParser;
 import org.ithinktree.becky.xml.PreAnnotatorParser;
 import org.ithinktree.becky.xml.SimpleCophylogenyModelParser;
@@ -31,7 +31,7 @@ public class BECKY implements Plugin {
 		Set<XMLObjectParser> parsers = new HashSet<XMLObjectParser>();
 		parsers.add(new SimpleCophylogenyModelParser());
 		parsers.add(new CophylogenyLikelihoodParser());
-		parsers.add(new HostShiftOperatorParser());
+		parsers.add(new HostSwitchOperatorParser());
 		parsers.add(new CospeciationOperatorParser());
 		parsers.add(new CoevolutionSimulatorParser());
 		parsers.add(new NodeRefProviderParser());

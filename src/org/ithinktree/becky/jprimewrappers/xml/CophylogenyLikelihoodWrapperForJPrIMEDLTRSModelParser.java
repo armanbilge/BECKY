@@ -26,7 +26,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser extends
 	private static final String HOST_TREE = "hostTree";
 	private static final String GUEST_TREE = "guestTree";
 	private static final String DUPLICATION_RATE = "duplicationRate";
-	private static final String HOST_SHIFT_RATE = "hostShiftRate";
+	private static final String HOST_SWITCH_RATE = "hostSwitchRate";
 	private static final String LOSS_RATE = "lossRate";
 	private static final String NORMALIZE = "normalize";
 	private static final String HOST_ATTRIBUTE_NAME = "hostAttributeName";
@@ -52,7 +52,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser extends
 			new ElementRule(HOST_TREE, new XMLSyntaxRule[]{new ElementRule(Tree.class)}),
 			new ElementRule(GUEST_TREE, new XMLSyntaxRule[]{new ElementRule(Tree.class)}),
 			new ElementRule(DUPLICATION_RATE, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
-			new ElementRule(HOST_SHIFT_RATE, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
+			new ElementRule(HOST_SWITCH_RATE, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
 			new ElementRule(LOSS_RATE, new XMLSyntaxRule[]{new ElementRule(Parameter.class)}),
 			AttributeRule.newBooleanRule(NORMALIZE),
 			AttributeRule.newStringRule(HOST_ATTRIBUTE_NAME),
@@ -72,13 +72,13 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModelParser extends
 		final Taxa taxa = (Taxa) xo.getChild(Taxa.class);
 		
 		final Parameter duplicationRate = (Parameter) xo.getChild(DUPLICATION_RATE).getChild(Parameter.class);
-		final Parameter hostShiftRate = (Parameter) xo.getChild(HOST_SHIFT_RATE).getChild(Parameter.class);
+		final Parameter hostSwitchRate = (Parameter) xo.getChild(HOST_SWITCH_RATE).getChild(Parameter.class);
 		final Parameter lossRate = (Parameter) xo.getChild(LOSS_RATE).getChild(Parameter.class);
 		
 		final boolean normalize = xo.getBooleanAttribute(NORMALIZE);
 		final String hostAttributeName = xo.getStringAttribute(HOST_ATTRIBUTE_NAME);
 		
-		return new CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel(xo.getId(), hostTree, guestTree, duplicationRate, hostShiftRate, lossRate, normalize, taxa, hostAttributeName);
+		return new CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel(xo.getId(), hostTree, guestTree, duplicationRate, hostSwitchRate, lossRate, normalize, taxa, hostAttributeName);
 	}
 
 }

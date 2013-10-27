@@ -14,14 +14,14 @@ public class HostBasedCophylogenyModel extends SimpleCophylogenyModel {
 
 	/**
 	 * @param duplicationRateParameter
-	 * @param hostShiftRateParameter
+	 * @param hostSwitchRateParameter
 	 * @param lossRateParameter
 	 * @param units
 	 */
 	public HostBasedCophylogenyModel(Parameter duplicationRateParameter,
-			Parameter hostShiftRateParameter, Parameter lossRateParameter,
+			Parameter hostSwitchRateParameter, Parameter lossRateParameter,
 			Type units) {
-		super(duplicationRateParameter, hostShiftRateParameter,
+		super(duplicationRateParameter, hostSwitchRateParameter,
 				lossRateParameter, units);
 	}
 

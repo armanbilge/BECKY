@@ -1,5 +1,5 @@
 /**
- * HostShiftOperator.java
+ * HostSwitchOperator.java
  * 
  * BECKY - Bayesian Estimation of Coevolutionary KrYteria
  * 
