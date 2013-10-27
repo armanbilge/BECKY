@@ -240,7 +240,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
             return lineages;
         }
     
-        private static final void getLineagesInTimeRange(final Tree tree, final NodeRef node, final double startHeight, final double stopHeight, List<NodeRef> lineages) {
+        private static final void getLineagesInTimeRange(final Tree tree, final NodeRef node, final double startHeight, final double stopHeight, final List<NodeRef> lineages) {
             // requires that startHeight > stopHeight
             if (startHeight >= tree.getNodeHeight(node)) {
                 if (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) > stopHeight)) {
@@ -251,7 +251,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
             }
             for (int i = 0; i < tree.getChildCount(node); ++i)
                 getLineagesInTimeRange(tree, tree.getChild(node, i), startHeight, stopHeight, lineages);
-
+            
         }
 
         public static final boolean isContemporaneous(final Tree tree, final NodeRef node, final double height) {
