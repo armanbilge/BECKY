@@ -18,6 +18,7 @@ import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.inference.model.Parameter;
+import dr.math.MachineAccuracy;
 
 /**
  * A simple model for cophylogenetic mappings.
@@ -374,14 +375,18 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             calculatedChild1 = true;
                             calculatedChild2 = true;
                             
-                        } else { // Plain old cospeciation
-
-                            // Check if violates tree validity (parent younger than children)
-//                          if (selfHostHeight < symbiontTree.getNodeHeight(child1) || selfHostHeight < symbiontTree.getNodeHeight(child2))
-//                              return Double.NEGATIVE_INFINITY;
-//                          symbiontTree.setNodeHeight(self, selfHostHeight);
+                        } else {
                             
-                            setReconstructedEvents(self, new Event[]{NO_EVENT});
+                            if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
+                                setReconstructedEvents(self, new Event[]{NO_EVENT});
+                            } else {
+                                setReconstructedEvents(self, new Event[]{DUPLICATION});
+                                final double likelihoodNoEvent = likelihoodNoEventsInTime(selfHeight - selfHostHeight, branchRates.getBranchRate(symbiontTree, self));
+                                likelihood *= likelihoodNoEvent * likelihoodNoEvent;
+                                likelihood *= likelihoodLineageLoss(hostTree, child1Host, child2BranchRate, false);
+                                likelihood *= likelihoodLineageLoss(hostTree, child2Host, child1BranchRate, false);
+                            }
+                            
                             
                             // Potential losses along both child lineages
                             likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
