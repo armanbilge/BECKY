@@ -33,6 +33,7 @@ COEVOLUTION_SIMULATOR = 'coevolutionSimulator'
 CONSTANT = 'constant'
 COPHYLOGENY = 'cophylogeny'
 COPHYLOGENY_LIKELIHOOD = 'cophylogenyLikelihood'
+COSPECIATION_OPERATOR = 'cospeciationOperator'
 DUPLICATION_RATE = 'duplicationRate'
 FALSE = 'false'
 FILE_NAME = 'fileName'
@@ -163,6 +164,17 @@ def create_host_switch_operator():
                             '.'.join([COPHYLOGENY, LIKELIHOOD])))
     return hso
 
+def create_cospeciation_operator():
+    co = Element(COSPECIATION_OPERATOR,
+                  attrib={WEIGHT: '3'})
+    co.append(create_nested_idref(HOST_TREE, TREE_MODEL,
+                                   '.'.join([HOST_TAXON, TREE_MODEL])))
+    co.append(create_nested_idref(SYMBIONT_TREE, TREE_MODEL,
+                                   '.'.join([SYMBIONT_TAXON, TREE_MODEL])))
+    co.append(create_idref(COPHYLOGENY_LIKELIHOOD,
+                            '.'.join([COPHYLOGENY, LIKELIHOOD])))
+    return co
+
 def create_simple_cophylogeny_model():
     scm = Element(SIMPLE_COPHYLOGENY_MODEL,
                   attrib={ID: '.'.join([COPHYLOGENY, MODEL]),
@@ -233,6 +245,7 @@ def create_cophylogeny_likelihood():
                            '.'.join([COPHYLOGENY, BRANCH_RATES])))
     file_log.append(create_idref(COPHYLOGENY_LIKELIHOOD, id))
     operators.append(create_host_switch_operator())
+    operators.append(create_cospeciation_operator())
     symbiont_tree_traits.append(create_tree_trait('.'.join([HOST, NODE_REF]),
                                                   COPHYLOGENY_LIKELIHOOD,
                                                   id))
