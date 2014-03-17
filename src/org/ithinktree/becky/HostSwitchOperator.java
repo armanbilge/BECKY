@@ -23,11 +23,10 @@ import dr.math.MathUtils;
  */
 public class HostSwitchOperator extends SimpleMCMCOperator {
 	
-	private final Tree hostTree;
-	private final MutableTree symbiontTree;
-	private final CophylogenyLikelihood cophylogenyLikelihood;
-	private final int internalNodeCount;
-	private final boolean sampleNoHost;
+	protected final Tree hostTree;
+	protected final MutableTree symbiontTree;
+	protected final CophylogenyLikelihood cophylogenyLikelihood;
+	protected final boolean sampleNoHost;
 	
 	/**
 	 * 
@@ -37,7 +36,6 @@ public class HostSwitchOperator extends SimpleMCMCOperator {
 		this.symbiontTree = symbiontTree;
 		this.cophylogenyLikelihood = cophylogenyLikelihood;
 		this.sampleNoHost = sampleNoHost;
-		internalNodeCount = symbiontTree.getInternalNodeCount();
 		setWeight(weight);
 	}
 
@@ -54,24 +52,29 @@ public class HostSwitchOperator extends SimpleMCMCOperator {
 	@Override
 	public double doOperation() throws OperatorFailedException {
 		
-		final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(internalNodeCount));
+		final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(symbiontTree.getInternalNodeCount()));
 		final double nodeParentHeight = symbiontTree.isRoot(node) ? Double.POSITIVE_INFINITY : symbiontTree.getNodeHeight(symbiontTree.getParent(node));
 		final double nodeChildHeight = Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(node, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(node, 1)));
 		final List<NodeRef> hostNodes = CophylogenyModel.Utils.getLineagesInTimeRange(hostTree, nodeParentHeight, nodeChildHeight);
 		final int i = sampleNoHost ? MathUtils.nextInt(hostNodes.size() + 1) - 1 : MathUtils.nextInt(hostNodes.size());
-		final NodeRef hostNode = i < 0 ? null : hostNodes.get(i);
-		if ((hostNode != null && hostNode.equals(cophylogenyLikelihood.getStatesForNode(node)))
-				|| cophylogenyLikelihood.getStatesForNode(node) == null) throw new OperatorFailedException("No change of state");
-		if (!CophylogenyModel.Utils.isContemporaneous(hostTree, hostNode, symbiontTree.getNodeHeight(node))) {
-		    final double min = Math.max(nodeChildHeight, hostTree.getNodeHeight(hostNode));
-		    double max = Math.min(nodeParentHeight, hostTree.isRoot(hostNode) ? Double.POSITIVE_INFINITY : hostTree.getNodeHeight(hostTree.getParent(hostNode)));
-		    if (Double.isInfinite(max)) max = hostTree.getNodeHeight(hostNode);
+		final NodeRef proposedHost = i < 0 ? null : hostNodes.get(i);
+		final NodeRef currentHost = cophylogenyLikelihood.getStatesForNode(node);
+		if ((proposedHost != null && proposedHost.equals(currentHost))
+				|| currentHost == null) throw new OperatorFailedException("No change of state");
+		double hastingsRatio = 1.0;
+		if (!CophylogenyModel.Utils.isContemporaneous(hostTree, proposedHost, symbiontTree.getNodeHeight(node))) {
+		    final double min = Math.max(nodeChildHeight, hostTree.getNodeHeight(proposedHost));
+		    double max = Math.min(nodeParentHeight, hostTree.isRoot(proposedHost) ? Double.POSITIVE_INFINITY : hostTree.getNodeHeight(hostTree.getParent(proposedHost)));
+		    if (Double.isInfinite(max)) max = hostTree.getNodeHeight(proposedHost);
 		    symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * (max - min) + min);
+		    final double hastingsMin = Math.max(nodeChildHeight, hostTree.getNodeHeight(currentHost));
+		    double hastingsMax = Math.min(nodeParentHeight, hostTree.isRoot(currentHost) ? Double.POSITIVE_INFINITY : hostTree.getNodeHeight(hostTree.getParent(currentHost)));
+		    if (Double.isInfinite(hastingsMax)) hastingsMax = hostTree.getNodeHeight(currentHost);
+		    hastingsRatio = (hastingsMax - hastingsMin) / (max - min);
 		}
-		cophylogenyLikelihood.setStatesForNode(node, hostNode);
+		cophylogenyLikelihood.setStatesForNode(node, proposedHost);
 		
-		// TODO Likely no longer is the correct hastings ratio
-		return 1.0; // I think that this is the correct hastings ratio, b/c all nodes have equal opportunity of being selected in both directions
+		return hastingsRatio;
 	}
 
 }
