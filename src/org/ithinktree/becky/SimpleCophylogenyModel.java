@@ -18,7 +18,6 @@ import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.inference.model.Parameter;
-import dr.math.MachineAccuracy;
 
 /**
  * A simple model for cophylogenetic mappings.
@@ -377,15 +376,15 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             
                         } else {
                             
-                            if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
+//                            if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
                                 setReconstructedEvents(self, new Event[]{NO_EVENT});
-                            } else {
-                                setReconstructedEvents(self, new Event[]{DUPLICATION});
-                                final double likelihoodNoEvent = likelihoodNoEventsInTime(selfHeight - selfHostHeight, branchRates.getBranchRate(symbiontTree, self));
-                                likelihood *= likelihoodNoEvent * likelihoodNoEvent;
-                                likelihood *= likelihoodLineageLoss(hostTree, child1Host, child2BranchRate, false);
-                                likelihood *= likelihoodLineageLoss(hostTree, child2Host, child1BranchRate, false);
-                            }
+//                            } else {
+//                                setReconstructedEvents(self, new Event[]{DUPLICATION});
+//                                final double likelihoodNoEvent = likelihoodNoEventsInTime(selfHeight - selfHostHeight, branchRates.getBranchRate(symbiontTree, self));
+//                                likelihood *= likelihoodNoEvent * likelihoodNoEvent;
+//                                likelihood *= likelihoodLineageLoss(hostTree, child1Host, child2BranchRate, false);
+//                                likelihood *= likelihoodLineageLoss(hostTree, child2Host, child1BranchRate, false);
+//                            }
                             
                             
                             // Potential losses along both child lineages
