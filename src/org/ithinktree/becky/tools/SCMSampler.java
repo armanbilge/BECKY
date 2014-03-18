@@ -23,7 +23,7 @@ public class SCMSampler {
 		
 		Locale.setDefault(Locale.US);
 		Arguments arguments = new Arguments(new Arguments.Option[]{
-				new Arguments.IntegerOption("h", "host tree file"),
+				new Arguments.StringOption("h", "file name", "host tree file"),
 				new Arguments.IntegerOption("t", "number of symbiont taxa"),
 				new Arguments.RealArrayOption("r", 3, "coevolutionary rates"),
 				new Arguments.RealOption("c", "relaxed clock stdev"),
