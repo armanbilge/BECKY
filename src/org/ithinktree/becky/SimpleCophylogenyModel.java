@@ -433,6 +433,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         // Case 2: Child2 lineage host-switched first
                         double case2 = likelihoodLossesAlongLineages(hostTree, child2NewHostLineages, child2BranchRate);
 
+                        
                         sum = 0.0;
                         for (Event e : getReconstructedEvents(child2))
                             sum += likelihoodHostSwitchEventAndLossInTime(selfHeight, child2Height, child2Height, selfHostHeight, getEventRate(e.event), child2BranchRate, hostTree, selfHost, noLineages, child2NewHostLineages) *

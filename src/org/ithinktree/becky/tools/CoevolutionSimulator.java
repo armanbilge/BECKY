@@ -19,6 +19,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.ithinktree.becky.CophylogenyLikelihood;
 import org.ithinktree.becky.CophylogenyModel;
 import org.ithinktree.becky.CophylogenyModel.Utils;
+import org.ithinktree.becky.NodeRefProvider;
 import org.ithinktree.becky.SimpleCophylogenyModel;
 
 import dr.app.seqgen.SeqGen;
@@ -30,6 +31,7 @@ import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
 import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
+import dr.evolution.tree.TreeTraitProvider;
 import dr.evolution.util.MutableTaxonList;
 import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
@@ -74,11 +76,10 @@ public class CoevolutionSimulator {
 		    cophylogenyLikelihood.setStatesForNode(node, contemporaneous.get(MathUtils.nextInt(contemporaneous.size())));
 		}
 		
+		debugHelper(hostTree, symbiontTree, cophylogenyLikelihood);
+		
 	}
-	
-	private double logLikelihood;
-	public double getSimulationLogLikelihood() {return logLikelihood;}
-	
+		
 	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed) {
 		if (!isRelaxed)
 			return simulateCoevolution(hostTree, rate, model, false, 0.0);
@@ -89,7 +90,6 @@ public class CoevolutionSimulator {
 		
 		SimpleNode root;
 		do {
-			logLikelihood = 0.0;
 			symbiontCounts = new int[hostTree.getTaxonCount()];
 			associations.clear();
 			root = simulateCoevolution(hostTree,
@@ -157,7 +157,6 @@ public class CoevolutionSimulator {
 					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
 					newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
-					logLikelihood += Math.log(1 / potentialNewHosts.size());
 					child1 = simulateCoevolution(hostTree, newHost,
 							eventHeight, rate, duplicationRate, hostSwitchRate,
 							lossRate, isRelaxed, stdev);
@@ -204,7 +203,6 @@ public class CoevolutionSimulator {
 		final double U = 1 - MathUtils.nextDouble();
 		int i;
 		for (i = 0; i < p.length && p[i] < U; ++i);
-		logLikelihood += Math.log(lambdas[i] * Math.exp(lambda));
 		return new EventIndexAndTime(i, time);
 	}
 				
@@ -320,26 +318,12 @@ public class CoevolutionSimulator {
 		
 	}
 	
-//	public static void debugHelper(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood) {
-//				
-//		System.err.println("host tree:");
-//		for (int i = 0; i < hostTree.getNodeCount(); i++) {
-//			NodeRef node = hostTree.getNode(i);
-//			if (!hostTree.isRoot(node)) {System.err.print(hostTree.getParent(node).getNumber() + ", ");} else {System.err.print(-1 + ", ");}
-//		}
-//		System.err.println();
-//		System.err.println("symbiont tree:");
-//		for (int i = 0; i < symbiontTree.getNodeCount(); i++) {
-//			NodeRef node = symbiontTree.getNode(i);
-//			if (!symbiontTree.isRoot(node)) System.err.print(symbiontTree.getParent(node).getNumber() + ", ");
-//		}
-//		System.err.println();
-//		System.err.println("associations:");
-//		for (int i = 0; i < symbiontTree.getNodeCount(); i++) {
-//			NodeRef node = symbiontTree.getNode(i);
-//			System.err.print(cophylogenyLikelihood.getStatesForNode(node).getNumber() + ", ");
-//		}
-//		System.err.println();
-//	}
+	public static void debugHelper(Tree hostTree, Tree symbiontTree, CophylogenyLikelihood cophylogenyLikelihood) {
+		
+		NodeRefProvider nrp = new NodeRefProvider(hostTree,"nodeRef");
+		System.err.println(Tree.Utils.newick(hostTree, new TreeTraitProvider[]{nrp}));
+		System.err.println(Tree.Utils.newick(symbiontTree, new TreeTraitProvider[]{cophylogenyLikelihood}));
+		
+	}
 	
 }
