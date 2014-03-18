@@ -2,6 +2,7 @@ package org.ithinktree.becky.tools;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.Locale;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import dr.evolution.io.Importer.ImportException;
 import dr.evolution.io.NexusImporter;
 import dr.evolution.io.TreeImporter;
 import dr.evolution.tree.Tree;
+import dr.evolution.util.Taxon;
 import dr.evolution.util.Units;
 import dr.inference.model.Parameter;
 
@@ -44,12 +46,22 @@ public class SCMSampler {
 		final Tree hostTree = hostTreeImporter.importNextTree();
 		hostFileReader.close();
 		
+		final int taxonCount = arguments.getIntegerOption("t");
+		int uniqueTaxonCount = taxonCount;
+		
 		final CoevolutionSimulator sim = new CoevolutionSimulator();
 		
 		final SimpleCophylogenyModel model = new SimpleCophylogenyModel(new Parameter.Default(arguments.getRealArrayOption("r")[0]), new Parameter.Default(arguments.getRealArrayOption("r")[1]), new Parameter.Default(arguments.getRealArrayOption("r")[2]), Units.Type.YEARS);
 		
 		final NexusExporter exporter = new NexusExporter(System.out);
 		Map<String,Integer> header = null;
+		
+		int totalTrees = 10000;
+        final int stepSize = totalTrees / 60;
+		PrintStream progressStream = System.err;
+        progressStream.println("Simulating trees...");
+        progressStream.println("0              25             50             75            100");
+        progressStream.println("|--------------|--------------|--------------|--------------|");
 		
 		for (int i = 0; i < arguments.getIntegerOption("s"); ++i) {
 			
@@ -61,11 +73,21 @@ public class SCMSampler {
 			Tree tree;
 			do {
 				tree = sim.simulateCoevolution(hostTree, 1.0, model, false);
-			} while (tree.getExternalNodeCount() != arguments.getIntegerOption("t"));
+			} while (tree.getExternalNodeCount() != taxonCount);
+			
+			for (Taxon t : tree.asList()) {
+				if (!header.containsKey(t.toString())) header.put(t.toString(), ++uniqueTaxonCount);
+			}
 			exporter.writeNexusTree(tree, "TREE" + i+1, true, header);
+			
+			if (i % stepSize == 0) {
+	            progressStream.print("*");
+	            progressStream.flush();
+	        }
 		}
 		
 		System.out.println("End;");
+        progressStream.println();
 	}
 
 }
