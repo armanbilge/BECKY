@@ -62,7 +62,7 @@ public class SCMSampler {
 			do {
 				tree = sim.simulateCoevolution(hostTree, 1.0, model, false);
 			} while (tree.getExternalNodeCount() != arguments.getIntegerOption("t"));
-			exporter.exportTree(tree);
+			exporter.writeNexusTree(tree, "TREE" + i+1, true, header);
 		}
 		
 		System.out.println("End;");
