@@ -21,6 +21,7 @@ import org.ithinktree.becky.CophylogenyModel;
 import org.ithinktree.becky.CophylogenyModel.Utils;
 import org.ithinktree.becky.NodeRefProvider;
 import org.ithinktree.becky.SimpleCophylogenyModel;
+import org.ithinktree.becky.SimpleCophylogenyModel.EventType;
 
 import dr.app.seqgen.SeqGen;
 import dr.app.tools.NexusExporter;
@@ -31,6 +32,7 @@ import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
 import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
+import dr.evolution.tree.TreeTrait;
 import dr.evolution.tree.TreeTraitProvider;
 import dr.evolution.util.MutableTaxonList;
 import dr.evolution.util.Taxa;
@@ -76,26 +78,79 @@ public class CoevolutionSimulator {
 		    cophylogenyLikelihood.setStatesForNode(node, contemporaneous.get(MathUtils.nextInt(contemporaneous.size())));
 		}
 		
-		debugHelper(hostTree, symbiontTree, cophylogenyLikelihood);
-		
 	}
 	
 	private double logLikelihood;
 	public double getSimulationLogLikelihood() { return logLikelihood; }
+	private int extinctSymbiontCount;
+	private EventTrait eventTrait = new EventTrait();
+	public final TreeTraitProvider provider = new TreeTraitProvider.Helper(eventTrait);
+	
+	private class EventTrait implements TreeTrait<EventType> {
+
+		private HashMap<Integer,EventType> traits = new HashMap<Integer,EventType>();
+		
+		@Override
+		public Intent getIntent() {
+			return Intent.BRANCH;
+		}
+
+		@Override
+		public boolean getLoggable() {
+			return false;
+		}
+
+		@Override
+		public EventType getTrait(Tree t, NodeRef nr) {
+			return traits.get(nr.getNumber());
+		}
+		
+		public void setTrait(Tree t, NodeRef nr, EventType et) {
+			traits.put(nr.getNumber(), et);
+		}
+
+		@Override
+		public Class<?> getTraitClass() {
+			return EventType.class;
+		}
+
+		@Override
+		public String getTraitName() {
+			return "event";
+		}
+
+		@Override
+		public String getTraitString(Tree t, NodeRef nr) {
+			return getTrait(t,nr).toString();
+		}
+		
+		public void clear() {traits.clear();}
+		
+	}
 	
 	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed) {
+		return simulateCoevolution(hostTree, rate, model, isRelaxed, false);
+	}
+	
+	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final boolean keepExtinctions) {
 		if (!isRelaxed)
-			return simulateCoevolution(hostTree, rate, model, false, 0.0);
+			return simulateCoevolution(hostTree, rate, model, false, 0.0, keepExtinctions);
 		throw new IllegalArgumentException();
 	}
 	
 	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final double stdev) {
+		return simulateCoevolution(hostTree, rate, model, isRelaxed, stdev, false);
+	}
+	
+	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final double stdev, final boolean keepExtinctions) {
 		
 		SimpleNode root;
 		do {
 			logLikelihood = 0.0;
 			symbiontCounts = new int[hostTree.getTaxonCount()];
+			extinctSymbiontCount = 0;
 			associations.clear();
+			eventTrait.clear();
 			root = simulateCoevolution(hostTree,
 					hostTree.getRoot(),
 					hostTree.getNodeHeight(hostTree.getRoot()) + MathUtils.nextExponential(hostTree.getNodeCount() / hostTree.getNodeHeight(hostTree.getRoot())),
@@ -104,14 +159,21 @@ public class CoevolutionSimulator {
 					model.getHostSwitchRate(),
 					model.getLossRate(),
 					isRelaxed,
-					stdev);
+					stdev,
+					keepExtinctions);
 		} while (root == null);
 		return new SimpleTree(root);
 	}
 	
+	private SimpleNode simulateCoevolution(final Tree hostTree, final NodeRef hostNode, final double height, final double rate, final double duplicationRate, final double hostSwitchRate, final double lossRate, final boolean isRelaxed, final double stdev) {
+	
+		return simulateCoevolution(hostTree, hostNode, height, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, false);
+	
+	}
+	
 	private int[] symbiontCounts;
 	public final Map<String,String> associations = new HashMap<String,String>();
-	private SimpleNode simulateCoevolution(final Tree hostTree, final NodeRef hostNode, final double height, final double rate, final double duplicationRate, final double hostSwitchRate, final double lossRate, final boolean isRelaxed, final double stdev) {
+	private SimpleNode simulateCoevolution(final Tree hostTree, final NodeRef hostNode, final double height, final double rate, final double duplicationRate, final double hostSwitchRate, final double lossRate, final boolean isRelaxed, final double stdev, boolean keepExtinctions) {
 				
 		final SimpleNode node = new SimpleNode();
 		
@@ -135,28 +197,32 @@ public class CoevolutionSimulator {
 		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
 		if (hostNodeHeight > eventHeight) {
 			node.setHeight(hostTree.getNodeHeight(hostNode));
+			eventTrait.setTrait(null, node, EventType.NO_EVENT);
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
-				int i = Integer.parseInt(hostTree.getNodeTaxon(hostNode).getId().substring(4));
+				final String hostName = hostTree.getNodeTaxon(hostNode).getId();
+				int i = Integer.parseInt(hostName.substring(4, hostName.length()));
 				String taxonId = "symbiont" + i + "." + ++symbiontCounts[i - 1];
 				node.setTaxon(new Taxon(taxonId));
 				associations.put(taxonId,hostTree.getNodeTaxon(hostNode).getId());
 				return node;
 			}
 			// Cospeciation event;
-			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev);
-			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev);
+			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, keepExtinctions);
+			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, keepExtinctions);
 		} else {
 			node.setHeight(eventHeight);
 			switch(nextEvent.index) {
 			case 0:
 				// Duplication event
-				child1 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev);
-				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev);
+				eventTrait.setTrait(null, node, EventType.DUPLICATION);
+				child1 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, keepExtinctions);
+				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, keepExtinctions);
 				break;
 			case 1:
 				// Host-switch event
 				NodeRef newHost;
+				eventTrait.setTrait(null, node, EventType.HOST_SWITCH);
 				if (!hostTree.isRoot(hostNode)) { // Can't host-switch if at the root!
 					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
@@ -170,7 +236,12 @@ public class CoevolutionSimulator {
 				}
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev);
 				break;
-			case 2: return null; // Loss event; null indicates the child lineage was lost
+			case 2:
+				eventTrait.setTrait(null, node, EventType.LOSS);
+				if (keepExtinctions) { // Loss event; null indicates the lineage was lost
+						String taxonId = "extinct_symbiont" + ++extinctSymbiontCount;
+						node.setTaxon(new Taxon(taxonId));
+						return node; } else { return null; }
 			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
 			}
 		}

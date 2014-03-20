@@ -587,7 +587,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
     protected final Event HOST_SWITCH = new Event(EventType.HOST_SWITCH);
     protected final Event NO_EVENT = new Event(EventType.NO_EVENT);
     
-    protected enum EventType {
+    public enum EventType {
         DUPLICATION, HOST_SWITCH, LOSS, NO_EVENT;
     }
     
