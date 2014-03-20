@@ -79,7 +79,10 @@ public class CoevolutionSimulator {
 		debugHelper(hostTree, symbiontTree, cophylogenyLikelihood);
 		
 	}
-		
+	
+	private double logLikelihood;
+	public double getSimulationLogLikelihood() { return logLikelihood; }
+	
 	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed) {
 		if (!isRelaxed)
 			return simulateCoevolution(hostTree, rate, model, false, 0.0);
@@ -90,6 +93,7 @@ public class CoevolutionSimulator {
 		
 		SimpleNode root;
 		do {
+			logLikelihood = 0.0;
 			symbiontCounts = new int[hostTree.getTaxonCount()];
 			associations.clear();
 			root = simulateCoevolution(hostTree,
@@ -157,6 +161,7 @@ public class CoevolutionSimulator {
 					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
 					newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
+					logLikelihood += Math.log(1 / potentialNewHosts.size());
 					child1 = simulateCoevolution(hostTree, newHost,
 							eventHeight, rate, duplicationRate, hostSwitchRate,
 							lossRate, isRelaxed, stdev);
@@ -203,6 +208,7 @@ public class CoevolutionSimulator {
 		final double U = 1 - MathUtils.nextDouble();
 		int i;
 		for (i = 0; i < p.length && p[i] < U; ++i);
+		logLikelihood += Math.log(lambdas[i] * Math.exp(lambda));
 		return new EventIndexAndTime(i, time);
 	}
 				

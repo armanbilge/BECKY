@@ -1,5 +1,6 @@
 package org.ithinktree.becky.tools;
 
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -63,6 +64,9 @@ public class SCMSampler {
         progressStream.println("0              25             50             75            100");
         progressStream.println("|--------------|--------------|--------------|--------------|");
 		
+        PrintStream paramLog = new PrintStream(new FileOutputStream("param.log"));
+        paramLog.println("STATE\tProbability");
+        
 		for (int i = 0; i < arguments.getIntegerOption("s"); ++i) {
 			
 			if (header == null) {
@@ -79,6 +83,7 @@ public class SCMSampler {
 				if (!header.containsKey(t.toString())) header.put(t.toString(), ++uniqueTaxonCount);
 			}
 			exporter.writeNexusTree(tree, "TREE" + i+1, true, header);
+			paramLog.println(i+1 + "\t" + sim.getSimulationLogLikelihood());
 			
 			if (i % stepSize == 0) {
 	            progressStream.print("*");
@@ -87,6 +92,7 @@ public class SCMSampler {
 		}
 		
 		System.out.println("End;");
+	    paramLog.close();
         progressStream.println();
 	}
 
