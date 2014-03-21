@@ -85,28 +85,23 @@ public class CoevolutionSimulator {
 	private int extinctSymbiontCount;
 	private EventTrait eventTrait = new EventTrait();
 	public final TreeTraitProvider provider = new TreeTraitProvider.Helper(eventTrait);
+	public static final String COEVOLUTIONARY_EVENT = "coevolutionaryEvent";
 	
 	private class EventTrait implements TreeTrait<EventType> {
-
-		private HashMap<Integer,EventType> traits = new HashMap<Integer,EventType>();
 		
 		@Override
 		public Intent getIntent() {
-			return Intent.BRANCH;
+			return Intent.NODE;
 		}
 
 		@Override
 		public boolean getLoggable() {
-			return false;
+			return true;
 		}
 
 		@Override
 		public EventType getTrait(Tree t, NodeRef nr) {
-			return traits.get(nr.getNumber());
-		}
-		
-		public void setTrait(Tree t, NodeRef nr, EventType et) {
-			traits.put(nr.getNumber(), et);
+			return (EventType) ((SimpleNode) nr).getAttribute(COEVOLUTIONARY_EVENT);
 		}
 
 		@Override
@@ -116,16 +111,14 @@ public class CoevolutionSimulator {
 
 		@Override
 		public String getTraitName() {
-			return "event";
+			return COEVOLUTIONARY_EVENT;
 		}
 
 		@Override
 		public String getTraitString(Tree t, NodeRef nr) {
 			return getTrait(t,nr).toString();
 		}
-		
-		public void clear() {traits.clear();}
-		
+				
 	}
 	
 	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed) {
@@ -150,7 +143,6 @@ public class CoevolutionSimulator {
 			symbiontCounts = new int[hostTree.getTaxonCount()];
 			extinctSymbiontCount = 0;
 			associations.clear();
-			eventTrait.clear();
 			root = simulateCoevolution(hostTree,
 					hostTree.getRoot(),
 					hostTree.getNodeHeight(hostTree.getRoot()) + MathUtils.nextExponential(hostTree.getNodeCount() / hostTree.getNodeHeight(hostTree.getRoot())),
@@ -197,7 +189,7 @@ public class CoevolutionSimulator {
 		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
 		if (hostNodeHeight > eventHeight) {
 			node.setHeight(hostTree.getNodeHeight(hostNode));
-			eventTrait.setTrait(null, node, EventType.NO_EVENT);
+			node.setAttribute(COEVOLUTIONARY_EVENT, EventType.NO_EVENT);
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
 				final String hostName = hostTree.getNodeTaxon(hostNode).getId();
@@ -215,14 +207,14 @@ public class CoevolutionSimulator {
 			switch(nextEvent.index) {
 			case 0:
 				// Duplication event
-				eventTrait.setTrait(null, node, EventType.DUPLICATION);
+				node.setAttribute(COEVOLUTIONARY_EVENT, EventType.DUPLICATION);
 				child1 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, keepExtinctions);
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, keepExtinctions);
 				break;
 			case 1:
 				// Host-switch event
 				NodeRef newHost;
-				eventTrait.setTrait(null, node, EventType.HOST_SWITCH);
+				node.setAttribute(COEVOLUTIONARY_EVENT, EventType.HOST_SWITCH);
 				if (!hostTree.isRoot(hostNode)) { // Can't host-switch if at the root!
 					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
@@ -237,7 +229,7 @@ public class CoevolutionSimulator {
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev);
 				break;
 			case 2:
-				eventTrait.setTrait(null, node, EventType.LOSS);
+				node.setAttribute(COEVOLUTIONARY_EVENT, EventType.LOSS);
 				if (keepExtinctions) { // Loss event; null indicates the lineage was lost
 						String taxonId = "extinct_symbiont" + ++extinctSymbiontCount;
 						node.setTaxon(new Taxon(taxonId));

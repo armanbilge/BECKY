@@ -6,20 +6,44 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Locale;
 
+import org.ithinktree.becky.CophylogenyModel;
 import org.ithinktree.becky.SimpleCophylogenyModel;
+import org.ithinktree.becky.SimpleCophylogenyModel.EventType;
 
 import dr.app.util.Arguments;
 import dr.app.util.Arguments.ArgumentException;
 import dr.evolution.io.Importer.ImportException;
 import dr.evolution.io.NexusImporter;
 import dr.evolution.io.TreeImporter;
+import dr.evolution.tree.SimpleNode;
 import dr.evolution.tree.Tree;
 import dr.evolution.tree.TreeTraitProvider;
 import dr.evolution.util.Units;
 import dr.inference.model.Parameter;
 
 public class SCMSampler {
-
+	
+	private static boolean acceptTree(final Tree tree, final int extantSpeciesCount) {
+		
+		if (tree.getExternalNodeCount() != extantSpeciesCount) return false;
+		
+		for (int i = 0; i < tree.getInternalNodeCount(); ++i) {
+			final SimpleNode n = (SimpleNode) tree.getNode(i);
+			if (n.getAttribute(CoevolutionSimulator.COEVOLUTIONARY_EVENT) == EventType.LOSS &&
+					!tree.isRoot(n) && ((SimpleNode) tree.getParent(n)).getAttribute(CoevolutionSimulator.COEVOLUTIONARY_EVENT) != EventType.NO_EVENT) {
+				final SimpleNode n_p = (SimpleNode) tree.getParent(n);
+				if (n_p.getAttribute(CoevolutionSimulator.COEVOLUTIONARY_EVENT) != EventType.HOST_SWITCH) {
+					return false;
+				} else if (!tree.isRoot(n_p) && ((SimpleNode) tree.getParent(n_p)).getAttribute(CoevolutionSimulator.COEVOLUTIONARY_EVENT) != EventType.HOST_SWITCH) {
+					return false;
+				} else if (!((SimpleNode) CophylogenyModel.Utils.getSisters(tree, n).get(0)).getAttribute("host.nodeRef").equals(((SimpleNode) tree.getParent(n_p)).getAttribute("host.nodeRef"))) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
 	public static void main(String[] args) throws IOException, ImportException {
 		
 		Locale.setDefault(Locale.US);
@@ -57,7 +81,8 @@ public class SCMSampler {
 //		Map<String,Integer> header = null;
 		
 		int totalTrees = arguments.getIntegerOption("s");
-        final int stepSize = totalTrees / 60;
+        int stepSize = totalTrees / 60;
+        if (stepSize == 0) ++stepSize;
 		PrintStream progressStream = System.err;
         progressStream.println("Simulating trees...");
         progressStream.println("0              25             50             75            100");
@@ -66,6 +91,7 @@ public class SCMSampler {
         PrintStream paramLog = new PrintStream(new FileOutputStream("param.log"));
         paramLog.println("STATE\tProbability");
         
+        System.out.println("#NEXUS\nbegin trees;\n");
 		for (int i = 0; i < arguments.getIntegerOption("s"); ++i) {
 			
 //			if (header == null) {
@@ -76,13 +102,13 @@ public class SCMSampler {
 			Tree tree;
 			do {
 				tree = sim.simulateCoevolution(hostTree, 1.0, model, false, true);
-			} while (tree.getExternalNodeCount() != taxonCount && taxonCount != -1);
+			} while (taxonCount != -1 && !acceptTree(tree, taxonCount));
 			
 //			for (Taxon t : tree.asList()) {
 //				if (!header.containsKey(t.toString())) header.put(t.toString(), ++uniqueTaxonCount);
 //			}
 //			exporter.writeNexusTree(tree, "TREE" + i+1, true, header);
-			System.out.println(Tree.Utils.newick(tree, new TreeTraitProvider[]{sim.provider}));
+			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree, new TreeTraitProvider[]{sim.provider}));
 			paramLog.println(i+1 + "\t" + sim.getSimulationLogLikelihood());
 			
 			if (i % stepSize == 0) {
@@ -91,7 +117,7 @@ public class SCMSampler {
 	        }
 		}
 		
-		System.out.println("End;");
+		System.out.println("\nend;");
 	    paramLog.close();
         progressStream.println();
 	}

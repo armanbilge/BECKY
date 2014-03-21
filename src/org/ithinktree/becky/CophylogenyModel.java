@@ -155,7 +155,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			
 			private static final NodeRef[] EMPTY_NODE_REF_ARRAY = new NodeRef[0];
 			private static final List<NodeRef> EMPTY_NODE_LIST = new ArrayList<NodeRef>(0);
-			private static final List<NodeRef> getSisters(Tree t, NodeRef n) {
+			public static final List<NodeRef> getSisters(Tree t, NodeRef n) {
 				if (t.isRoot(n)) return EMPTY_NODE_LIST;
 				NodeRef p = t.getParent(n);
 				int cc = t.getChildCount(p);
