@@ -242,7 +242,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
             nextSubHeight = height;
             for (int j = newHostLineages.length - 1; nextSubHeight < nextHeight; --j) {
                 subHeight = nextSubHeight;
-                if (j >= 0) nextSubHeight = Math.min(start - tree.getNodeHeight(tree.getParent(newHostLineages[j])), nextHeight);
+                if (j >= 0 && tree.getNodeHeight(tree.getParent(newHostLineages[j])) <= start) nextSubHeight = Math.min(start - tree.getNodeHeight(tree.getParent(newHostLineages[j])), nextHeight);
                 else nextSubHeight = nextHeight;
                 likelihood += likelihoodHostSwitchEventAndLossInTime(subHeight, nextSubHeight, e, l, eventRate, rate, tree, lostLineage) *
                         likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(originalLineages, i+1, originalLineages.length), rate) *
@@ -350,8 +350,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             	for (NodeRef n : potentialHosts1) {
                             		temp += likelihoodHostSwitchEventAndLossInTime(selfHeight, child1Height, child1Height, selfHostHeight, eventRate, child1BranchRate, hostTree, n, Utils.lostLineagesToTime(hostTree, n, selfHeight), noLineages);
                             	}
-                            	temp *= e.partialLikelihood;
-                            	sum += temp;
+                            	sum += temp * e.partialLikelihood;
                             }
                             case1B += sum * normalEvent2;
                             
@@ -362,8 +361,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             	for (NodeRef n : potentialHosts2) {
                             		temp += likelihoodHostSwitchEventAndLossInTime(selfHeight, child2Height, child2Height, selfHostHeight, eventRate, child2BranchRate, hostTree, n, Utils.lostLineagesToTime(hostTree, n, selfHeight), noLineages);
                             	}
-                            	temp *= e.partialLikelihood;
-                            	sum += temp;
+                            	sum += temp * e.partialLikelihood;
                             }
                             case1B += sum * normalEvent1;
                             
@@ -398,7 +396,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                                 sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child1), child1BranchRate) * e.partialLikelihood;
 
                             case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child2BranchRate);
-                                                                                    
+                            
                             setReconstructedEvents(self, new Event(EventType.DUPLICATION, case1A), new Event(EventType.HOST_SWITCH, case1B), new Event(EventType.NO_EVENT, case2));
                             calculatedChild1 = true;
                             calculatedChild2 = true;
@@ -457,8 +455,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         	for (NodeRef n : potentialHosts1) {
                         		temp += likelihoodHostSwitchEventAndLossInTime(selfHeight, child1Height, child1Height, selfHostHeight, eventRate, child1BranchRate, hostTree, n, Utils.lostLineagesToTime(hostTree, n, selfHeight), noLineages);
                         	}
-                        	temp *= e.partialLikelihood;
-                        	sum += temp;
+                        	sum += temp * e.partialLikelihood;
                         }
                         hostSwitchLikelihood += sum * normalEvent2;
                         
@@ -469,11 +466,10 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         	for (NodeRef n : potentialHosts2) {
                         		temp += likelihoodHostSwitchEventAndLossInTime(selfHeight, child2Height, child2Height, selfHostHeight, eventRate, child2BranchRate, hostTree, n, Utils.lostLineagesToTime(hostTree, n, selfHeight), noLineages);
                         	}
-                        	temp *= e.partialLikelihood;
-                        	sum += temp;
+                        	sum += temp * e.partialLikelihood;
                         }
                         hostSwitchLikelihood += sum * normalEvent1;
-                                                
+                        
                     	setReconstructedEvents(self, new Event(EventType.DUPLICATION, duplicationLikelihood), new Event(EventType.HOST_SWITCH, hostSwitchLikelihood));
                         
                         calculatedChild1 = true;
