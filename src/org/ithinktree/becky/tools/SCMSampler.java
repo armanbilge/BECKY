@@ -1,6 +1,5 @@
 package org.ithinktree.becky.tools;
 
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -15,7 +14,9 @@ import dr.app.util.Arguments.ArgumentException;
 import dr.evolution.io.Importer.ImportException;
 import dr.evolution.io.NexusImporter;
 import dr.evolution.io.TreeImporter;
+import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
+import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
 import dr.evolution.tree.TreeTraitProvider;
 import dr.evolution.util.Units;
@@ -23,9 +24,7 @@ import dr.inference.model.Parameter;
 
 public class SCMSampler {
 	
-	private static boolean acceptTree(final Tree tree, final int extantSpeciesCount) {
-		
-		if (tree.getExternalNodeCount() != extantSpeciesCount) return false;
+	private static boolean acceptTree(final Tree tree) {
 		
 		for (int i = 0; i < tree.getInternalNodeCount(); ++i) {
 			final SimpleNode n = (SimpleNode) tree.getNode(i);
@@ -42,6 +41,58 @@ public class SCMSampler {
 			}
 		}
 		return true;
+	}
+	
+	private static Tree getObservedTree(Tree tree) {
+		
+		SimpleNode node = getObservedTree(tree, tree.getRoot());
+		if (node == null) return null;
+		return new SimpleTree(node);
+		
+	}
+	
+	private static SimpleNode getObservedTree(Tree tree, NodeRef node) {
+		
+		SimpleNode sn = new SimpleNode();
+		sn.setHeight(tree.getNodeHeight(node));
+		SimpleNode child1 = null;
+		SimpleNode child2 = null;
+		
+		if (tree.isExternal(node)) {
+			
+			if (((SimpleNode) node).getAttribute(CoevolutionSimulator.COEVOLUTIONARY_EVENT).equals(SimpleCophylogenyModel.EventType.LOSS)) {
+				
+				return null;
+				
+			} else {
+				
+				sn.setTaxon(tree.getNodeTaxon(node));
+				return sn;
+				
+			}
+			
+		} else {
+			
+			child1 = getObservedTree(tree, tree.getChild(node, 0));
+			child2 = getObservedTree(tree, tree.getChild(node, 1));
+			
+		}
+		
+		if (child1 != null && child2 != null) {
+			// Both lineages survived
+			sn.addChild(child1);
+			sn.addChild(child2);
+			
+		} else if (child1 == child2) {
+			// Both are null, hence this entire lineage was lost
+			return null;
+		} else {
+			// Just one child lineage is null/lost
+			return child2 == null ? child1 : child2; // Set this node to the continuing child lineage
+		}
+		
+		return sn;
+		
 	}
 	
 	public static void main(String[] args) throws IOException, ImportException {
@@ -88,8 +139,9 @@ public class SCMSampler {
         progressStream.println("0              25             50             75            100");
         progressStream.println("|--------------|--------------|--------------|--------------|");
 		
-        PrintStream paramLog = new PrintStream(new FileOutputStream("param.log"));
-        paramLog.println("STATE\tProbability");
+//        PrintStream paramLog = new PrintStream(new FileOutputStream("param.log"));
+//        paramLog.println("STATE\tProbability");
+        final boolean keepExtinctions = true;
         
         System.out.println("#NEXUS\nbegin trees;\n");
 		for (int i = 0; i < arguments.getIntegerOption("s"); ++i) {
@@ -99,17 +151,23 @@ public class SCMSampler {
 //				System.out.println("\t\t;");
 //			}
 			
-			Tree tree;
+			Tree tree, observedTree;
 			do {
-				tree = sim.simulateCoevolution(hostTree, 1.0, model, false, true);
-			} while (taxonCount != -1 && !acceptTree(tree, taxonCount));
+				do {
+					tree = sim.simulateCoevolution(hostTree, 1.0, model, false, keepExtinctions);
+				} while (!acceptTree(tree));
+				
+				observedTree = getObservedTree(tree);
+				
+			} while (observedTree == null || (taxonCount != -1 && observedTree.getExternalNodeCount() != taxonCount));
 			
 //			for (Taxon t : tree.asList()) {
 //				if (!header.containsKey(t.toString())) header.put(t.toString(), ++uniqueTaxonCount);
 //			}
 //			exporter.writeNexusTree(tree, "TREE" + i+1, true, header);
-			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree, new TreeTraitProvider[]{sim.provider}));
-			paramLog.println(i+1 + "\t" + sim.getSimulationLogLikelihood());
+//			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree, new TreeTraitProvider[]{sim.provider}));
+			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(observedTree));
+//			paramLog.println(i+1 + "\t" + sim.getSimulationLogLikelihood());
 			
 			if (i % stepSize == 0) {
 	            progressStream.print("*");
@@ -118,7 +176,7 @@ public class SCMSampler {
 		}
 		
 		System.out.println("\nend;");
-	    paramLog.close();
+//	    paramLog.close();
         progressStream.println();
 	}
 

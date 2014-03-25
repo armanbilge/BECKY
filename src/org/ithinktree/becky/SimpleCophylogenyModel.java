@@ -397,7 +397,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 
                             case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child2BranchRate);
                             
-                            setReconstructedEvents(self, new Event(EventType.DUPLICATION, case1A), new Event(EventType.HOST_SWITCH, case1B), new Event(EventType.NO_EVENT, case2));
+                            setReconstructedEvents(self, /*new Event(EventType.DUPLICATION, case1A),*/ new Event(EventType.HOST_SWITCH, case1B), new Event(EventType.NO_EVENT, case2));
                             calculatedChild1 = true;
                             calculatedChild2 = true;
                             
