@@ -404,15 +404,15 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         } else {
                             
 //                            if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
-                                setReconstructedEvents(self, NO_EVENT);
+//                                setReconstructedEvents(self, NO_EVENT, DUPLICATION);
 //                            } else {
 //                                setReconstructedEvents(self, new Event[]{DUPLICATION});
-//                                final double likelihoodNoEvent = likelihoodNoEventsInTime(selfHeight - selfHostHeight, branchRates.getBranchRate(symbiontTree, self));
-//                                likelihood *= likelihoodNoEvent * likelihoodNoEvent;
-//                                likelihood *= likelihoodLineageLoss(hostTree, child1Host, child2BranchRate, false);
-//                                likelihood *= likelihoodLineageLoss(hostTree, child2Host, child1BranchRate, false);
+                                final double likelihoodNoEvent = likelihoodNoEventsInTime(selfHeight - selfHostHeight, branchRates.getBranchRate(symbiontTree, self));
+                                double case2 = likelihoodNoEvent * likelihoodNoEvent;
+                                case2 *= likelihoodLineageLoss(hostTree, child1Host, child2BranchRate, false);
+                                case2 *= likelihoodLineageLoss(hostTree, child2Host, child1BranchRate, false);
 //                            }
-                            
+                            setReconstructedEvents(self, NO_EVENT, new Event(EventType.DUPLICATION, case2));
                             
                             // Potential losses along both child lineages
                             likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
