@@ -264,6 +264,8 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			final NodeRef child1, final NodeRef child2, final Tree hostTree, final NodeRef selfHost,
 			final NodeRef child1Host, final NodeRef child2Host, final BranchRates branchRates);
 	
+	public abstract double calculateOriginLogLikelihood(final Tree symbiontTree, final double originTime, final NodeRef root, final Tree hostTree, final NodeRef originHost, final NodeRef rootHost, final BranchRates branchRates);
+	
 	public abstract void initialize(final Tree tree);
 	
 	@Override

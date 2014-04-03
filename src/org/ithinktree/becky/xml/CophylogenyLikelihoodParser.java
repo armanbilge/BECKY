@@ -13,6 +13,7 @@ import org.ithinktree.becky.CophylogenyModel;
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.Tree;
 import dr.evomodel.branchratemodel.BranchRateModel;
+import dr.inference.model.Parameter;
 import dr.xml.AbstractXMLObjectParser;
 import dr.xml.AttributeRule;
 import dr.xml.ElementRule;
@@ -57,7 +58,9 @@ public class CophylogenyLikelihoodParser extends AbstractXMLObjectParser {
 		
 		final BranchRateModel branchRateModel = (BranchRateModel) xo.getChild(BranchRateModel.class);
 		
-		return new CophylogenyLikelihood(hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName, xo.getId());
+		final Parameter origin = (Parameter) xo.getChild(Parameter.class);
+		
+		return new CophylogenyLikelihood(hostTree, symbiontTree, cophylogenyModel, branchRateModel, origin, reconstructionTagName, xo.getId());
 	}
 
 
@@ -88,7 +91,8 @@ public class CophylogenyLikelihoodParser extends AbstractXMLObjectParser {
 			new ElementRule(SYMBIONT_TREE, new XMLSyntaxRule[]{
 					new ElementRule(MutableTree.class)
 			}),
-			new ElementRule(BranchRateModel.class)
+			new ElementRule(BranchRateModel.class),
+			new ElementRule(Parameter.class)
 	};
 	
 }

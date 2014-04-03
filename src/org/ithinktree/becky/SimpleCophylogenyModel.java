@@ -601,5 +601,16 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
         for (int i = 0; i < tree.getExternalNodeCount(); ++i)
             reconstructedEvents[tree.getExternalNode(i).getNumber()] = new Event[]{NO_EVENT};
     }
+
+	@Override
+	public double calculateOriginLogLikelihood(Tree symbiontTree, double originTime,
+			NodeRef root, Tree hostTree, NodeRef originHost, NodeRef rootHost,
+			BranchRates branchRates) {
+		double l = likelihoodLossesAlongLineages(hostTree, CophylogenyModel.Utils.lostLineagesToTime(hostTree, rootHost, originTime), originTime);
+		double sum = 0.0;
+		for (Event e : getReconstructedEvents(root))
+			sum += likelihoodEvent(e.event, originTime - symbiontTree.getNodeHeight(rootHost), branchRates.getBranchRate(symbiontTree, root));
+		return Math.log(l*sum);
+	}
     
 }

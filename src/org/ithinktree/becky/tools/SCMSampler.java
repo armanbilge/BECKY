@@ -24,7 +24,13 @@ import dr.inference.model.Parameter;
 
 public class SCMSampler {
 	
-	private static boolean acceptTree(final Tree tree) {
+	private static boolean acceptTree(final Tree tree, final int taxonCount) {
+		
+		int extantTaxonCount = 0;
+		for (int i = 0; i < tree.getExternalNodeCount(); ++i) {
+		     if (tree.getNodeHeight(tree.getExternalNode(i)) == 0) extantTaxonCount++;
+	    }
+	    if (extantTaxonCount != taxonCount) return false;
 		
 		for (int i = 0; i < tree.getInternalNodeCount(); ++i) {
 			final SimpleNode n = (SimpleNode) tree.getNode(i);
@@ -151,16 +157,13 @@ public class SCMSampler {
 //				System.out.println("\t\t;");
 //			}
 			
-			Tree tree, observedTree;
+			Tree tree;
 			do {
-				do {
-					tree = sim.simulateCoevolution(hostTree, 1.0, model, false, keepExtinctions);
-				} while (!acceptTree(tree));
-				
-				observedTree = getObservedTree(tree);
-				
-			} while (observedTree == null || (taxonCount != -1 && observedTree.getExternalNodeCount() != taxonCount));
-			
+				tree = sim.simulateCoevolution(hostTree, 1.0, model, false, keepExtinctions);
+			} while (!acceptTree(tree, taxonCount));
+
+			Tree observedTree = getObservedTree(tree);
+							
 //			for (Taxon t : tree.asList()) {
 //				if (!header.containsKey(t.toString())) header.put(t.toString(), ++uniqueTaxonCount);
 //			}

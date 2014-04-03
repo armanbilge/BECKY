@@ -19,6 +19,7 @@ import dr.evolution.tree.TreeTraitProvider;
 import dr.evolution.util.Units;
 import dr.inference.model.AbstractModelLikelihood;
 import dr.inference.model.Model;
+import dr.inference.model.Parameter;
 import dr.inference.model.Variable;
 import dr.inference.model.Variable.ChangeType;
 
@@ -39,15 +40,16 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	final private MutableTree symbiontTree;
 	final private CophylogenyModel cophylogenyModel;
 	final private BranchRates branchRates;
+	final private Parameter origin;
 	
 	final private TreeTraitProvider.Helper treeTraits = new Helper();
 		
-	public CophylogenyLikelihood(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRates branchRateModel, final String reconstructionTagName, final String id) {
-		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, reconstructionTagName);
+	public CophylogenyLikelihood(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRates branchRateModel, final Parameter origin, final String reconstructionTagName, final String id) {
+		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, origin, reconstructionTagName);
 		setId(id);
 	}
 	
-	public CophylogenyLikelihood(final String name, final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRates branchRates, final String reconstructionTagName) {
+	public CophylogenyLikelihood(final String name, final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRates branchRates, final Parameter origin, final String reconstructionTagName) {
 		
 		super(name);
 		
@@ -56,6 +58,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		
 		this.cophylogenyModel = cophylogenyModel;
 		this.branchRates = branchRates;
+		this.origin = origin;
 		
 		if (symbiontTree instanceof Model) {
 			addModel((Model) symbiontTree);
@@ -97,6 +100,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		hostTree = null;
 		cophylogenyModel = null;
 		branchRates = null;
+		origin = null;
 		final int[] empty = new int[0];
 		reconstructedStates = empty;
 		storedReconstructedStates = empty;
@@ -142,6 +146,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			}
 		} while (!symbiontTree.isRoot(self) && logL != Double.NEGATIVE_INFINITY);
 
+		logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, origin.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
 		return logL;
 	}
 
