@@ -397,7 +397,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 
                             case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child2BranchRate);
                             
-                            setReconstructedEvents(self, /*new Event(EventType.DUPLICATION, case1A),*/ new Event(EventType.HOST_SWITCH, case1B), new Event(EventType.NO_EVENT, case2));
+                            setReconstructedEvents(self, /*new Event(EventType.DUPLICATION, case1A), new Event(EventType.HOST_SWITCH, case1B),*/ new Event(EventType.NO_EVENT, case2));
                             calculatedChild1 = true;
                             calculatedChild2 = true;
                             
@@ -606,7 +606,10 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 	public double calculateOriginLogLikelihood(Tree symbiontTree, double originTime,
 			NodeRef root, Tree hostTree, NodeRef originHost, NodeRef rootHost,
 			BranchRates branchRates) {
+		if (dirty) updateVariables();
 		double l = likelihoodLossesAlongLineages(hostTree, CophylogenyModel.Utils.lostLineagesToTime(hostTree, rootHost, originTime), originTime);
+		double hostRootHeight = hostTree.getNodeHeight(hostTree.getRoot());
+		l *= Math.exp(hostTree.getNodeCount() / hostRootHeight * (originTime - hostRootHeight));
 		double sum = 0.0;
 		for (Event e : getReconstructedEvents(root))
 			sum += likelihoodEvent(e.event, originTime - symbiontTree.getNodeHeight(rootHost), branchRates.getBranchRate(symbiontTree, root));

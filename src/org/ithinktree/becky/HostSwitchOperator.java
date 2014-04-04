@@ -52,7 +52,7 @@ public class HostSwitchOperator extends SimpleMCMCOperator {
 	@Override
 	public double doOperation() throws OperatorFailedException {
 		
-		NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(symbiontTree.getInternalNodeCount()));
+		final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(symbiontTree.getInternalNodeCount()));
 		final double nodeParentHeight = symbiontTree.isRoot(node) ? Double.POSITIVE_INFINITY : symbiontTree.getNodeHeight(symbiontTree.getParent(node));
 		final double nodeChildHeight = Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(node, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(node, 1)));
 		final List<NodeRef> hostNodes = CophylogenyModel.Utils.getLineagesInTimeRange(hostTree, nodeParentHeight, nodeChildHeight);

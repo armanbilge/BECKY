@@ -131,6 +131,8 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		NodeRef self, child1, child2;
 		NodeRef selfHost, child1Host, child2Host;
 		self = symbiontTree.getRoot();
+		logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, origin.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
+		if (logL == Double.NEGATIVE_INFINITY) return logL;
 		do {
 			self = Tree.Utils.postorderSuccessor(symbiontTree, self);
 			if (!symbiontTree.isExternal(self)) {
@@ -146,7 +148,6 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			}
 		} while (!symbiontTree.isRoot(self) && logL != Double.NEGATIVE_INFINITY);
 
-		logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, origin.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
 		return logL;
 	}
 

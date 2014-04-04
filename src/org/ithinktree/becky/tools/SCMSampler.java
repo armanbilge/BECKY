@@ -39,10 +39,13 @@ public class SCMSampler {
 				final SimpleNode n_p = (SimpleNode) tree.getParent(n);
 				if (n_p.getAttribute(CoevolutionSimulator.COEVOLUTIONARY_EVENT) != EventType.HOST_SWITCH) {
 					return false;
-				} else if (!tree.isRoot(n_p) && ((SimpleNode) tree.getParent(n_p)).getAttribute(CoevolutionSimulator.COEVOLUTIONARY_EVENT) != EventType.HOST_SWITCH) {
-					return false;
-				} else if (!((SimpleNode) CophylogenyModel.Utils.getSisters(tree, n).get(0)).getAttribute("host.nodeRef").equals(((SimpleNode) tree.getParent(n_p)).getAttribute("host.nodeRef"))) {
-					return false;
+				} else {
+					EventType x = (EventType) ((SimpleNode) tree.getParent(n_p)).getAttribute(CoevolutionSimulator.COEVOLUTIONARY_EVENT);
+					if (!tree.isRoot(n_p) && x != EventType.HOST_SWITCH && x != EventType.NO_EVENT) {
+						return false;
+					} else if (!((SimpleNode) CophylogenyModel.Utils.getSisters(tree, n).get(0)).getAttribute("host.nodeRef").equals(((SimpleNode) tree.getParent(n_p)).getAttribute("host.nodeRef"))) {
+						return false;
+					}
 				}
 			}
 		}
