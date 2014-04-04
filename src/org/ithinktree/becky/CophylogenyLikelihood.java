@@ -40,7 +40,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	final private MutableTree symbiontTree;
 	final private CophylogenyModel cophylogenyModel;
 	final private BranchRates branchRates;
-	final private Parameter origin;
+	final private Parameter originHeight;
 	
 	final private TreeTraitProvider.Helper treeTraits = new Helper();
 		
@@ -58,7 +58,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		
 		this.cophylogenyModel = cophylogenyModel;
 		this.branchRates = branchRates;
-		this.origin = origin;
+		this.originHeight = origin;
 		
 		if (symbiontTree instanceof Model) {
 			addModel((Model) symbiontTree);
@@ -100,7 +100,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		hostTree = null;
 		cophylogenyModel = null;
 		branchRates = null;
-		origin = null;
+		originHeight = null;
 		final int[] empty = new int[0];
 		reconstructedStates = empty;
 		storedReconstructedStates = empty;
@@ -131,7 +131,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		NodeRef self, child1, child2;
 		NodeRef selfHost, child1Host, child2Host;
 		self = symbiontTree.getRoot();
-		logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, origin.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
+		logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, originHeight.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
 		if (logL == Double.NEGATIVE_INFINITY) return logL;
 		do {
 			self = Tree.Utils.postorderSuccessor(symbiontTree, self);
