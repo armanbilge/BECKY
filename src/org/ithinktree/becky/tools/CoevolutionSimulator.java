@@ -78,10 +78,7 @@ public class CoevolutionSimulator {
 		    cophylogenyLikelihood.setStatesForNode(node, contemporaneous.get(MathUtils.nextInt(contemporaneous.size())));
 		}
 		
-		NodeRef symbiontRoot = symbiontTree.getRoot();
-		NodeRef hostRoot = hostTree.getRoot();
-		cophylogenyLikelihood.setStatesForNode(symbiontRoot, hostRoot);
-		symbiontTree.setNodeHeight(symbiontRoot, hostTree.getNodeHeight(hostRoot));
+		cophylogenyLikelihood.setOriginHeight(hostTree.getNodeHeight(hostTree.getRoot()));
 		
 	}
 	

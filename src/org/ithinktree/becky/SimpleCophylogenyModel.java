@@ -609,8 +609,8 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 		if (dirty) updateVariables();
 		double hostRootHeight = hostTree.getNodeHeight(hostTree.getRoot());
 		if (hostRootHeight > originHeight) return Double.NEGATIVE_INFINITY;
-		double l = likelihoodLossesAlongLineages(hostTree, CophylogenyModel.Utils.lostLineagesToTime(hostTree, rootHost, originHeight), originHeight);
-		l *= Math.exp(hostTree.getNodeCount() / hostRootHeight * (originHeight - hostRootHeight));
+		double l = likelihoodLossesAlongLineages(hostTree, CophylogenyModel.Utils.lostLineagesToTime(hostTree, rootHost, originHeight), branchRates.getBranchRate(symbiontTree, root));
+		l *= Math.exp(-hostTree.getNodeCount() / hostRootHeight * (originHeight - hostRootHeight));
 		double sum = 0.0;
 		for (Event e : getReconstructedEvents(root))
 			sum += likelihoodEvent(e.event, originHeight - symbiontTree.getNodeHeight(rootHost), branchRates.getBranchRate(symbiontTree, root));

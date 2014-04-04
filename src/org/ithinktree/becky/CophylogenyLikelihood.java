@@ -44,12 +44,12 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	
 	final private TreeTraitProvider.Helper treeTraits = new Helper();
 		
-	public CophylogenyLikelihood(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRates branchRateModel, final Parameter origin, final String reconstructionTagName, final String id) {
-		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, origin, reconstructionTagName);
+	public CophylogenyLikelihood(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRates branchRateModel, final Parameter originHeight, final String reconstructionTagName, final String id) {
+		this(CophylogenyLikelihoodParser.COPHYLOGENY_LIKELIHOOD, hostTree, symbiontTree, cophylogenyModel, branchRateModel, originHeight, reconstructionTagName);
 		setId(id);
 	}
 	
-	public CophylogenyLikelihood(final String name, final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRates branchRates, final Parameter origin, final String reconstructionTagName) {
+	public CophylogenyLikelihood(final String name, final Tree hostTree, final MutableTree symbiontTree, final CophylogenyModel cophylogenyModel, final BranchRates branchRates, final Parameter originHeight, final String reconstructionTagName) {
 		
 		super(name);
 		
@@ -58,7 +58,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		
 		this.cophylogenyModel = cophylogenyModel;
 		this.branchRates = branchRates;
-		this.originHeight = origin;
+		this.originHeight = originHeight;
 		
 		if (symbiontTree instanceof Model) {
 			addModel((Model) symbiontTree);
@@ -72,6 +72,9 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		if (branchRates instanceof Model) {
 			addModel((Model) branchRates);
 		}
+		
+		addVariable(originHeight);
+		originHeight.addBounds(new Parameter.DefaultBounds(Double.POSITIVE_INFINITY, 0.0, 1));
 		
 		reconstructedStates = new int[symbiontTree.getNodeCount()];
 		storedReconstructedStates = new int[reconstructedStates.length];
@@ -131,8 +134,6 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		NodeRef self, child1, child2;
 		NodeRef selfHost, child1Host, child2Host;
 		self = symbiontTree.getRoot();
-		logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, originHeight.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
-		if (logL == Double.NEGATIVE_INFINITY) return logL;
 		do {
 			self = Tree.Utils.postorderSuccessor(symbiontTree, self);
 			if (!symbiontTree.isExternal(self)) {
@@ -147,7 +148,8 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
  				logL += cophylogenyModel.calculateNodeLogLikelihood(symbiontTree, self, child1, child2, hostTree, selfHost, child1Host, child2Host, branchRates);
 			}
 		} while (!symbiontTree.isRoot(self) && logL != Double.NEGATIVE_INFINITY);
-
+		
+		logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, originHeight.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
 		return logL;
 	}
 
@@ -165,7 +167,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	@Override
 	protected void handleVariableChangedEvent(Variable variable, int index,
 			ChangeType type) {
-		// Nothing to do; no variables
+		makeDirty();
 	}
 
 	@Override
@@ -265,5 +267,9 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	}
 
 	protected boolean isDirty() { return !likelihoodKnown; }
+	
+	public void setOriginHeight(double d) {
+		originHeight.setParameterValue(0, d);
+	}
 	
 }
