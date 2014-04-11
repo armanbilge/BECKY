@@ -7,6 +7,7 @@ import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.inference.operators.OperatorFailedException;
 import dr.inference.operators.SimpleMCMCOperator;
+import dr.math.MachineAccuracy;
 import dr.math.MathUtils;
 
 
@@ -36,9 +37,17 @@ public class CospeciationOperator extends SimpleMCMCOperator {
         final NodeRef node = symbiontTree.getNode(MathUtils.nextInt(internalNodeCount));
         final NodeRef host = cophylogenyLikelihood.getStatesForNode(node);
         if (host == null) throw new OperatorFailedException("No change in state");
-        symbiontTree.setNodeHeight(node, hostTree.getNodeHeight(host));
-        // TODO Need to determine correct Hastings ratio
-        return 1.0;
+        final double hostHeight = hostTree.getNodeHeight(host);
+        final double nodeHeight = symbiontTree.getNodeHeight(node);
+        final double maxHeight = Math.min(symbiontTree.isRoot(node) ? cophylogenyLikelihood.getOriginHeight() : symbiontTree.getNodeHeight(symbiontTree.getParent(node)), hostTree.isRoot(host) ? Double.POSITIVE_INFINITY : hostTree.getNodeHeight(hostTree.getParent(host)));
+        final double range = maxHeight - hostHeight;
+        if (MachineAccuracy.same(nodeHeight, hostHeight)) {
+        	symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * range + hostHeight);
+        	return range;
+        } else {
+        	symbiontTree.setNodeHeight(node, hostTree.getNodeHeight(host));
+        	return 1 / range;
+        }
     }
     
     @Override

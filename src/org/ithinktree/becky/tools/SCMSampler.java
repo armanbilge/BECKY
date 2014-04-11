@@ -147,10 +147,10 @@ public class SCMSampler {
         progressStream.println("Simulating trees...");
         progressStream.println("0              25             50             75            100");
         progressStream.println("|--------------|--------------|--------------|--------------|");
-		
+//		progressStream.println(Tree.Utils.newick(hostTree));
 //        PrintStream paramLog = new PrintStream(new FileOutputStream("param.log"));
 //        paramLog.println("STATE\tProbability");
-        final boolean keepExtinctions = true;
+        final boolean keepExtinctions = false;
         
         System.out.println("#NEXUS\nbegin trees;\n");
 		for (int i = 0; i < arguments.getIntegerOption("s"); ++i) {
@@ -163,16 +163,17 @@ public class SCMSampler {
 			Tree tree;
 			do {
 				tree = sim.simulateCoevolution(hostTree, 1.0, model, false, keepExtinctions);
-			} while (!acceptTree(tree, taxonCount));
+//				progressStream.println(tree.getTaxonCount());
+			} while (tree.getTaxonCount() != taxonCount);
 
-			Tree observedTree = getObservedTree(tree);
+//			Tree observedTree = getObservedTree(tree);
 							
 //			for (Taxon t : tree.asList()) {
 //				if (!header.containsKey(t.toString())) header.put(t.toString(), ++uniqueTaxonCount);
 //			}
 //			exporter.writeNexusTree(tree, "TREE" + i+1, true, header);
 //			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree, new TreeTraitProvider[]{sim.provider}));
-			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(observedTree));
+			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree));
 //			paramLog.println(i+1 + "\t" + sim.getSimulationLogLikelihood());
 			
 			if (i % stepSize == 0) {

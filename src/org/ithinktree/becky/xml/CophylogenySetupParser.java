@@ -12,6 +12,8 @@ import org.ithinktree.becky.tools.CoevolutionSimulator;
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
+import dr.evolution.tree.TreeTraitProvider;
+import dr.math.MathUtils;
 import dr.xml.AbstractXMLObjectParser;
 import dr.xml.ElementRule;
 import dr.xml.XMLObject;
@@ -41,15 +43,26 @@ public class CophylogenySetupParser extends AbstractXMLObjectParser {
 		final Tree hostTree = (Tree) cxo.getChild(Tree.class);
 		
 		cxo = xo.getChild(SYMBIONT_TREE);
-		final Tree symbiontTree = (MutableTree) cxo.getChild(Tree.class);
+		final MutableTree symbiontTree = (MutableTree) cxo.getChild(Tree.class);
 
 		final CophylogenyLikelihood cl = (CophylogenyLikelihood) xo.getChild(CophylogenyLikelihood.class);
 		
 		for (int i = 0; i < symbiontTree.getNodeCount(); ++i) {
 			NodeRef n = symbiontTree.getNode(i);
-			cl.setStatesForNode(n, hostTree.getNode((Integer) symbiontTree.getNodeAttribute(n, "host.nodeRef")));
+			cl.setStatesForNode(n, hostTree.getExternalNode(0));
 		}
-		
+		cl.setStatesForNode(symbiontTree.getExternalNode(0), hostTree.getExternalNode(1));
+		NodeRef n = symbiontTree.getRoot();
+		do {
+			n = Tree.Utils.postorderSuccessor(symbiontTree, n);
+			if (!symbiontTree.isExternal(n) && !symbiontTree.isRoot(n)) {
+				double d = Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(n, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(n, 1)));
+				symbiontTree.setNodeHeight(n, (1.0 - MathUtils.nextDouble()) * (1.0 - d) + d);
+			}
+		} while (!symbiontTree.isRoot(n));
+		cl.setStatesForNode(symbiontTree.getRoot(), hostTree.getRoot());
+		symbiontTree.setNodeHeight(symbiontTree.getRoot(), 2.0);
+		System.err.println(Tree.Utils.newick(symbiontTree, new TreeTraitProvider[]{cl}));
 		return null;
 	}
 

@@ -19,6 +19,7 @@ import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.inference.model.Parameter;
+import dr.math.MachineAccuracy;
 
 /**
  * A simple model for cophylogenetic mappings.
@@ -403,16 +404,16 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             
                         } else {
                             
-//                            if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
-//                                setReconstructedEvents(self, NO_EVENT, DUPLICATION);
-//                            } else {
-//                                setReconstructedEvents(self, new Event[]{DUPLICATION});
+                            if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
+                                setReconstructedEvents(self, NO_EVENT, DUPLICATION);
+                            } else {
+                                setReconstructedEvents(self, new Event[]{DUPLICATION});
                                 final double likelihoodNoEvent = likelihoodNoEventsInTime(selfHeight - selfHostHeight, branchRates.getBranchRate(symbiontTree, self));
                                 double case2 = likelihoodNoEvent * likelihoodNoEvent;
                                 case2 *= likelihoodLineageLoss(hostTree, child1Host, child2BranchRate, false);
                                 case2 *= likelihoodLineageLoss(hostTree, child2Host, child1BranchRate, false);
-//                            }
-                            setReconstructedEvents(self, NO_EVENT, new Event(EventType.DUPLICATION, case2));
+                                setReconstructedEvents(self, new Event(EventType.DUPLICATION, case2));
+                            }                          
                             
                             // Potential losses along both child lineages
                             likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
@@ -436,7 +437,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         for (Event e : reconstructedEvents[child2.getNumber()])
                         	normalEvent2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2), child1BranchRate) * e.partialLikelihood;
                         duplicationLikelihood *= normalEvent2;
-                    	
+                    	                        
                         // Case 2: host-switch, host-switch back, extinction
                         double hostSwitchLikelihood = 1.0;
                        	final NodeRef[] noLineages = new NodeRef[0];
@@ -563,7 +564,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2), child2BranchRate) * e.partialLikelihood;
                         likelihood *= sum;
                     }
-                    
+
                     return Math.log(likelihood);
     }
 
@@ -608,7 +609,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 			BranchRates branchRates) {
 		if (dirty) updateVariables();
 		double hostRootHeight = hostTree.getNodeHeight(hostTree.getRoot());
-		if (hostRootHeight > originHeight) return Double.NEGATIVE_INFINITY;
+		if (hostRootHeight > originHeight || symbiontTree.getNodeHeight(root) > originHeight) return Double.NEGATIVE_INFINITY;
 		double l = likelihoodLossesAlongLineages(hostTree, CophylogenyModel.Utils.lostLineagesToTime(hostTree, rootHost, originHeight), branchRates.getBranchRate(symbiontTree, root));
 		l *= Math.exp(-hostTree.getNodeCount() / hostRootHeight * (originHeight - hostRootHeight));
 		double sum = 0.0;

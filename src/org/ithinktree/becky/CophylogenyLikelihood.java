@@ -149,7 +149,8 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			}
 		} while (!symbiontTree.isRoot(self) && logL != Double.NEGATIVE_INFINITY);
 		
-		logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, originHeight.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
+		if (logL != Double.NEGATIVE_INFINITY) logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, originHeight.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
+		
 		return logL;
 	}
 
@@ -252,6 +253,10 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 			return Integer.toString(n.getNumber());
 		}
 		
+	}
+	
+	public double getOriginHeight() {
+		return originHeight.getParameterValue(0);
 	}
 	
 	@SuppressWarnings("rawtypes")
