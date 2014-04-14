@@ -456,7 +456,6 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         } else {
                             
                             if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
-                            	System.err.println("Yay!");
                                 setReconstructedEvents(self, NO_EVENT);
                             } else {
                             	return Double.NEGATIVE_INFINITY;
