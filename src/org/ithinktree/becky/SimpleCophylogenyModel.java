@@ -227,7 +227,6 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
      * @return
      */
     protected final double likelihoodHostSwitchEventAndLossInTime(final double start, final double hostSwitchStop, final double eventStop, final double lossStop, final double eventRate, final double rate, final Tree tree, final NodeRef lostLineage, final NodeRef[] originalLineages, final NodeRef[] newHostLineages) {
-        
         final double e = start - eventStop;
         final double l = start - lossStop;
         final double stop = start - Math.max(hostSwitchStop, Math.max(eventStop, lossStop));
@@ -314,105 +313,194 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             final double hostChildBranchLength = hostTree.getBranchLength(hostChild);
                             final double hostChildHeight = hostTree.getNodeHeight(hostChild);
                             
-                            // Case 1A: duplication, cospeciation, then losses
-                            double case1A = 1.0;
+                            final double child1Height = symbiontTree.getNodeHeight(child1);
+							final double child2Height = symbiontTree.getNodeHeight(child2);
+
 
                             // The duplication occurred at the time of their last common ancestor
                             
-                            final double potentialLossLength = (selfHeight - selfHostHeight) + hostChildBranchLength;
-                            case1A *= likelihoodLossInTime(potentialLossLength, child1BranchRate) * likelihoodLossInTime(potentialLossLength, child2BranchRate)
-                                    * likelihoodLineageLoss(hostTree, hostChild, child1BranchRate, true) * likelihoodLineageLoss(hostTree, hostChild, child2BranchRate, true);
-                            sum = 0.0;
-                            for (Event e : reconstructedEvents[child1.getNumber()])
-                                sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child1), child1BranchRate) * e.partialLikelihood;
-                            case1A *= sum;
-                            final double normalEvent1 = sum;
-                            sum = 0.0;
-                            for (Event e : reconstructedEvents[child2.getNumber()])
-                                sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2), child2BranchRate) * e.partialLikelihood;
-                            case1A *= sum;
-                            double normalEvent2 = sum;
-                            
                             // Case 1B: Duplication can be 
-                            double case1B = 1.0;
-                           	final NodeRef[] noLineages = new NodeRef[0];
-                        	final double child1Height = symbiontTree.getNodeHeight(child1);
-                            final double child2Height = symbiontTree.getNodeHeight(child2);
      
-                            final List<NodeRef> potentialHosts1 = CophylogenyModel.Utils.getContemporaneousLineages(hostTree, child1Height);
-                            final List<NodeRef> potentialHosts2 = CophylogenyModel.Utils.getContemporaneousLineages(hostTree, child2Height);
-                            potentialHosts1.remove(selfHost);
-                            potentialHosts2.remove(selfHost);
-                            
-                            sum = 0.0;
-                            for (Event e : getReconstructedEvents(child1)) {
-                            	double temp = 0.0;
-                            	final double eventRate = getEventRate(e.event);
-                            	for (NodeRef n : potentialHosts1) {
-                            		temp += likelihoodHostSwitchEventAndLossInTime(selfHeight, child1Height, child1Height, selfHostHeight, eventRate, child1BranchRate, hostTree, n, Utils.lostLineagesToTime(hostTree, n, selfHeight), noLineages);
-                            	}
-                            	sum += temp * e.partialLikelihood;
-                            }
-                            case1B += sum * normalEvent2;
-                            
-                            sum = 0.0;
-                            for (Event e : getReconstructedEvents(child2)) {
-                            	double temp = 0.0;
-                            	final double eventRate = getEventRate(e.event);
-                            	for (NodeRef n : potentialHosts2) {
-                            		temp += likelihoodHostSwitchEventAndLossInTime(selfHeight, child2Height, child2Height, selfHostHeight, eventRate, child2BranchRate, hostTree, n, Utils.lostLineagesToTime(hostTree, n, selfHeight), noLineages);
-                            	}
-                            	sum += temp * e.partialLikelihood;
-                            }
-                            case1B += sum * normalEvent1;
-                            
-                            // Case 2: cospeciation, then host-switch and loss
-                                                        
-                            // All possible lineages along which losses may have occurred
-                            final NodeRef[] child1OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
-                            final NodeRef[] child2OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
-                            final NodeRef[] child1NewHostLineages = child1Relationship.lostLineages;
-                            final NodeRef[] child2NewHostLineages = child2Relationship.lostLineages;
-                            
-                            // Sum over two subcases: child1 lineage made host-switch/loss or child2 made host-switch/loss
-                            double case2 = 0.0;
-                            double sum2;
-                            
-                            sum = 0.0;
-                            for (Event e : reconstructedEvents[child1.getNumber()])
-                                sum += likelihoodHostSwitchEventAndLossInTime(selfHeight, child1Height, child1Height, hostChildHeight, getEventRate(e.event), child1BranchRate, hostTree, hostChild, child1OriginalHostLineages, child1NewHostLineages) * e.partialLikelihood;
-        
-                            sum2 = 0.0;
-                            for (Event e : reconstructedEvents[child2.getNumber()])
-                                sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2), child2BranchRate) * e.partialLikelihood;
+                            if (!MachineAccuracy.same(selfHeight, selfHostHeight)) {
+                                // Case 1A: duplication, cospeciation, then losses
+                                double case1A;
+                                double case1B;
 
-                            case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
-                            
-                            sum = 0.0;
-                            for (Event e : reconstructedEvents[child2.getNumber()])
-                                sum += likelihoodHostSwitchEventAndLossInTime(selfHeight, child2Height, child2Height, hostChildHeight, getEventRate(e.event), child2BranchRate, hostTree, hostChild, child2OriginalHostLineages, child2NewHostLineages) * e.partialLikelihood;
- 
-                            sum2 = 0.0;
-                            for (Event e : reconstructedEvents[child1.getNumber()])
-                                sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child1), child1BranchRate) * e.partialLikelihood;
+								case1A = 1.0;
+								final double potentialLossLength = (selfHeight - selfHostHeight)
+										+ hostChildBranchLength;
+								case1A *= likelihoodLossInTime(
+										potentialLossLength, child1BranchRate)
+										* likelihoodLossInTime(
+												potentialLossLength,
+												child2BranchRate)
+										* likelihoodLineageLoss(hostTree,
+												hostChild, child1BranchRate,
+												true)
+										* likelihoodLineageLoss(hostTree,
+												hostChild, child2BranchRate,
+												true);
+								sum = 0.0;
+								for (Event e : reconstructedEvents[child1
+										.getNumber()])
+									sum += likelihoodEvent(e.event,
+											symbiontTree
+													.getBranchLength(child1),
+											child1BranchRate)
+											* e.partialLikelihood;
+								case1A *= sum;
+								final double normalEvent1 = sum;
+								sum = 0.0;
+								for (Event e : reconstructedEvents[child2
+										.getNumber()])
+									sum += likelihoodEvent(e.event,
+											symbiontTree
+													.getBranchLength(child2),
+											child2BranchRate)
+											* e.partialLikelihood;
+								case1A *= sum;
+								double normalEvent2 = sum;
+								case1B = 1.0;
+								final NodeRef[] noLineages = new NodeRef[0];
+								final List<NodeRef> potentialHosts1 = CophylogenyModel.Utils
+										.getContemporaneousLineages(hostTree,
+												child1Height);
+								final List<NodeRef> potentialHosts2 = CophylogenyModel.Utils
+										.getContemporaneousLineages(hostTree,
+												child2Height);
+								potentialHosts1.remove(selfHost);
+								potentialHosts2.remove(selfHost);
+								sum = 0.0;
+								for (Event e : getReconstructedEvents(child1)) {
+									double temp = 0.0;
+									final double eventRate = getEventRate(e.event);
+									for (NodeRef n : potentialHosts1) {
+										temp += likelihoodHostSwitchEventAndLossInTime(
+												selfHeight,
+												child1Height,
+												child1Height,
+												selfHostHeight,
+												eventRate,
+												child1BranchRate,
+												hostTree,
+												n,
+												Utils.lostLineagesToTime(
+														hostTree, n, selfHeight),
+												noLineages);
+									}
+									sum += temp * e.partialLikelihood;
+								}
+								case1B += sum * normalEvent2;
+								sum = 0.0;
+								for (Event e : getReconstructedEvents(child2)) {
+									double temp = 0.0;
+									final double eventRate = getEventRate(e.event);
+									for (NodeRef n : potentialHosts2) {
+										temp += likelihoodHostSwitchEventAndLossInTime(
+												selfHeight,
+												child2Height,
+												child2Height,
+												selfHostHeight,
+												eventRate,
+												child2BranchRate,
+												hostTree,
+												n,
+												Utils.lostLineagesToTime(
+														hostTree, n, selfHeight),
+												noLineages);
+									}
+									sum += temp * e.partialLikelihood;
+								}
+								case1B += sum * normalEvent1;
+								setReconstructedEvents(self, new Event(EventType.DUPLICATION, case1A), new Event(EventType.HOST_SWITCH, case1B));
+							} else {
+							
+   								// Case 2: cospeciation, then host-switch and loss
 
-                            case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child2BranchRate);
+								// All possible lineages along which losses may have occurred
+								final NodeRef[] child1OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
+								final NodeRef[] child2OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
+								final NodeRef[] child1NewHostLineages = child1Relationship.lostLineages;
+								final NodeRef[] child2NewHostLineages = child2Relationship.lostLineages;
+
+								// Sum over two subcases: child1 lineage made host-switch/loss or child2 made host-switch/loss
+								double case2 = 0.0;
+								double sum2;
+
+								sum = 0.0;
+								for (Event e : reconstructedEvents[child1.getNumber()])
+									sum += likelihoodHostSwitchEventAndLossInTime(selfHeight, child1Height, child1Height, hostChildHeight, getEventRate(e.event), child1BranchRate, hostTree, hostChild, child1OriginalHostLineages, child1NewHostLineages) * e.partialLikelihood;
+
+								sum2 = 0.0;
+								for (Event e : reconstructedEvents[child2.getNumber()])
+									sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2), child2BranchRate) * e.partialLikelihood;
+
+								case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
+
+								sum = 0.0;
+								for (Event e : reconstructedEvents[child2.getNumber()])
+									sum += likelihoodHostSwitchEventAndLossInTime(selfHeight, child2Height, child2Height, hostChildHeight, getEventRate(e.event), child2BranchRate, hostTree, hostChild, child2OriginalHostLineages, child2NewHostLineages) * e.partialLikelihood;
+
+								sum2 = 0.0;
+								for (Event e : reconstructedEvents[child1.getNumber()])
+									sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child1), child1BranchRate) * e.partialLikelihood;
+
+								case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child2BranchRate);
+								
+								setReconstructedEvents(self, new Event(EventType.NO_EVENT, case2));
+							}
                             
-                            setReconstructedEvents(self, new Event(EventType.DUPLICATION, case1A), new Event(EventType.HOST_SWITCH, case1B), new Event(EventType.NO_EVENT, case2));
                             calculatedChild1 = true;
                             calculatedChild2 = true;
                             
                         } else {
                             
                             if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
-                                setReconstructedEvents(self, NO_EVENT, DUPLICATION);
+                            	System.err.println("Yay!");
+                                setReconstructedEvents(self, NO_EVENT);
                             } else {
-                                setReconstructedEvents(self, new Event[]{DUPLICATION});
-                                final double likelihoodNoEvent = likelihoodNoEventsInTime(selfHeight - selfHostHeight, branchRates.getBranchRate(symbiontTree, self));
-                                double case2 = likelihoodNoEvent * likelihoodNoEvent;
-                                case2 *= likelihoodLineageLoss(hostTree, child1Host, child2BranchRate, false);
-                                case2 *= likelihoodLineageLoss(hostTree, child2Host, child1BranchRate, false);
-                                setReconstructedEvents(self, new Event(EventType.DUPLICATION, case2));
+                            	return Double.NEGATIVE_INFINITY;
+//                            	final double likelihoodLosses = likelihoodLineageLoss(hostTree, child1Host, child1BranchRate, false) * likelihoodLineageLoss(hostTree, child2Host, child2BranchRate, false);
+//                                double case1 = 1.0;
+//                                
+//                                final double hostHeight = hostTree.getNodeHeight(selfHost);
+//                                final double t = selfHeight - hostHeight;
+//                                case1 *= likelihoodNoEventsInTime(t, child1BranchRate) * likelihoodNoEventsInTime(t, child2BranchRate);
+//                                case1 *= likelihoodLosses;
+//                                
+//                                double case2 = 0.0;
+//                                
+//                                // TODO 
+//                                
+////                                sum = 0.0;
+////                                
+////                                sum *= 
+//                                                                
+////                                sum = 0.0;
+////                                for (Event e : reconstructedEvents[child1.getNumber()])
+////                                    sum += likelihoodHostSwitchEventAndLossInTime(selfHeight, child1Height, child1Height, hostChildHeight, getEventRate(e.event), child1BranchRate, hostTree, hostChild, child1OriginalHostLineages, child1NewHostLineages) * e.partialLikelihood;
+////            
+////                                double sum2 = 0.0;
+////                                for (Event e : reconstructedEvents[child2.getNumber()])
+////                                    sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2), child2BranchRate) * e.partialLikelihood;
+////
+////                                case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child1BranchRate);
+////                                
+////                                sum = 0.0;
+////                                for (Event e : reconstructedEvents[child2.getNumber()])
+////                                    sum += likelihoodHostSwitchEventAndLossInTime(selfHeight, child2Height, child2Height, hostChildHeight, getEventRate(e.event), child2BranchRate, hostTree, hostChild, child2OriginalHostLineages, child2NewHostLineages) * e.partialLikelihood;
+////     
+////                                sum2 = 0.0;
+////                                for (Event e : reconstructedEvents[child1.getNumber()])
+////                                    sum2 += likelihoodEvent(e.event, symbiontTree.getBranchLength(child1), child1BranchRate) * e.partialLikelihood;
+////
+////                                case2 += sum * sum2 * likelihoodLossesAlongLineages(hostTree, child1NewHostLineages, child2BranchRate);
+//                                
+//                                case2 *= likelihoodLosses;
+//                                
+//                                setReconstructedEvents(self, new Event(EventType.DUPLICATION, case1), new Event(EventType.HOST_SWITCH, case2));
+//                                calculatedChild1 = true;
+//                                calculatedChild2 = true;
                             }                          
                             
                             // Potential losses along both child lineages

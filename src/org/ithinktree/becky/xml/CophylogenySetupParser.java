@@ -62,7 +62,6 @@ public class CophylogenySetupParser extends AbstractXMLObjectParser {
 		} while (!symbiontTree.isRoot(n));
 		cl.setStatesForNode(symbiontTree.getRoot(), hostTree.getRoot());
 		symbiontTree.setNodeHeight(symbiontTree.getRoot(), 2.0);
-		System.err.println(Tree.Utils.newick(symbiontTree, new TreeTraitProvider[]{cl}));
 		return null;
 	}
 

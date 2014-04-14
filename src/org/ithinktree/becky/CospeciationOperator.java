@@ -34,10 +34,11 @@ public class CospeciationOperator extends SimpleMCMCOperator {
     @Override
     public double doOperation() throws OperatorFailedException {
         
-        final NodeRef node = symbiontTree.getNode(MathUtils.nextInt(internalNodeCount));
+        final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(internalNodeCount));
         final NodeRef host = cophylogenyLikelihood.getStatesForNode(node);
         if (host == null) throw new OperatorFailedException("No change in state");
         final double hostHeight = hostTree.getNodeHeight(host);
+        if (!symbiontTree.isExternal(node) && hostHeight > Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(node, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(node, 1)))) throw new OperatorFailedException("No change in state");
         final double nodeHeight = symbiontTree.getNodeHeight(node);
         final double maxHeight = Math.min(symbiontTree.isRoot(node) ? cophylogenyLikelihood.getOriginHeight() : symbiontTree.getNodeHeight(symbiontTree.getParent(node)), hostTree.isRoot(host) ? Double.POSITIVE_INFINITY : hostTree.getNodeHeight(hostTree.getParent(host)));
         final double range = maxHeight - hostHeight;
@@ -48,6 +49,7 @@ public class CospeciationOperator extends SimpleMCMCOperator {
         	symbiontTree.setNodeHeight(node, hostTree.getNodeHeight(host));
         	return 1 / range;
         }
+//        return 1.0;
     }
     
     @Override
