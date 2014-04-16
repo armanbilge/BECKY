@@ -1,5 +1,7 @@
 package org.ithinktree.becky;
 
+import org.ithinktree.becky.xml.TipHostSwitchOperatorParser;
+
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
@@ -15,6 +17,10 @@ public class TipHostSwitchOperator extends HostSwitchOperator {
 				weight);
 	}
 
+	public String getOperatorName() {
+		return TipHostSwitchOperatorParser.TIP_HOST_SWITCH_OPERATOR + "(" + symbiontTree.getId() + ")";
+	}
+	
 	public double doOperation() throws OperatorFailedException {
 		
 		final NodeRef node = symbiontTree.getExternalNode(MathUtils.nextInt(symbiontTree.getExternalNodeCount()));

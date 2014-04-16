@@ -8,6 +8,7 @@ package org.ithinktree.becky.xml;
 
 import org.ithinktree.becky.CophylogenyLikelihood;
 import org.ithinktree.becky.HostSwitchOperator;
+import org.ithinktree.becky.TipHostSwitchOperator;
 
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.Tree;
@@ -51,7 +52,7 @@ public class TipHostSwitchOperatorParser extends AbstractXMLObjectParser {
 		
 		final CophylogenyLikelihood cophylogenyLikelihood = (CophylogenyLikelihood) xo.getChild(CophylogenyLikelihood.class);
 		
-		return new HostSwitchOperator(hostTree, symbiontTree, cophylogenyLikelihood, usingNoHost, weight);
+		return new TipHostSwitchOperator(hostTree, symbiontTree, cophylogenyLikelihood, usingNoHost, weight);
 	}
 
 	@Override
