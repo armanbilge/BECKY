@@ -18,7 +18,6 @@ import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
 import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
-import dr.evolution.tree.TreeTraitProvider;
 import dr.evolution.util.Units;
 import dr.inference.model.Parameter;
 

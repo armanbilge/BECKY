@@ -7,7 +7,6 @@ import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 import dr.inference.operators.OperatorFailedException;
 import dr.inference.operators.SimpleMCMCOperator;
-import dr.math.MachineAccuracy;
 import dr.math.MathUtils;
 
 
@@ -36,20 +35,25 @@ public class CospeciationOperator extends SimpleMCMCOperator {
         
         final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(internalNodeCount));
         final NodeRef host = cophylogenyLikelihood.getStatesForNode(node);
-        if (host == null) throw new OperatorFailedException("No change in state");
+        if (host == null || hostTree.isExternal(host)) throw new OperatorFailedException("No change in state");
         final double hostHeight = hostTree.getNodeHeight(host);
         if (!symbiontTree.isExternal(node) && hostHeight < Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(node, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(node, 1)))) throw new OperatorFailedException("No change in state");
-        final double nodeHeight = symbiontTree.getNodeHeight(node);
+//        final double nodeHeight = symbiontTree.getNodeHeight(node);
         final double maxHeight = Math.min(symbiontTree.isRoot(node) ? cophylogenyLikelihood.getOriginHeight() : symbiontTree.getNodeHeight(symbiontTree.getParent(node)), hostTree.isRoot(host) ? Double.POSITIVE_INFINITY : hostTree.getNodeHeight(hostTree.getParent(host)));
         final double range = maxHeight - hostHeight;
-        if (MachineAccuracy.same(nodeHeight, hostHeight)) {
-        	symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * range + hostHeight);
-        	return range;
-        } else {
+//        if (MachineAccuracy.same(nodeHeight, hostHeight)) {
+//        	symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * range + hostHeight);return Double.MAX_VALUE;
+////        	return range / Double.MIN_NORMAL;
+//        } else {
+//        	symbiontTree.setNodeHeight(node, hostTree.getNodeHeight(host));
+//        	return Double.MIN_NORMAL;// / range;
+//        }
+        if (MathUtils.nextInt(2) == 0) {
         	symbiontTree.setNodeHeight(node, hostTree.getNodeHeight(host));
-        	return 1 / range;
+        } else {
+        	symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * range + hostHeight);
         }
-//        return 1.0;
+        return 1.0;
     }
     
     @Override

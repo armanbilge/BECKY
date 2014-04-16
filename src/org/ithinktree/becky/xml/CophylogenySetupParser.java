@@ -12,7 +12,6 @@ import org.ithinktree.becky.tools.CoevolutionSimulator;
 import dr.evolution.tree.MutableTree;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
-import dr.evolution.tree.TreeTraitProvider;
 import dr.math.MathUtils;
 import dr.xml.AbstractXMLObjectParser;
 import dr.xml.ElementRule;
