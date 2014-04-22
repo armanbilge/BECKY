@@ -128,7 +128,6 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	}
 
 	protected double calculateLogLikelihood() {
-		
 		double logL = 0.0;
 		cophylogenyModel.updateVariables();
 		NodeRef self, child1, child2;
@@ -150,7 +149,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 		} while (!symbiontTree.isRoot(self) && logL != Double.NEGATIVE_INFINITY);
 		
 		if (logL != Double.NEGATIVE_INFINITY) logL += cophylogenyModel.calculateOriginLogLikelihood(symbiontTree, originHeight.getValue(0), self, hostTree, hostTree.getRoot(), getStatesForNode(self), branchRates);
-		
+				
 		return logL;
 	}
 
@@ -166,8 +165,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	protected void handleVariableChangedEvent(Variable variable, int index,
-			ChangeType type) {
+	protected void handleVariableChangedEvent(Variable variable, int index, ChangeType type) {
 		makeDirty();
 	}
 
@@ -224,7 +222,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	
 	public void setStatesForNode(NodeRef node, NodeRef state) {
 		
-		likelihoodKnown = false;
+		makeDirty();
 		reconstructedStates[node.getNumber()] = state == null ? NO_HOST : state.getNumber();
 		fireModelChanged();
 
@@ -275,6 +273,7 @@ public class CophylogenyLikelihood extends AbstractModelLikelihood implements Tr
 	
 	public void setOriginHeight(double d) {
 		originHeight.setParameterValue(0, d);
+		makeDirty();
 	}
 	
 }
