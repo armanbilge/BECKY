@@ -25,7 +25,7 @@ public class TipHostSwitchOperator extends HostSwitchOperator {
 		
 		final NodeRef node = symbiontTree.getExternalNode(MathUtils.nextInt(symbiontTree.getExternalNodeCount()));
 		cophylogenyLikelihood.setStatesForNode(node, hostTree.getExternalNode(MathUtils.nextInt(hostTree.getExternalNodeCount())));
-		return 1.0;
+		return 0.0;
 		
 	}
 	
