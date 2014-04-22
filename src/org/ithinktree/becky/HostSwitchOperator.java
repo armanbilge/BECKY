@@ -74,7 +74,7 @@ public class HostSwitchOperator extends SimpleMCMCOperator {
 		}
 		cophylogenyLikelihood.setStatesForNode(node, proposedHost);
 		
-		return hastingsRatio;
+		return Math.log(hastingsRatio);
 	}
 
 }

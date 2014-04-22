@@ -15,13 +15,11 @@ public class CospeciationOperator extends SimpleMCMCOperator {
     private final Tree hostTree;
     private final MutableTree symbiontTree;
     private final CophylogenyLikelihood cophylogenyLikelihood;
-    private final int internalNodeCount;
     
     public CospeciationOperator(final Tree hostTree, final MutableTree symbiontTree, final CophylogenyLikelihood cophylogenyLikelihood, final double weight) {
         this.hostTree = hostTree;
         this.symbiontTree = symbiontTree;
         this.cophylogenyLikelihood = cophylogenyLikelihood;
-        internalNodeCount = symbiontTree.getInternalNodeCount();
         setWeight(weight);
     }
     
@@ -33,7 +31,7 @@ public class CospeciationOperator extends SimpleMCMCOperator {
     @Override
     public double doOperation() throws OperatorFailedException {
         
-        final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(internalNodeCount));
+        final NodeRef node = symbiontTree.getInternalNode(MathUtils.nextInt(symbiontTree.getInternalNodeCount()));
         final NodeRef host = cophylogenyLikelihood.getStatesForNode(node);
         if (host == null || hostTree.isExternal(host)) throw new OperatorFailedException("No change in state");
         final double hostHeight = hostTree.getNodeHeight(host);
@@ -49,11 +47,11 @@ public class CospeciationOperator extends SimpleMCMCOperator {
 //        	return Double.MIN_NORMAL;// / range;
 //        }
         if (MathUtils.nextInt(2) == 0) {
-        	symbiontTree.setNodeHeight(node, hostTree.getNodeHeight(host));
+        	symbiontTree.setNodeHeight(node, hostHeight);
         } else {
         	symbiontTree.setNodeHeight(node, MathUtils.nextDouble() * range + hostHeight);
         }
-        return 1.0;
+        return 0.0;
     }
     
     @Override
