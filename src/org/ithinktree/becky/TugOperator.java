@@ -66,7 +66,7 @@ public class TugOperator extends SimpleMCMCOperator {
 	        final double range3 = maxHeight - hostHeight;
 			
 			symbiontTree.setNodeHeight(self, hostHeight);
-//			System.err.println("AFTER: " + Tree.Utils.newick(symbiontTree, new TreeTraitProvider[]{cophylogenyLikelihood}));
+
 			return Math.log(range1 * range2 / range3);
 			
 		} else if (i == 1 && rel1.relationship == Relationship.DESCENDANT && rel2.relationship == Relationship.DESCENDANT) {
@@ -90,7 +90,7 @@ public class TugOperator extends SimpleMCMCOperator {
 	        minHeight = Math.max(Math.max(symbiontTree.getNodeHeight(symbiontTree.getChild(child2, 0)), symbiontTree.getNodeHeight(symbiontTree.getChild(child2, 1))), hostTree.isExternal(hostChild2) ? 0 : hostTree.getNodeHeight(hostChild2));
 	        final double range2 = hostHeight - minHeight;
 			symbiontTree.setNodeHeight(child2, hostHeight);
-//			System.err.println("AFTER: " + Tree.Utils.newick(symbiontTree, new TreeTraitProvider[]{cophylogenyLikelihood}));
+
 			return Math.log(range3 / (range1 * range2));
 		} else {
 			throw new OperatorFailedException("No change in state");
