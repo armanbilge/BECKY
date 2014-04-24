@@ -244,7 +244,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                 subHeight = nextSubHeight;
                 if (j >= 0 && tree.getNodeHeight(tree.getParent(newHostLineages[j])) <= start) nextSubHeight = Math.min(start - tree.getNodeHeight(tree.getParent(newHostLineages[j])), nextHeight);
                 else nextSubHeight = nextHeight;
-                int potentialHostCount = (Utils.getContemporaneousLineageCount(tree, nextSubHeight, true) - 1);
+                int potentialHostCount = (Utils.getContemporaneousLineageCount(tree, nextSubHeight) - 1);
                 if (potentialHostCount <= 0) likelihood += 0.0;
                 else {
                 likelihood += likelihoodHostSwitchEventAndLossInTime(subHeight, nextSubHeight, e, l, eventRate, rate, tree, lostLineage) *
@@ -266,7 +266,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
         
     }
     
-//    public double calculateNodeLogLikelihood(final MutableTree symbiontTree, final NodeRef self,
+//    public double calculateNodeLogLikelihoodAssumingNoExtinctions(final MutableTree symbiontTree, final NodeRef self,
 //            final NodeRef child1, final NodeRef child2, final Tree hostTree, final NodeRef selfHost,
 //            final NodeRef child1Host, final NodeRef child2Host, final BranchRates branchRates) {
 //
@@ -285,7 +285,8 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 //        if (child1Relationship.relationship == Relationship.SELF && child2Relationship.relationship == Relationship.SELF) {
 //        	setReconstructedEvents(self, DUPLICATION);
 //        } else if ((child1Relationship.relationship == Relationship.SELF && (child2Relationship.relationship == Relationship.SISTER || child2Relationship.relationship == Relationship.COUSIN)) || (child2Relationship.relationship == Relationship.SELF && (child1Relationship.relationship == Relationship.SISTER || child1Relationship.relationship == Relationship.COUSIN))) {
-//        	setReconstructedEvents(self, new Event(EventType.HOST_SWITCH, 1.0 / (CophylogenyModel.Utils.getContemporaneousLineageCount(hostTree, selfHeight) - 1)));
+//        	setReconstructedEvents(self, HOST_SWITCH);
+//        	likelihood /= CophylogenyModel.Utils.getContemporaneousLineageCount(hostTree, selfHeight) - 1;
 //        } else if (child1Relationship.relationship == Relationship.DESCENDANT && child2Relationship.relationship == Relationship.DESCENDANT && Utils.determineRelationship(hostTree, child1Host, child2Host).relationship == Relationship.SISTER && MachineAccuracy.same(selfHeight, selfHostHeight)) {
 //        	setReconstructedEvents(self, NO_EVENT);
 //        } else {
@@ -509,7 +510,10 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             
                             // Potential losses along both child lineages
                             likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
-                            likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate);                           
+                            likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate);
+                            if (lossRate == 0.0 && child1Relationship.lostLineages.length > 0) assert(likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate) == 0.0);
+                            if (lossRate == 0.0 && child2Relationship.lostLineages.length > 0) assert(likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate) == 0.0);
+                            
                         }
                         
                     } else if ((child1Relationship.relationship == Relationship.SELF /*|| child1Relationship.relationship == Relationship.DESCENDANT*/)
@@ -536,7 +540,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         duplicationLikelihood *= normalEvent2;
                     	                        
                         // Case 2: host-switch, host-switch back, extinction
-                        double hostSwitchLikelihood = 1.0;
+                        double hostSwitchLikelihood = 0.0;
                     	final double child1Height = symbiontTree.getNodeHeight(child1);
                         final double child2Height = symbiontTree.getNodeHeight(child2);
  
@@ -569,6 +573,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         }
                         hostSwitchLikelihood += sum * normalEvent1;
                         
+                        if (lossRate == 0.0) assert(hostSwitchLikelihood == 0.0);
                     	setReconstructedEvents(self, new Event(EventType.DUPLICATION, duplicationLikelihood), new Event(EventType.HOST_SWITCH, hostSwitchLikelihood));
                         
                         calculatedChild1 = true;
@@ -580,13 +585,15 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         setReconstructedEvents(self, HOST_SWITCH);
                         likelihood /= (Utils.getContemporaneousLineageCount(hostTree, selfHeight) - 1);
                         likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child2Host, selfHeight), branchRates.getBranchRate(symbiontTree, child2));
+                        if (lossRate == 0.0 && Utils.lostLineagesToTime(hostTree, child2Host, selfHeight).length > 0) assert(likelihood == 0.0);
                     
                     } else if (child2Relationship.relationship == Relationship.SELF && (child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER)) {
                         
                         // Child1 host-switch event
-                        setReconstructedEvents(self, new Event[]{HOST_SWITCH});
+                        setReconstructedEvents(self, HOST_SWITCH);
                         likelihood /= (Utils.getContemporaneousLineageCount(hostTree, selfHeight) - 1);
                         likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child1Host, selfHeight), branchRates.getBranchRate(symbiontTree, child1));
+                        if (lossRate == 0.0 && Utils.lostLineagesToTime(hostTree, child1Host, selfHeight).length > 0) assert(likelihood == 0.0);
                         
                     } else if ((child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER)
                             && (child2Relationship.relationship == Relationship.COUSIN || child2Relationship.relationship == Relationship.SISTER)) {
@@ -636,6 +643,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         likelihood /= (Utils.getContemporaneousLineageCount(hostTree, selfHeight) - 1);
                         likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child2Host, selfHeight), branchRates.getBranchRate(symbiontTree, child2));
                         likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, branchRates.getBranchRate(symbiontTree, child1));
+                        if (lossRate == 0.0) assert(likelihood == 0.0);
 
                     } else if ((child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER)
                             && child2Relationship.relationship == Relationship.DESCENDANT) {
@@ -645,6 +653,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         likelihood /= (Utils.getContemporaneousLineageCount(hostTree, selfHeight) - 1);
                         likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child1Host, selfHeight), branchRates.getBranchRate(symbiontTree, child1));
                         likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, branchRates.getBranchRate(symbiontTree, child2));
+                        if (lossRate == 0.0) assert(likelihood == 0.0);
 
                     } else { // Everything else is impossible
                         return Double.NEGATIVE_INFINITY;
@@ -663,7 +672,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             sum += likelihoodEvent(e.event, symbiontTree.getBranchLength(child2), child2BranchRate) * e.partialLikelihood;
                         likelihood *= sum;
                     }
-
+                    
                     return Math.log(likelihood);
     }
 
