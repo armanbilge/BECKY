@@ -244,10 +244,14 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                 subHeight = nextSubHeight;
                 if (j >= 0 && tree.getNodeHeight(tree.getParent(newHostLineages[j])) <= start) nextSubHeight = Math.min(start - tree.getNodeHeight(tree.getParent(newHostLineages[j])), nextHeight);
                 else nextSubHeight = nextHeight;
+                int potentialHostCount = (Utils.getContemporaneousLineageCount(tree, nextSubHeight, true) - 1);
+                if (potentialHostCount <= 0) likelihood += 0.0;
+                else {
                 likelihood += likelihoodHostSwitchEventAndLossInTime(subHeight, nextSubHeight, e, l, eventRate, rate, tree, lostLineage) *
                         likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(originalLineages, i+1, originalLineages.length), rate) *
                         likelihoodLossesAlongLineages(tree, Arrays.copyOfRange(newHostLineages, 0, j+1), rate) /
-                        (Utils.getContemporaneousLineageCount(tree, nextSubHeight) - 1);
+                        potentialHostCount;
+                }
             }
         }
         

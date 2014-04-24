@@ -204,17 +204,36 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			return true;
 		}
 		
-		public static final int getContemporaneousLineageCount(final Tree tree, final double height) {
-			return getContemporaneousLineageCount(tree, tree.getRoot(), height);
+		public static final int getContemporaneousLineageCount(final Tree tree, final double height, final boolean approachFromPresent) {
+			if (approachFromPresent) {
+				return getContemporaneousLineageCountApproachingFromPresent(tree, tree.getRoot(), height);
+			} else {
+				return getContemporaneousLineageCountApproachingFromPast(tree, tree.getRoot(), height);
+			}
 		}
-	
-		private static final int getContemporaneousLineageCount(final Tree tree, final NodeRef node, final double height) {
+
+		public static final int getContemporaneousLineageCount(final Tree tree, final double height) {
+			return getContemporaneousLineageCount(tree, height, false);
+		}
+		
+		private static final int getContemporaneousLineageCountApproachingFromPast(final Tree tree, final NodeRef node, final double height) {
 			if (height >= tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) > height))) {
 				return 1;
 			} else {
 				int count = 0;
 				for (int i = 0; i < tree.getChildCount(node); ++i)
-					count += getContemporaneousLineageCount(tree, tree.getChild(node, i), height);
+					count += getContemporaneousLineageCountApproachingFromPast(tree, tree.getChild(node, i), height);
+				return count;
+			}
+		}
+
+		private static final int getContemporaneousLineageCountApproachingFromPresent(final Tree tree, final NodeRef node, final double height) {
+			if (height > tree.getNodeHeight(node) && (tree.isRoot(node) || (tree.getNodeHeight(tree.getParent(node)) >= height))) {
+				return 1;
+			} else {
+				int count = 0;
+				for (int i = 0; i < tree.getChildCount(node); ++i)
+					count += getContemporaneousLineageCountApproachingFromPast(tree, tree.getChild(node, i), height);
 				return count;
 			}
 		}
