@@ -159,6 +159,24 @@ public class CoevolutionSimulator {
 		return new SimpleTree(root);
 	}
 	
+	public Tree simulateCoevolution(final Tree hostTree, final NodeRef origin, final double originHeight, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final double stdev) {
+
+		symbiontCounts = new int[hostTree.getTaxonCount()];
+		extinctSymbiontCount = 0;
+		associations.clear();
+		SimpleNode root = simulateCoevolution(hostTree,
+				origin,
+				originHeight,
+				rate,
+				model.getDuplicationRate(),
+				model.getHostSwitchRate(),
+				model.getLossRate(),
+				isRelaxed,
+				stdev,
+				false);
+		return root == null ? null : new SimpleTree(root);
+	}
+	
 	private SimpleNode simulateCoevolution(final Tree hostTree, final NodeRef hostNode, final double height, final double rate, final double duplicationRate, final double hostSwitchRate, final double lossRate, final boolean isRelaxed, final double stdev) {
 	
 		return simulateCoevolution(hostTree, hostNode, height, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, false);
