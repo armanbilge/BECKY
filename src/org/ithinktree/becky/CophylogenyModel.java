@@ -131,6 +131,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				List<NodeRef> lostLineages = new ArrayList<NodeRef>();
 				
 				NodeRef temp = tree.getParent(relation);
+				lostLineages.add(relation);
 				for (int g = 1; temp != null; ++g, temp = tree.getParent(temp)) {
 					if (selfN == temp.getNumber()) {
 						return new NodalRelationship(Utils.Relationship.DESCENDANT, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));
@@ -141,6 +142,7 @@ public abstract class CophylogenyModel extends SpeciationModel {
 				lostLineages.clear();
 				
 				temp = tree.getParent(self);
+				lostLineages.add(self);
 				for (int g = 1; temp != null; ++g, temp = tree.getParent(temp)) {
 					if (relationN == temp.getNumber()) {
 						return new NodalRelationship(Utils.Relationship.ANCESTOR, g, lostLineages.toArray(EMPTY_NODE_REF_ARRAY));

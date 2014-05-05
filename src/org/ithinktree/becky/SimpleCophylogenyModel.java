@@ -392,8 +392,8 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
 								// All possible lineages along which losses may have occurred
 								final NodeRef[] child1OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
 								final NodeRef[] child2OriginalHostLineages = Utils.lostLineagesToTime(hostTree, hostChild, selfHeight);
-								final NodeRef[] child1NewHostLineages = child1Relationship.lostLineages;
-								final NodeRef[] child2NewHostLineages = child2Relationship.lostLineages;
+								final NodeRef[] child1NewHostLineages = Arrays.copyOfRange(child1Relationship.lostLineages, 1, child1Relationship.lostLineages.length);
+								final NodeRef[] child2NewHostLineages = Arrays.copyOfRange(child2Relationship.lostLineages, 1, child2Relationship.lostLineages.length);
 
 								// Sum over two subcases: child1 lineage made host-switch/loss or child2 made host-switch/loss
 								double case2 = 0.0;
@@ -432,20 +432,17 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                             
                             if (MachineAccuracy.same(selfHeight, selfHostHeight)) { // Plain old cospeciation
                                 setReconstructedEvents(self, NO_EVENT);
+                                likelihood *= likelihoodLossesAlongLineages(hostTree, Arrays.copyOfRange(child1Relationship.lostLineages, 1, child1Relationship.lostLineages.length), child1BranchRate);
+                                likelihood *= likelihoodLossesAlongLineages(hostTree, Arrays.copyOfRange(child2Relationship.lostLineages, 1, child2Relationship.lostLineages.length), child2BranchRate);
+
                             } else {
                             	setReconstructedEvents(self, new Event[]{DUPLICATION});
                             	final double likelihoodNoEvent = likelihoodNoEventsInTime(selfHeight - selfHostHeight, branchRates.getBranchRate(symbiontTree, self));
                             	likelihood *= likelihoodNoEvent * likelihoodNoEvent;
-                            	likelihood *= likelihoodLineageLoss(hostTree, child1Host, child2BranchRate, false);
-                            	likelihood *= likelihoodLineageLoss(hostTree, child2Host, child1BranchRate, false);
-                            }                          
-                            
-                            // Potential losses along both child lineages
-                            likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
-                            likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate);
-                            if (lossRate == 0.0 && child1Relationship.lostLineages.length > 0) assert(likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate) == 0.0);
-                            if (lossRate == 0.0 && child2Relationship.lostLineages.length > 0) assert(likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate) == 0.0);
-                            
+                                likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, child1BranchRate);
+                                likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, child2BranchRate);
+                             }                          
+                                                        
                         }
                         
                     } else if ((child1Relationship.relationship == Relationship.SELF || child1Relationship.relationship == Relationship.DESCENDANT )
@@ -507,9 +504,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         case2 *= sum;
                         
                         likelihood *= case1 + case2;
-                        
-                        if (lossRate == 0.0) assert(likelihood == 0.0);
-                        
+                                                
                         calculatedChild1 = true;
                         calculatedChild2 = true;
                         
@@ -521,7 +516,6 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         likelihood /= (Utils.getContemporaneousLineageCount(hostTree, selfHeight) - 1);
                         likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child2Host, selfHeight), branchRates.getBranchRate(symbiontTree, child2));
                         likelihood *= likelihoodLossesAlongLineages(hostTree, child1Relationship.lostLineages, branchRates.getBranchRate(symbiontTree, child1));
-                        if (lossRate == 0.0) assert(likelihood == 0.0);
 
                     } else if ((child1Relationship.relationship == Relationship.COUSIN || child1Relationship.relationship == Relationship.SISTER)
                             && child2Relationship.relationship == Relationship.DESCENDANT) {
@@ -531,7 +525,6 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
                         likelihood /= (Utils.getContemporaneousLineageCount(hostTree, selfHeight) - 1);
                         likelihood *= likelihoodLossesAlongLineages(hostTree, Utils.lostLineagesToTime(hostTree, child1Host, selfHeight), branchRates.getBranchRate(symbiontTree, child1));
                         likelihood *= likelihoodLossesAlongLineages(hostTree, child2Relationship.lostLineages, branchRates.getBranchRate(symbiontTree, child2));
-                        if (lossRate == 0.0) assert(likelihood == 0.0);
 
                     } else { // Everything else is impossible
                         return Double.NEGATIVE_INFINITY;
