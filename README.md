@@ -5,7 +5,7 @@ A plugin for [BEAST1](//beast-mcmc.googlecode.com/) that enables inference of co
 
 [**DOWNLOAD**](//github.com/coevolution/BECKY/releases)
 
-[![Build Status](//travis-ci.org/armanbilge/BECKY.svg?branch=master)](//travis-ci.org/armanbilge/BECKY)
+[![Build Status](https://travis-ci.org/armanbilge/BECKY.png?branch=master)](//travis-ci.org/armanbilge/BECKY)
 
 ## Installation and Usage
 
