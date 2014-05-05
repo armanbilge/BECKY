@@ -27,11 +27,7 @@ package org.ithinktree.becky;
 
 import org.ithinktree.becky.xml.HostSwitchingWilsonBaldingParser;
 
-import dr.app.treestat.statistics.CherryStatistic;
-import dr.app.treestat.statistics.TreeSummaryStatistic;
 import dr.evolution.tree.NodeRef;
-import dr.evolution.tree.Tree;
-import dr.evolution.tree.TreeTraitProvider;
 import dr.evomodel.operators.AbstractTreeOperator;
 import dr.evomodel.tree.TreeModel;
 import dr.inference.operators.OperatorFailedException;
