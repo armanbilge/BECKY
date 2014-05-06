@@ -32,20 +32,14 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
     final protected Parameter duplicationRateParameter;
     final protected Parameter hostSwitchRateParameter;
     final protected Parameter lossRateParameter;
-    final protected MonteCarloLikelihoodNoDescendants monteCarlo;
     private double duplicationRate;
     private double hostSwitchRate;
     private double lossRate;
-       
-    
-    public SimpleCophylogenyModel(Parameter duplicationRateParameter, Parameter hostSwitchRateParameter, Parameter lossRateParameter, Type units) {
-    	this(duplicationRateParameter, hostSwitchRateParameter, lossRateParameter, 1000, units);
-    }
-    
+        
     /**
      * 
      */
-    public SimpleCophylogenyModel(Parameter duplicationRateParameter, Parameter hostSwitchRateParameter, Parameter lossRateParameter, int monteCarloIterations, Type units) {
+    public SimpleCophylogenyModel(Parameter duplicationRateParameter, Parameter hostSwitchRateParameter, Parameter lossRateParameter, Type units) {
 
         super(SimpleCophylogenyModelParser.SIMPLE_COPHYLOGENY_MODEL, units);
         
@@ -60,9 +54,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
         this.lossRateParameter = lossRateParameter;
         addVariable(lossRateParameter);
         lossRateParameter.addBounds(new Parameter.DefaultBounds(Double.POSITIVE_INFINITY, 0.0, 1));
-        
-        monteCarlo = new MonteCarloLikelihoodNoDescendants(this, monteCarloIterations);
-        
+                
     }
     
     protected void updateVariables() {
@@ -124,7 +116,7 @@ public class SimpleCophylogenyModel extends CophylogenyModel {
         return likelihoodEventInTime(t, lossRate, rate);
     }
         
-    protected final double likelihoodLineageLoss(final Tree tree, final NodeRef lineage, final double rate, boolean excludeRoot) {
+    protected double likelihoodLineageLoss(final Tree tree, final NodeRef lineage, final double rate, boolean excludeRoot) {
         
         double sum = 0.0;
         final ExtinctionLikelihood[] els = permuteExtinctLineageLikelihoods(tree, lineage, rate);
