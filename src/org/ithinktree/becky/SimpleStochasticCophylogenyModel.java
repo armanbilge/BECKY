@@ -5,11 +5,11 @@ import dr.evolution.tree.Tree;
 import dr.inference.model.Parameter;
 
 @SuppressWarnings("serial")
-public class SimpleMonteCarloCophylogenyModel extends SimpleCophylogenyModel {
+public class SimpleStochasticCophylogenyModel extends SimpleCophylogenyModel {
 
 	protected MonteCarloLikelihoodNoDescendants mc;
 	
-	public SimpleMonteCarloCophylogenyModel(Parameter duplicationRateParameter,
+	public SimpleStochasticCophylogenyModel(Parameter duplicationRateParameter,
 			Parameter hostSwitchRateParameter, Parameter lossRateParameter, int monteCarloIterations,
 			Type units) {
 		super(duplicationRateParameter, hostSwitchRateParameter, lossRateParameter,
