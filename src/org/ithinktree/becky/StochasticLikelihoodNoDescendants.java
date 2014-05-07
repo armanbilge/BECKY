@@ -5,13 +5,13 @@ import org.ithinktree.becky.tools.CoevolutionSimulator;
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
 
-public class MonteCarloLikelihoodNoDescendants {
+public class StochasticLikelihoodNoDescendants {
 
 	final CoevolutionSimulator simulator = new CoevolutionSimulator();
 	final SimpleCophylogenyModel cophylogenyModel; // Eventually should be made generic
 	final int iterations;
 	
-	public MonteCarloLikelihoodNoDescendants(final SimpleCophylogenyModel cophylogenyModel, final int iterations) {
+	public StochasticLikelihoodNoDescendants(final SimpleCophylogenyModel cophylogenyModel, final int iterations) {
 		this.cophylogenyModel = cophylogenyModel;
 		this.iterations = iterations;
 	}

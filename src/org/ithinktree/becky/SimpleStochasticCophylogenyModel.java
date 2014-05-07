@@ -7,14 +7,14 @@ import dr.inference.model.Parameter;
 @SuppressWarnings("serial")
 public class SimpleStochasticCophylogenyModel extends SimpleCophylogenyModel {
 
-	protected MonteCarloLikelihoodNoDescendants mc;
+	protected StochasticLikelihoodNoDescendants mc;
 	
 	public SimpleStochasticCophylogenyModel(Parameter duplicationRateParameter,
 			Parameter hostSwitchRateParameter, Parameter lossRateParameter, int monteCarloIterations,
 			Type units) {
 		super(duplicationRateParameter, hostSwitchRateParameter, lossRateParameter,
 				units);
-		mc = new MonteCarloLikelihoodNoDescendants(this, monteCarloIterations);
+		mc = new StochasticLikelihoodNoDescendants(this, monteCarloIterations);
 	}
 
 	 protected double likelihoodLineageLoss(final Tree tree, final NodeRef lineage, final double rate, boolean excludeRoot) {
