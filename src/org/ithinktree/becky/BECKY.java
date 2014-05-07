@@ -19,6 +19,7 @@ import org.ithinktree.becky.xml.HostSwitchingWilsonBaldingParser;
 import org.ithinktree.becky.xml.NodeRefProviderParser;
 import org.ithinktree.becky.xml.PreAnnotatorParser;
 import org.ithinktree.becky.xml.SimpleCophylogenyModelParser;
+import org.ithinktree.becky.xml.SimpleStochasticCophylogenyModelParser;
 import org.ithinktree.becky.xml.TipHostSwitchOperatorParser;
 import org.ithinktree.becky.xml.TugOperatorParser;
 
@@ -35,6 +36,7 @@ public class BECKY implements Plugin {
 		
 		Set<XMLObjectParser> parsers = new HashSet<XMLObjectParser>();
 		parsers.add(new SimpleCophylogenyModelParser());
+		parsers.add(new SimpleStochasticCophylogenyModelParser());
 		parsers.add(new CophylogenyLikelihoodParser());
 		parsers.add(new HostSwitchOperatorParser());
 		parsers.add(new TipHostSwitchOperatorParser());
