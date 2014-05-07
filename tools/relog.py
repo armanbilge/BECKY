@@ -16,6 +16,7 @@ for l in log:
             headers = l.split()
             factor_index = headers.index(sys.argv[2])
             r1,r2,r3 = headers.index(sys.argv[3]), headers.index(sys.argv[4]), headers.index(sys.argv[5])
+            print '\t'.join([state] + sys.argv[3:6])
         else:
             l = l.split()
             factor = float(l[factor_index])
