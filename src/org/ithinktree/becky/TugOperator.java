@@ -46,6 +46,7 @@ public class TugOperator extends SimpleMCMCOperator {
 		int i = MathUtils.nextInt(2);
 		if (i == 0 && rel1.relationship == Relationship.SELF && rel2.relationship == Relationship.SELF) {
 			final NodeRef host = cophylogenyLikelihood.getStatesForNode(self);
+			if (hostTree.isExternal(host)) throw new OperatorFailedException("No change in state");
 			final double hostHeight = hostTree.getNodeHeight(host);
 
 			final NodeRef hostChild1 = hostTree.getChild(host, 0);
