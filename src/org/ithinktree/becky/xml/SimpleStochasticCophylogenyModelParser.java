@@ -54,7 +54,7 @@ public class SimpleStochasticCophylogenyModelParser extends
 					new ElementRule(Parameter.class)
 			}),
 			XMLUnits.SYNTAX_RULES[0],
-			AttributeRule.newIntegerRule(ITERATIONS)
+			AttributeRule.newIntegerRule(ITERATIONS, false)
 	};
 	
 	@Override

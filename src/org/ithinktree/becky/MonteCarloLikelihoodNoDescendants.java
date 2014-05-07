@@ -21,7 +21,7 @@ public class MonteCarloLikelihoodNoDescendants {
 		for (int i = 0; i < iterations; ++i) {
 			if (simulator.simulateCoevolution(hostTree, originHost, originHeight, rate, this.cophylogenyModel, false, 0.0) == null) ++noDescendantCount;
 		}
-		return noDescendantCount / iterations;
+		return noDescendantCount / (double) iterations;
 	}
 	
 }

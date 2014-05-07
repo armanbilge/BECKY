@@ -79,7 +79,7 @@ public class CoevolutionSimulator {
 		}
 		
 		cophylogenyLikelihood.setOriginHeight(hostTree.getNodeHeight(hostTree.getRoot()));
-		
+				
 	}
 	
 	private double logLikelihood;
