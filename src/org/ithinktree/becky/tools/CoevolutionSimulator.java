@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -73,7 +74,7 @@ public class CoevolutionSimulator {
 
 		for (int i = 0; i < symbiontTree.getInternalNodeCount(); ++i) {
 		    final NodeRef node = symbiontTree.getInternalNode(i);
-		    final List<NodeRef> contemporaneous = CophylogenyModel.Utils.getContemporaneousLineages(hostTree, symbiontTree.getNodeHeight(node));
+		    final List<NodeRef> contemporaneous = new ArrayList<NodeRef>(CophylogenyModel.Utils.getContemporaneousLineages(hostTree, symbiontTree.getNodeHeight(node)));
 		    if (samplingNoHost) contemporaneous.add(null);
 		    cophylogenyLikelihood.setStatesForNode(node, contemporaneous.get(MathUtils.nextInt(contemporaneous.size())));
 		}
@@ -234,7 +235,7 @@ public class CoevolutionSimulator {
 				NodeRef newHost;
 				node.setAttribute(COEVOLUTIONARY_EVENT, EventType.HOST_SWITCH);
 				if (!hostTree.isRoot(hostNode)) { // Can't host-switch if at the root!
-					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
+					List<NodeRef> potentialNewHosts = new ArrayList<NodeRef>(Utils.getContemporaneousLineages(hostTree, eventHeight));
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
 					newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
 					logLikelihood += Math.log(1 / potentialNewHosts.size());
@@ -299,7 +300,7 @@ public class CoevolutionSimulator {
 			case 1:
 				// Host-switch event
 				if (!hostTree.isRoot(hostNode)) { // Can't host-switch if at the root!
-					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
+					List<NodeRef> potentialNewHosts = new ArrayList<NodeRef>(Utils.getContemporaneousLineages(hostTree, eventHeight));
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
 					NodeRef newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
 					child1 = simulateCoevolution(hostTree, newHost, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate);

@@ -8,6 +8,7 @@
 package org.ithinktree.becky;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -240,13 +241,13 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			}
 		}
 		
-		public static final List<NodeRef> getContemporaneousLineages(final Tree tree, final double height) {
-			List<NodeRef> lineages = new ArrayList<NodeRef>(tree.getExternalNodeCount());
+		public static final Set<NodeRef> getContemporaneousLineages(final Tree tree, final double height) {
+			Set<NodeRef> lineages = new HashSet<NodeRef>(tree.getExternalNodeCount());
 			getContemporaneousLineages(tree, tree.getRoot(), height, lineages);
 			return lineages;
 		}
 	
-		private static final void getContemporaneousLineages(final Tree tree, final NodeRef node, final double height, List<NodeRef> lineages) {
+		private static final void getContemporaneousLineages(final Tree tree, final NodeRef node, final double height, Set<NodeRef> lineages) {
 			if (isContemporaneous(tree, node, height)) {
 				lineages.add(node);
 			} else {

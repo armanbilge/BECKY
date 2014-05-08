@@ -7,6 +7,7 @@ package test.org.ithinktree.becky;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.ithinktree.becky.CophylogenyModel;
 import org.junit.Assert;
@@ -31,7 +32,7 @@ public class CophylogenyModelUtilsTest {
 	public void testGetContemporaneousLineages() {
 		boolean test = true;
 		
-		List<NodeRef> lineages = CophylogenyModel.Utils.getContemporaneousLineages(tree, tree.getNodeHeight(TestUtils.CDE));
+		Set<NodeRef> lineages = CophylogenyModel.Utils.getContemporaneousLineages(tree, tree.getNodeHeight(TestUtils.CDE));
 		
 		test &= lineages.contains(TestUtils.CDE);
 		test &= lineages.contains(TestUtils.B);
