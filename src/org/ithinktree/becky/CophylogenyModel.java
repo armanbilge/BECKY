@@ -241,6 +241,15 @@ public abstract class CophylogenyModel extends SpeciationModel {
 			}
 		}
 		
+//		public static final Set<NodeRef> getContemporaneousLineages(final Tree tree, final double height) {
+//			Set<NodeRef> lineages = new HashSet<NodeRef>(tree.getExternalNodeCount());
+//			for (int i = 0; i < tree.getNodeCount(); ++i) {
+//				NodeRef node = tree.getNode(i);
+//				if (isContemporaneous(tree, node, height)) lineages.add(node);
+//			}
+//			return lineages;
+//		}
+		
 		public static final Set<NodeRef> getContemporaneousLineages(final Tree tree, final double height) {
 			Set<NodeRef> lineages = new HashSet<NodeRef>(tree.getExternalNodeCount());
 			getContemporaneousLineages(tree, tree.getRoot(), height, lineages);

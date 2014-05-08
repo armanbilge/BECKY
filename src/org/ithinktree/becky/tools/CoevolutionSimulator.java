@@ -412,13 +412,13 @@ public class CoevolutionSimulator {
 		}
 		
 		final double[] rates = arguments.getRealArrayOption("r");
-		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[1]), new Parameter.Default(rates[2]), new Parameter.Default(1), Units.Type.YEARS);
+		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[0]), new Parameter.Default(rates[1]), new Parameter.Default(1), Units.Type.YEARS);
 		final CoevolutionSimulator cs = new CoevolutionSimulator();
 		final Tree symbiontTree;
 		if (arguments.hasOption("c")) {
-			symbiontTree = cs.simulateCoevolution(hostTree, rates[0], scm, true, arguments.getRealOption("c"));
+			symbiontTree = cs.simulateCoevolution(hostTree, rates[2], scm, true, arguments.getRealOption("c"));
 		} else {
-			symbiontTree = cs.simulateCoevolution(hostTree, rates[0], scm, false);
+			symbiontTree = cs.simulateCoevolution(hostTree, rates[2], scm, false);
 		}
 		
 		try {
