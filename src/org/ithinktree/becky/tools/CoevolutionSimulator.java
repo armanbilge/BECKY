@@ -282,21 +282,14 @@ public class CoevolutionSimulator {
 		
 		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
 		if (hostNodeHeight > eventHeight) {
-			node.setHeight(hostTree.getNodeHeight(hostNode));
 			if (hostTree.isExternal(hostNode)) {
 				// Cannot coevolve anymore
-				final String hostName = hostTree.getNodeTaxon(hostNode).getId();
-				int i = Integer.parseInt(hostName.substring(4, hostName.length()));
-				String taxonId = "symbiont" + i + "." + ++symbiontCounts[i - 1];
-				node.setTaxon(new Taxon(taxonId));
-				associations.put(taxonId,hostTree.getNodeTaxon(hostNode).getId());
 				return node;
 			}
 			// Cospeciation event;
 			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate);
 			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate);
 		} else {
-			node.setHeight(eventHeight);
 			switch(nextEvent.index) {
 			case 0:
 				// Duplication event
@@ -305,15 +298,11 @@ public class CoevolutionSimulator {
 				break;
 			case 1:
 				// Host-switch event
-				NodeRef newHost;
 				if (!hostTree.isRoot(hostNode)) { // Can't host-switch if at the root!
 					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
 					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
-					newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
-					logLikelihood += Math.log(1 / potentialNewHosts.size());
-					child1 = simulateCoevolution(hostTree, newHost,
-							eventHeight, rate, duplicationRate, hostSwitchRate,
-							lossRate);
+					NodeRef newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
+					child1 = simulateCoevolution(hostTree, newHost, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate);
 				} else {
 					child1 = null; // Like a host-switch to a totally different tree that we're not following
 				}
