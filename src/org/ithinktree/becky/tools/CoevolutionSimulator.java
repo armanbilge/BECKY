@@ -201,8 +201,8 @@ public class CoevolutionSimulator {
 		final SimpleNode child1;
 		final SimpleNode child2;
 		
-		final EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(relaxedRate * duplicationRate, relaxedRate * hostSwitchRate, relaxedRate * lossRate);
-		final double eventHeight = height - nextEvent.time;
+		final int nextEvent = nextPoissonEvent(rate * duplicationRate, rate * hostSwitchRate, rate * lossRate);
+		final double eventHeight = height - nextPoissonEventTime(rate * duplicationRate, rate * hostSwitchRate, rate * lossRate);
 		
 		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
 		if (hostNodeHeight > eventHeight) {
@@ -222,7 +222,7 @@ public class CoevolutionSimulator {
 			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate, isRelaxed, stdev, keepExtinctions);
 		} else {
 			node.setHeight(eventHeight);
-			switch(nextEvent.index) {
+			switch(nextEvent) {
 			case 0:
 				// Duplication event
 				node.setAttribute(COEVOLUTIONARY_EVENT, EventType.DUPLICATION);
@@ -252,7 +252,7 @@ public class CoevolutionSimulator {
 						String taxonId = "extinct_symbiont" + ++extinctSymbiontCount;
 						node.setTaxon(new Taxon(taxonId));
 						return node; } else { return null; }
-			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
+			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent); // Shouldn't be needed
 			}
 		}
 		
@@ -277,8 +277,8 @@ public class CoevolutionSimulator {
 		final SimpleNode child1;
 		final SimpleNode child2;
 		
-		final EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(rate * duplicationRate, rate * hostSwitchRate, rate * lossRate);
-		final double eventHeight = height - nextEvent.time;
+		final int nextEvent = nextPoissonEvent(rate * duplicationRate, rate * hostSwitchRate, rate * lossRate);
+		final double eventHeight = height - nextPoissonEventTime(rate * duplicationRate, rate * hostSwitchRate, rate * lossRate);
 		
 		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
 		if (hostNodeHeight > eventHeight) {
@@ -290,7 +290,7 @@ public class CoevolutionSimulator {
 			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate);
 			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate);
 		} else {
-			switch(nextEvent.index) {
+			switch(nextEvent) {
 			case 0:
 				// Duplication event
 				child1 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate);
@@ -309,7 +309,7 @@ public class CoevolutionSimulator {
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate);
 				break;
 			case 2: return null;
-			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
+			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent); // Shouldn't be needed
 			}
 		}
 		
@@ -326,29 +326,22 @@ public class CoevolutionSimulator {
 		}
 		return node;
 	}
-
 	
-	private class EventIndexAndTime {
-		public final int index;
-		public final double time;
-		public EventIndexAndTime(int index, double time) {
-			this.index = index;
-			this.time = time;
-		}
+	private final double nextPoissonEventTime(final double...lambdas) {
+		final double lambda = MathUtils.getTotal(lambdas);
+		return MathUtils.nextExponential(lambda);
 	}
 	
-	private final EventIndexAndTime simulateSimultaneousPoissonProcesses(final double...lambdas) {
+	private final int nextPoissonEvent(final double...lambdas) {
 		final double lambda = MathUtils.getTotal(lambdas);
 		final double[] p = new double[lambdas.length - 1];
 		p[0] = lambdas[0] / lambda;
 		for (int i = 1; i < p.length; ++i)
 			p[i] = lambdas[i] / lambda + p[i - 1];
-		final double time = MathUtils.nextExponential(lambda);
 		final double U = 1 - MathUtils.nextDouble();
 		int i;
 		for (i = 0; i < p.length && p[i] < U; ++i);
-		logLikelihood += Math.log(lambdas[i] * Math.exp(lambda));
-		return new EventIndexAndTime(i, time);
+		return i;
 	}
 				
 	public static void main(String[] args) {
