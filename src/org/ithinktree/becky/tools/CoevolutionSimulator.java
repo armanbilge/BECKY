@@ -170,10 +170,8 @@ public class CoevolutionSimulator {
 				rate,
 				model.getDuplicationRate(),
 				model.getHostSwitchRate(),
-				model.getLossRate(),
-				isRelaxed,
-				stdev,
-				false);
+				model.getLossRate()
+				);
 		return root == null ? null : new SimpleTree(root);
 	}
 	
@@ -271,7 +269,76 @@ public class CoevolutionSimulator {
 		}
 		return node;
 	}
+
+	private SimpleNode simulateCoevolution(final Tree hostTree, final NodeRef hostNode, final double height, final double rate, final double duplicationRate, final double hostSwitchRate, final double lossRate) {
 		
+		final SimpleNode node = new SimpleNode();
+				
+		final SimpleNode child1;
+		final SimpleNode child2;
+		
+		final EventIndexAndTime nextEvent = simulateSimultaneousPoissonProcesses(rate * duplicationRate, rate * hostSwitchRate, rate * lossRate);
+		final double eventHeight = height - nextEvent.time;
+		
+		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
+		if (hostNodeHeight > eventHeight) {
+			node.setHeight(hostTree.getNodeHeight(hostNode));
+			if (hostTree.isExternal(hostNode)) {
+				// Cannot coevolve anymore
+				final String hostName = hostTree.getNodeTaxon(hostNode).getId();
+				int i = Integer.parseInt(hostName.substring(4, hostName.length()));
+				String taxonId = "symbiont" + i + "." + ++symbiontCounts[i - 1];
+				node.setTaxon(new Taxon(taxonId));
+				associations.put(taxonId,hostTree.getNodeTaxon(hostNode).getId());
+				return node;
+			}
+			// Cospeciation event;
+			child1 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 0), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate);
+			child2 = simulateCoevolution(hostTree, hostTree.getChild(hostNode, 1), hostNodeHeight, rate, duplicationRate, hostSwitchRate, lossRate);
+		} else {
+			node.setHeight(eventHeight);
+			switch(nextEvent.index) {
+			case 0:
+				// Duplication event
+				child1 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate);
+				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate);
+				break;
+			case 1:
+				// Host-switch event
+				NodeRef newHost;
+				if (!hostTree.isRoot(hostNode)) { // Can't host-switch if at the root!
+					List<NodeRef> potentialNewHosts = Utils.getContemporaneousLineages(hostTree, eventHeight);
+					if (!potentialNewHosts.remove(hostNode)) throw new RuntimeException("Contemporaneous lineages not working.");
+					newHost = potentialNewHosts.get(MathUtils.nextInt(potentialNewHosts.size()));
+					logLikelihood += Math.log(1 / potentialNewHosts.size());
+					child1 = simulateCoevolution(hostTree, newHost,
+							eventHeight, rate, duplicationRate, hostSwitchRate,
+							lossRate);
+				} else {
+					child1 = null; // Like a host-switch to a totally different tree that we're not following
+				}
+				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate);
+				break;
+			case 2:
+			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
+			}
+		}
+		
+		if (child1 != null && child2 != null) {
+			// Both lineages survived
+			node.addChild(child1);
+			node.addChild(child2);
+		} else if (child1 == child2) {
+			// Both are null, hence this entire lineage was lost
+			return null;
+		} else {
+			// Just one child lineage is null/lost
+			return child2 == null ? child1 : child2; // Set this node to the continuing child lineage
+		}
+		return node;
+	}
+
+	
 	private class EventIndexAndTime {
 		public final int index;
 		public final double time;
