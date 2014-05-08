@@ -308,7 +308,7 @@ public class CoevolutionSimulator {
 				}
 				child2 = simulateCoevolution(hostTree, hostNode, eventHeight, rate, duplicationRate, hostSwitchRate, lossRate);
 				break;
-			case 2:
+			case 2: return null;
 			default: throw new RuntimeException("Unknown cophylogenetic event: " + nextEvent.index); // Shouldn't be needed
 			}
 		}
