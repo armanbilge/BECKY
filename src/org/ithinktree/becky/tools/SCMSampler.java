@@ -110,7 +110,6 @@ public class SCMSampler {
 				new Arguments.StringOption("h", "file name", "host tree file"),
 				new Arguments.IntegerOption("t", "number of symbiont taxa"),
 				new Arguments.RealArrayOption("r", 3, "coevolutionary rates"),
-				new Arguments.RealOption("c", "relaxed clock stdev"),
 				new Arguments.LongOption("seed", "random number generator seed"),
 				new Arguments.IntegerOption("s", "sample size"),
 				new Arguments.Option("n", "use newick for output")
