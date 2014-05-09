@@ -27,7 +27,7 @@ public class BirthDeathSimulator {
 		
 		if (eventHeight < 0) {
 			node.setHeight(0.0);
-			node.setTaxon(new Taxon("host" + taxonCount++));
+			node.setTaxon(new Taxon("host" + ++taxonCount));
 			return node;
 		}
 		
