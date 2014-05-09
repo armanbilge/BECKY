@@ -59,6 +59,7 @@ NODE_REF_PROVIDER = 'nodeRefProvider'
 OFFSET = 'offset'
 OPERATOR_ANALYSIS = 'operatorAnalysis'
 OPERATORS = 'operators'
+ORIGIN = 'origin'
 PARAMETER = 'parameter'
 PRIOR = 'prior'
 POP_SIZE = 'popSize'
@@ -86,6 +87,7 @@ TAXON = 'taxon'
 TRAIT = 'trait'
 TREE_MODEL = 'treeModel'
 TRUE = 'true'
+TUG_OPERATOR = 'tugOperator'
 UNIFORM_PRIOR = 'uniformPrior'
 UNITS = 'units'
 UPPER = 'upper'
@@ -175,6 +177,22 @@ def create_cospeciation_operator():
                             '.'.join([COPHYLOGENY, LIKELIHOOD])))
     return co
 
+def create_tug_operator():
+    to = Element(TUG_OPERATOR, attrib={WEIGHT: '3'})
+    to.append(create_nested_idref(HOST_TREE, TREE_MODEL,
+                                   '.'.join([HOST_TAXON, TREE_MODEL])))
+    to.append(create_nested_idref(SYMBIONT_TREE, TREE_MODEL,
+                                   '.'.join([SYMBIONT_TAXON, TREE_MODEL])))
+    to.append(create_idref(COPHYLOGENY_LIKELIHOOD,
+                            '.'.join([COPHYLOGENY, LIKELIHOOD])))
+    return to
+
+def create_host_switching_wilson_balding():
+    hswb = Element(HOST_SWITCHING_WILSON_BALDING, attrib={WEIGHT: '3'})
+    hswb.append(create_idref(TREE_MODEL, '.'.join([SYMBIONT, TREE_MODEL])
+    hswb.append(create_idref(COPHYLOGENY_LIKELIHOOD, '.'.join([COPHYLOGENY, LIKELIHOOD])))
+    return hswb
+
 def create_simple_cophylogeny_model():
     scm = Element(SIMPLE_COPHYLOGENY_MODEL,
                   attrib={ID: '.'.join([COPHYLOGENY, MODEL]),
@@ -243,9 +261,16 @@ def create_cophylogeny_likelihood():
                                    '.'.join([SYMBIONT_TAXON, TREE_MODEL])))
     cl.append(create_idref(STRICT_CLOCK_BRANCH_RATES,
                            '.'.join([COPHYLOGENY, BRANCH_RATES])))
+    origin_id = '.'.join([COPHYLOGENY, SYMBIONT, ORIGIN])
+    cl.append(Element(PARAMETER, attrib={ID: origin_id,
+                                         VALUE:'100.0'
+                                         LOWER:'0.0'})
     file_log.append(create_idref(COPHYLOGENY_LIKELIHOOD, id))
+    file_log.append(create_idref(PARAMETER, origin_id)
     operators.append(create_host_switch_operator())
     operators.append(create_cospeciation_operator())
+    operators.append(create_tug_operator())
+    operators.append(create_host_switching_wilson_balding())
     symbiont_tree_traits.append(create_tree_trait('.'.join([HOST, NODE_REF]),
                                                   COPHYLOGENY_LIKELIHOOD,
                                                   id))
