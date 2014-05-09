@@ -35,12 +35,8 @@ import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
 import dr.evolution.tree.TreeTrait;
 import dr.evolution.tree.TreeTraitProvider;
-import dr.evolution.util.MutableTaxonList;
-import dr.evolution.util.Taxa;
 import dr.evolution.util.Taxon;
 import dr.evolution.util.Units;
-import dr.evomodel.coalescent.CoalescentSimulator;
-import dr.evomodel.coalescent.ConstantPopulationModel;
 import dr.inference.model.Parameter;
 import dr.math.MathUtils;
 
@@ -349,7 +345,8 @@ public class CoevolutionSimulator {
 		
 		Locale.setDefault(Locale.US);
 		Arguments arguments = new Arguments(new Arguments.Option[]{
-				new Arguments.IntegerOption("t", "# taxa in host tree"),
+				new Arguments.RealOption("o", "time of origin for host"),
+				new Arguments.RealOption("h", "host birth-death rates"), 
 				new Arguments.RealArrayOption("r", 3, "coevolutionary rates"),
 				new Arguments.RealOption("c", "relaxed clock stdev"),
 				new Arguments.LongOption("seed", "random number generator seed")
@@ -377,11 +374,8 @@ public class CoevolutionSimulator {
 		if (arguments.hasOption("c")) System.out.println(arguments.getRealOption("c"));
 		System.out.println();
 		
-		final MutableTaxonList taxa = new Taxa();
-		final int TAXA = arguments.getIntegerOption("t");
-		for (int i = 1; i <= TAXA; ++i) taxa.addTaxon(new Taxon("host" + i));
-		
-		final Tree hostTree = new CoalescentSimulator().simulateTree(taxa, new ConstantPopulationModel(new Parameter.Default(100), Units.Type.YEARS));
+		double[] rates = arguments.getRealArrayOption("h");
+		final Tree hostTree = new BirthDeathSimulator().simulateBirthDeathTree(arguments.getRealOption("o"), rates[0], rates[1]);
 		
 		MutableTree mutableTree = (MutableTree) hostTree;
 		for (int i = 0; i < mutableTree.getNodeCount(); ++i) {
@@ -411,7 +405,7 @@ public class CoevolutionSimulator {
 			System.exit(1);
 		}
 		
-		final double[] rates = arguments.getRealArrayOption("r");
+		rates = arguments.getRealArrayOption("r");
 		final SimpleCophylogenyModel scm = new SimpleCophylogenyModel(new Parameter.Default(rates[0]), new Parameter.Default(rates[1]), new Parameter.Default(1), Units.Type.YEARS);
 		final CoevolutionSimulator cs = new CoevolutionSimulator();
 		final Tree symbiontTree;
