@@ -346,7 +346,7 @@ public class CoevolutionSimulator {
 		Locale.setDefault(Locale.US);
 		Arguments arguments = new Arguments(new Arguments.Option[]{
 				new Arguments.RealOption("o", "time of origin for host"),
-				new Arguments.RealOption("h", "host birth-death rates"), 
+				new Arguments.RealArrayOption("h", 2, "host birth-death rates"), 
 				new Arguments.RealArrayOption("r", 3, "coevolutionary rates"),
 				new Arguments.RealOption("c", "relaxed clock stdev"),
 				new Arguments.LongOption("seed", "random number generator seed")
