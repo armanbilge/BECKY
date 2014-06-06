@@ -112,7 +112,8 @@ public class SCMSampler {
 				new Arguments.RealArrayOption("r", 3, "coevolutionary rates"),
 				new Arguments.LongOption("seed", "random number generator seed"),
 				new Arguments.IntegerOption("s", "sample size"),
-				new Arguments.Option("n", "use newick for output")
+				new Arguments.Option("n", "use newick for output"),
+				new Arguments.RealOption("o", "origin height")
 		});
 		
 		try {
@@ -160,7 +161,7 @@ public class SCMSampler {
 			
 			Tree tree;
 			do {
-				tree = sim.simulateCoevolution(hostTree, 1.0, model, false, keepExtinctions);
+				tree = sim.simulateCoevolution(hostTree, arguments.getRealOption("o"), 1.0, model, false, keepExtinctions);
 //				progressStream.println(tree.getTaxonCount());
 			} while (tree.getTaxonCount() != taxonCount);
 

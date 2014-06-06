@@ -119,6 +119,11 @@ public class CoevolutionSimulator {
 		}
 				
 	}
+
+	public Tree simulateCoevolution(final Tree hostTree, final double originHeight, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed) {
+	        return simulateCoevolution(hostTree, rate, model, isRelaxed, false);
+	    }
+
 	
 	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed) {
 		return simulateCoevolution(hostTree, rate, model, isRelaxed, false);
@@ -129,10 +134,39 @@ public class CoevolutionSimulator {
 			return simulateCoevolution(hostTree, rate, model, false, 0.0, keepExtinctions);
 		throw new IllegalArgumentException();
 	}
+
+	   public Tree simulateCoevolution(final Tree hostTree, final double originHeight, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final boolean keepExtinctions) {
+	        if (!isRelaxed)
+	            return simulateCoevolution(hostTree, originHeight, rate, model, false, 0.0, keepExtinctions);
+	        throw new IllegalArgumentException();
+	    }
 	
 	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final double stdev) {
 		return simulateCoevolution(hostTree, rate, model, isRelaxed, stdev, false);
 	}
+
+	   public Tree simulateCoevolution(final Tree hostTree, final double originHeight, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final double stdev, final boolean keepExtinctions) {
+	        
+	        SimpleNode root;
+	        do {
+	            logLikelihood = 0.0;
+	            symbiontCounts = new int[hostTree.getTaxonCount()];
+	            extinctSymbiontCount = 0;
+	            associations.clear();
+	            root = simulateCoevolution(hostTree,
+	                    hostTree.getRoot(),
+	                    originHeight,
+	                    rate,
+	                    model.getDuplicationRate(),
+	                    model.getHostSwitchRate(),
+	                    model.getLossRate(),
+	                    isRelaxed,
+	                    stdev,
+	                    keepExtinctions);
+	        } while (root == null);
+	        return new SimpleTree(root);
+	    }
+
 	
 	public Tree simulateCoevolution(final Tree hostTree, final double rate, final SimpleCophylogenyModel model, final boolean isRelaxed, final double stdev, final boolean keepExtinctions) {
 		
