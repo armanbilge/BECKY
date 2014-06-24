@@ -1,11 +1,9 @@
-# BECKY
+# BECKY [![Build Status](https://travis-ci.org/armanbilge/BECKY.svg?branch=master)](//travis-ci.org/armanbilge/BECKY)
 ## Bayesian Estimation of Coevolutionary KrYteria
 
 A plugin for [BEAST1](//beast-mcmc.googlecode.com/) that enables inference of cophylogenies and, in particular, coevolutionary phenomenon in an ecological context.
 
 [**DOWNLOAD**](//github.com/coevolution/BECKY/releases)
-
-[![Build Status](https://travis-ci.org/armanbilge/BECKY.png?branch=master)](//travis-ci.org/armanbilge/BECKY)
 
 ## Installation and Usage
 
