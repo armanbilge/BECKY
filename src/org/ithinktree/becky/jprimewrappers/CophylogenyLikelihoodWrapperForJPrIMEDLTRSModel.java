@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.ithinktree.becky.CophylogenyLikelihood;
 
-import se.cbb.jprime.apps.dltrs.DLTRSModel;
+import se.cbb.jprime.apps.dltrs.DLTRModel;
 import se.cbb.jprime.apps.dltrs.EpochDLTProbs;
 import se.cbb.jprime.apps.dltrs.ReconciliationHelper;
 import se.cbb.jprime.mcmc.ChangeInfo;
@@ -30,7 +30,7 @@ import dr.math.distributions.Distribution;
 public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 		CophylogenyLikelihood {
 
-	private final DLTRSModel dltrsModel;
+	private final DLTRModel dltrsModel;
 	private final ReconciliationHelper reconciliationHelper;
 	private final RBTreeEpochDiscretiser rbTreeEpochDiscretiser;
 	private final EpochDLTProbs dltProbs;
@@ -90,7 +90,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
                 throw new UnsupportedOperationException();
             }};
             		
-		dltrsModel = new DLTRSModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel));
+		dltrsModel = new DLTRModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel));
 	}
 	
 	private final Map<Dependent,ChangeInfo> changeInfos = new HashMap<Dependent,ChangeInfo>();
