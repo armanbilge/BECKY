@@ -2,6 +2,7 @@ package org.ithinktree.becky.jprimewrappers;
 
 import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.Tree;
+import dr.inference.model.Parameter;
 import se.cbb.jprime.topology.DoubleMap;
 import se.cbb.jprime.topology.TimesMap;
 
@@ -9,10 +10,12 @@ public class JPrIMETimesMapWrapperForBEASTTree extends TimesMap implements
 		WrappedBEASTObject<Tree> {
 
 	private final Tree tree;
+	private final Parameter origin;
 	
-	public JPrIMETimesMapWrapperForBEASTTree(Tree tree) {
+	public JPrIMETimesMapWrapperForBEASTTree(Tree tree, Parameter origin) {
 		super(tree.getId(), new double[0], new double[0]);
 		this.tree = tree;
+		this.origin = origin;
 	}
 
 	@Override
@@ -38,7 +41,7 @@ public class JPrIMETimesMapWrapperForBEASTTree extends TimesMap implements
 	 */
 	public double getArcTime(int x) {
 		NodeRef n = tree.getNode(x);
-		return tree.isRoot(n) ? tree.getNodeHeight(n) : tree.getBranchLength(n);
+		return tree.isRoot(n) ? origin.getParameterValue(0) : tree.getBranchLength(n);
 	}
 
 	

@@ -23,8 +23,7 @@ import dr.inference.model.Model;
 import dr.inference.model.Parameter;
 import dr.inference.model.Variable;
 import dr.inference.model.Variable.ChangeType;
-import dr.math.UnivariateFunction;
-import dr.math.distributions.Distribution;
+import dr.math.distributions.UniformDistribution;
 
 @SuppressWarnings("serial")
 public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
@@ -36,7 +35,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 	private final EpochDLTProbs dltProbs;
 
 	public CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel(final String name, final Tree host, final Tree guest,
-			final Parameter duplicationRate, final Parameter lossRate, final Parameter transferRate, final boolean normalize, final Taxa guestTaxa, final String hostAttributeName) {
+			final Parameter duplicationRate, final Parameter lossRate, final Parameter transferRate, final Parameter origin, final boolean normalize, final Taxa guestTaxa, final String hostAttributeName) {
 		
 		super(name);
 		
@@ -50,7 +49,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 		final NamesMap jprimeHostNamesMap = new JPrIMENamesMapWrapperForBEASTTree(host);
 		final RBTree jprimeGuestRBTree = new JPrIMERBTreeWrapperForBEASTTree(guest);
 		final NamesMap jprimeGuestNamesMap = new JPrIMENamesMapWrapperForBEASTTree(guest);
-		rbTreeEpochDiscretiser = new RBTreeEpochDiscretiser(jprimeHostRBTree, jprimeHostNamesMap, new JPrIMETimesMapWrapperForBEASTTree(host));
+		rbTreeEpochDiscretiser = new RBTreeEpochDiscretiser(jprimeHostRBTree, jprimeHostNamesMap, new JPrIMETimesMapWrapperForBEASTTree(host, origin));
 		
 		final GuestHostMap guestHostMap = new GuestHostMap();
 		for (Iterator<Taxon> taxa = guestTaxa.iterator(); taxa.hasNext(); ) {
@@ -67,30 +66,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 				normalize
 				);
 		
-		final Distribution distributionModel = new Distribution(){
-            public double cdf(double arg0) {
-                return 1.0;
-            }
-            public UnivariateFunction getProbabilityDensityFunction() {
-                throw new UnsupportedOperationException();
-            }
-            public double logPdf(double arg0) {
-                return 0.0;
-            }
-            public double mean() {
-                return 1;
-            }
-            public double pdf(double arg0) {
-                return 1.0;
-            }
-            public double quantile(double arg0) {
-                throw new UnsupportedOperationException();
-            }
-            public double variance() {
-                throw new UnsupportedOperationException();
-            }};
-            		
-		dltrsModel = new DLTRModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel));
+		dltrsModel = new DLTRModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(new UniformDistribution(0, Double.POSITIVE_INFINITY)));
 	}
 	
 	private final Map<Dependent,ChangeInfo> changeInfos = new HashMap<Dependent,ChangeInfo>();
