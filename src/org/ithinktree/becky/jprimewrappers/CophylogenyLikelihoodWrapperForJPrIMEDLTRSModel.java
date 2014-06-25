@@ -23,7 +23,8 @@ import dr.inference.model.Model;
 import dr.inference.model.Parameter;
 import dr.inference.model.Variable;
 import dr.inference.model.Variable.ChangeType;
-import dr.math.distributions.UniformDistribution;
+import dr.math.UnivariateFunction;
+import dr.math.distributions.Distribution;
 
 @SuppressWarnings("serial")
 public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
@@ -49,7 +50,7 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 		final NamesMap jprimeHostNamesMap = new JPrIMENamesMapWrapperForBEASTTree(host);
 		final RBTree jprimeGuestRBTree = new JPrIMERBTreeWrapperForBEASTTree(guest);
 		final NamesMap jprimeGuestNamesMap = new JPrIMENamesMapWrapperForBEASTTree(guest);
-		rbTreeEpochDiscretiser = new RBTreeEpochDiscretiser(jprimeHostRBTree, jprimeHostNamesMap, new JPrIMETimesMapWrapperForBEASTTree(host, origin));
+		rbTreeEpochDiscretiser = new RBTreeEpochDiscretiser(jprimeHostRBTree, jprimeHostNamesMap, new JPrIMETimesMapWrapperForBEASTTree(host, origin), 2, 5, 0.05, 2);
 		
 		final GuestHostMap guestHostMap = new GuestHostMap();
 		for (Iterator<Taxon> taxa = guestTaxa.iterator(); taxa.hasNext(); ) {
@@ -66,7 +67,30 @@ public class CophylogenyLikelihoodWrapperForJPrIMEDLTRSModel extends
 				normalize
 				);
 		
-		dltrsModel = new DLTRModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(new UniformDistribution(0, Double.POSITIVE_INFINITY)));
+		final Distribution distributionModel = new Distribution(){
+            public double cdf(double arg0) {
+                return 1.0;
+            }
+            public UnivariateFunction getProbabilityDensityFunction() {
+                throw new UnsupportedOperationException();
+            }
+            public double logPdf(double arg0) {
+                return 0.0;
+            }
+            public double mean() {
+                return 1;
+            }
+            public double pdf(double arg0) {
+                return 1.0;
+            }
+            public double quantile(double arg0) {
+                throw new UnsupportedOperationException();
+            }
+            public double variance() {
+                throw new UnsupportedOperationException();
+            }};
+            		
+		dltrsModel = new DLTRModel(jprimeGuestRBTree, jprimeHostRBTree, reconciliationHelper, new JPrIMEDoubleMapWrapperForBEASTTree(guest), dltProbs, new JPrIMEContinuous1DPDDependentWrapperForBEASTDistribution(distributionModel));
 	}
 	
 	private final Map<Dependent,ChangeInfo> changeInfos = new HashMap<Dependent,ChangeInfo>();
