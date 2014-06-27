@@ -236,7 +236,7 @@ public class CoevolutionSimulator {
 		final double eventHeight = height - nextPoissonEventTime(rate * duplicationRate, rate * hostSwitchRate, rate * lossRate);
 		
 		final double hostNodeHeight = hostTree.getNodeHeight(hostNode);
-		if (hostNodeHeight > eventHeight) {
+		if (hostNodeHeight >= eventHeight) {
 			node.setHeight(hostTree.getNodeHeight(hostNode));
 			node.setAttribute(COEVOLUTIONARY_EVENT, EventType.NO_EVENT);
 			if (hostTree.isExternal(hostNode)) {
