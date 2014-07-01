@@ -18,6 +18,7 @@ import dr.evolution.tree.NodeRef;
 import dr.evolution.tree.SimpleNode;
 import dr.evolution.tree.SimpleTree;
 import dr.evolution.tree.Tree;
+import dr.evolution.tree.TreeTraitProvider;
 import dr.evolution.util.Units;
 import dr.inference.model.Parameter;
 
@@ -171,8 +172,8 @@ public class SCMSampler {
 //				if (!header.containsKey(t.toString())) header.put(t.toString(), ++uniqueTaxonCount);
 //			}
 //			exporter.writeNexusTree(tree, "TREE" + i+1, true, header);
-//			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree, new TreeTraitProvider[]{sim.provider}));
-			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree));
+			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree, new TreeTraitProvider[]{CoevolutionSimulator.RECONCILIATION_PROVIDER}));
+//			System.out.println("tree tree_" + (i+1) + " = " + Tree.Utils.newick(tree));
 //			paramLog.println(i+1 + "\t" + sim.getSimulationLogLikelihood());
 			
 			if (i % stepSize == 0) {

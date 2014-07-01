@@ -212,11 +212,47 @@ public class CoevolutionSimulator {
 	
 	}
 	
+	public static final TreeTraitProvider RECONCILIATION_PROVIDER = new TreeTraitProvider.Helper(new TreeTrait<Integer>() {
+
+        @Override
+        public Intent getIntent() {
+            return Intent.NODE;
+        }
+
+        @Override
+        public boolean getLoggable() {
+            return true;
+        }
+
+        @Override
+        public Integer getTrait(Tree arg0, NodeRef arg1) {
+            return (Integer) arg0.getNodeAttribute(arg1, RECONCILIATION);
+        }
+
+        @Override
+        public Class<Integer> getTraitClass() {
+            return Integer.class;
+        }
+
+        @Override
+        public String getTraitName() {
+            return RECONCILIATION;
+        }
+
+        @Override
+        public String getTraitString(Tree arg0, NodeRef arg1) {
+            return arg0.getNodeAttribute(arg1, RECONCILIATION).toString();
+        }
+
+	});
+	
 	private int[] symbiontCounts;
 	public final Map<String,String> associations = new HashMap<String,String>();
+	private static final String RECONCILIATION = "reconciliation";
 	private SimpleNode simulateCoevolution(final Tree hostTree, final NodeRef hostNode, final double height, final double rate, final double duplicationRate, final double hostSwitchRate, final double lossRate, final boolean isRelaxed, final double stdev, boolean keepExtinctions) {
 				
 		final SimpleNode node = new SimpleNode();
+		node.setAttribute(RECONCILIATION, hostNode.getNumber());
 		
 		final double relaxedRate;
 		if (isRelaxed) {
